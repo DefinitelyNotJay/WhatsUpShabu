@@ -1,40 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <title>Document</title>
+    <style>
+        * {
+            font-family: "Noto Sans Thai", sans-serif;
+        }
+    </style>
+
 </head>
+
 <body class="w-screen h-screen flex flex-1">
-    <nav class="flex w-2/12 h-full bg-[#EEE8C8]">
-        
+    <nav class="flex flex-col w-2/12 h-full bg-[#EEE8C8]">
+        <img src="../images/icon.png" class="w-[90%] h-[10%]" alt="">
+        <div class="h-full flex flex-col justify-between font-semibold text-lg">
+            <div class="px-6 py-4">
+                <button class="flex gap-2 w-full px-4 py-6 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    <span>หน้าหลัก</span></button>
+                <button class="flex gap-2 bg-[#FEFCF4] w-full px-4 py-6 rounded-lg items-center"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-settings-2">
+                        <path d="M20 7h-9" />
+                        <path d="M14 17H5" />
+                        <circle cx="17" cy="17" r="3" />
+                        <circle cx="7" cy="7" r="3" />
+                    </svg>
+                    การจัดการโต๊ะ</button>
+            </div>
+            <div class="px-6 py-4">
+                <button class="flex gap-2 w-full px-4 py-6 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" x2="9" y1="12" y2="12" />
+                    </svg>
+                    ออกจากระบบ</button>
+            </div>
+
+        </div>
     </nav>
-    <div class="flex flex-col w-full">
-        <nav class="flex justify-between w-full h-[10%] bg-white py-4 px-4">
-            <h1 class="text-4xl font-semibold">การจัดการโต๊ะ</h1>
+    <div class="flex flex-col w-10/12">
+        <nav class="flex justify-between w-full h-[10%] bg-white py-4 px-4 items-center">
+            <p class="text-3xl font-semibold">การจัดการโต๊ะ</p>
             <div class="flex gap-1 items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg>
-                <p class="text-2xl">พนักงานต้อนรับ</p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-circle-user-round">
+                    <path d="M18 20a6 6 0 0 0-12 0" />
+                    <circle cx="12" cy="10" r="4" />
+                    <circle cx="12" cy="12" r="10" />
+                </svg>
+                <p class="text-xl font-semibold">พนักงานต้อนรับ</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-chevron-down">
+                    <path d="m6 9 6 6 6-6" />
+                </svg>
             </div>
         </nav>
 
         <!-- main content -->
-        <div class="flex h-full bg-[#D9D9D9] items-center py-6 px-4 ">
-            <div class="grid gap-x-4 gap-y-6 grid-cols-4 grid-rows-3 w-full h-full py-6 px-4 bg-white rounded-3xl overflow-hidden">
-
-                <div class="rounded-xl bg-[#009179]">
-                    <div class="w-full h-1/6 text-center text-xl bg-[#EEE8C8] rounded-t-xl flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6A311D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-utensils"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
-                        <p class="text-xl font-semibold text-[#6A311D]">A-01</p>
+        <div class="flex h-full bg-[#D9D9D9] items-center py-6 px-4 shadow-lg">
+            <div
+                class="grid gap-x-4 gap-y-6 grid-cols-4 grid-rows-3 w-full h-full py-6 px-4 bg-white rounded-3xl overflow-hidden">
+                <!-- 1 card -->
+                <div>
+                    <div
+                        class="w-full h-1/6 text-center text-xl bg-[#EEE8C8] rounded-t-xl flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="#6A311D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-utensils">
+                            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                            <path d="M7 2v20" />
+                            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+                        </svg>
+                        <p class="text-2xl font-semibold text-[#6A311D]">A-01</p>
                     </div>
-                    wdwd
+                    <div class="flex flex-col justify-between rounded-b-xl w-full h-5/6 bg-[#009179] p-2">
+                        <div class="top text-white flex flex-col gap-2">
+                            <p class="text-xl font-semibold text-center">ข้อมูล</p>
+                            <div class="flex gap-2 ml-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-bar-chart-big">
+                                    <path d="M3 3v18h18" />
+                                    <rect width="4" height="7" x="7" y="10" rx="1" />
+                                    <rect width="4" height="12" x="15" y="5" rx="1" />
+                                </svg>
+                                <p class="font-semibold text-lg">โต๊ะว่าง</p>
+                            </div>
+                            <div class="flex gap-2 ml-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-users">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                                <p class="font-semibold text-lg">0/4</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <hr>
+                            <div class="bottom flex flex-col items-end w-full">
+                                <button
+                                    class="openModal flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-user-plus">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                        <circle cx="9" cy="7" r="4" />
+                                        <line x1="19" x2="19" y1="8" y2="14" />
+                                        <line x1="22" x2="16" y1="11" y2="11" />
+                                    </svg> เพิ่มลูกค้า
+                                </button>
+                                <div>
+                                    <div id="modal" class="fixed flex items-center justify-center top-0 right-0 left-0 z-50 inset-0 overflow-y-auto hidden">
+                                        <div class="w-full max-w-md bg-white  rounded-lg shadow-lg p-6">
+                                            <div
+                                                class="flex justify-between items-center border-b-2 border-gray-200 pb-4 top-[50%] left-[50%]">
+                                                <h1 class="text-xl font-bold text-center">เพิ่มลูกค้า</h1>
+                                                <button id="closeModal"
+                                                    class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+
+                                            <div class="pt-4">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+                                                    eget tortor risus. Cras ullamcorper massa sit amet lacus
+                                                    egestas, ac ultricies nisi tincidunt. Nunc accumsan, ipsum sed
+                                                    dignissim feugiat, risus nisl egestas massa, in pulvinar neque
+                                                    leo ac lectus.</p>
+                                            </div>
+
+                                            <div class="mt-4 flex justify-end">
+                                                <button id="closeBtn"
+                                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                                    ปิด Modal
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                
-                
+                <!-- 2 card -->
+                <div>
+                    <div
+                        class="w-full h-1/6 text-center text-xl bg-[#EEE8C8] rounded-t-xl flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="#6A311D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-utensils">
+                            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                            <path d="M7 2v20" />
+                            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+                        </svg>
+                        <p class="text-2xl font-semibold text-[#6A311D]">A-02</p>
+                    </div>
+                    <div class="flex flex-col justify-between rounded-b-xl w-full h-5/6 bg-[#009179] p-2">
+                        <div class="top text-white flex flex-col gap-2">
+                            <p class="text-xl font-semibold text-center">ข้อมูล</p>
+                            <div class="flex gap-2 ml-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-bar-chart-big">
+                                    <path d="M3 3v18h18" />
+                                    <rect width="4" height="7" x="7" y="10" rx="1" />
+                                    <rect width="4" height="12" x="15" y="5" rx="1" />
+                                </svg>
+                                <p class="font-semibold text-lg">โต๊ะว่าง</p>
+                            </div>
+                            <div class="flex gap-2 ml-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-users">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                                <p class="font-semibold text-lg">0/4</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <hr>
+                            <div class="bottom flex flex-col items-end w-full">
+                                <button
+                                    class="openModal flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-user-plus">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                        <circle cx="9" cy="7" r="4" />
+                                        <line x1="19" x2="19" y1="8" y2="14" />
+                                        <line x1="22" x2="16" y1="11" y2="11" />
+                                    </svg> เพิ่มลูกค้า
+                                </button>
+                                <div>
+                                    <div id="modal"
+                                        class="fixed top-[50%] justify-center items-center right-0 left-0 z-50 inset-0 overflow-y-auto hidden">
+                                        <div
+                                            class="flex items-center justify-center min-height-full p-4 bg-transparent">
+                                            <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+                                                <div
+                                                    class="flex justify-between items-center border-b-2 border-gray-200 pb-4">
+                                                    <h1 class="text-xl font-bold">หัวข้อ Modal</h1>
+                                                    <button id="closeModal"
+                                                        class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+
+                                                <div class="pt-4">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+                                                        eget tortor risus. Cras ullamcorper massa sit amet lacus
+                                                        egestas, ac ultricies nisi tincidunt. Nunc accumsan, ipsum sed
+                                                        dignissim feugiat, risus nisl egestas massa, in pulvinar neque
+                                                        leo ac lectus.</p>
+                                                </div>
+
+                                                <div class="mt-4 flex justify-end">
+                                                    <button id="closeBtn"
+                                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                                        ปิด Modal
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
     </div>
 </body>
+<script src="./ManageTable.js"></script>
+
 </html>
