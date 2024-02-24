@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../output.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <title>Document</title>
     <style>
@@ -131,12 +132,12 @@
                                 </button>
                                 <div>
                                     <div id="modal" class="fixed flex items-center justify-center top-0 right-0 left-0 z-50 inset-0 overflow-y-auto hidden">
-                                        <div class="w-full max-w-md bg-white  rounded-lg shadow-lg p-6">
-                                            <div
-                                                class="flex justify-between items-center border-b-2 border-gray-200 pb-4 top-[50%] left-[50%]">
-                                                <h1 class="text-xl font-bold text-center">เพิ่มลูกค้า</h1>
+                                        <div class="w-[30%] h-[50%] bg-white  rounded-lg shadow-lg p-6">
+                                            <div class="w-full grid grid-cols-3 grid-rows-1 border-b-2 border-gray-200 pb-4">
+                                                <div></div>
+                                                <h1 class="text-xl font-bold justify-self-center">เพิ่มลูกค้า</h1>
                                                 <button id="closeModal"
-                                                    class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                                    class="text-gray-400 hover:text-gray-600 focus:outline-none justify-self-end">
                                                     <svg class="w-6 h-6" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -146,11 +147,7 @@
                                             </div>
 
                                             <div class="pt-4">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                                                    eget tortor risus. Cras ullamcorper massa sit amet lacus
-                                                    egestas, ac ultricies nisi tincidunt. Nunc accumsan, ipsum sed
-                                                    dignissim feugiat, risus nisl egestas massa, in pulvinar neque
-                                                    leo ac lectus.</p>
+                                               
                                             </div>
 
                                             <div class="mt-4 flex justify-end">
