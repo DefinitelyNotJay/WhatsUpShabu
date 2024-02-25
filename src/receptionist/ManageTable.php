@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="../output.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>Receptionist</title>
     <style>
         * {
             font-family: "Noto Sans Thai", sans-serif;
@@ -199,14 +198,14 @@
                         </div>
                     </div>
                 </div>
-            <!-- another -->
+                <!-- another -->
 
 
             </div>
         </div>
     </div>
     <div>
-        
+
         <!-- hidden -->
         <div id="modal"
             class="fixed flex items-center justify-center top-0 right-0 left-0 z-50 inset-0 overflow-y-auto bg-[#ffffff6f] hidden">
@@ -231,15 +230,14 @@
                             <p id="table-no">2</p>
                         </div>
                         <div class="flex justify-between items-center">
-                                <label for="customer_amount"
-                                    class="block mb-2 text-gray-900">จำนวนลูกค้า</label>
-                                <select id="customer_amount"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-1.5">
-                                    <option selected value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                </select>
+                            <label for="customer_amount" class="block mb-2 text-gray-900">จำนวนลูกค้า</label>
+                            <select id="customer_amount"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-1.5">
+                                <option selected value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
                         </div>
                         <div class="flex justify-between text-black items-center text-center">
                             <label for="underline_select">โปรโมชั่น</label>
@@ -257,12 +255,22 @@
                 <div class="mt-4 flex justify-end gap-2">
                     <button
                         class="closeBtn flex gap-1 bg-[#FA5D2A] hover:bg-[#fa6d3f] text-white font-bold py-2 px-4 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-ban">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="m4.9 4.9 14.2 14.2" />
+                        </svg>
                         ยกเลิก
                     </button>
                     <button
                         class="closeBtn flex gap-1 bg-[#009179] hover:bg-[#199c86] text-white font-bold py-2 px-4  rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>ยืนยัน
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-check-circle">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <path d="m9 11 3 3L22 4" />
+                        </svg>ยืนยัน
                     </button>
                 </div>
 
@@ -275,8 +283,7 @@
                 <div class="w-full grid grid-cols-3 grid-rows-1 border-b-2 border-gray-200 pb-4">
                     <div></div>
                     <h1 class="text-xl font-bold justify-self-center">เลขที่ใบเสร็จ</h1>
-                    <button 
-                        class="closePayment text-gray-400 hover:text-gray-600 focus:outline-none justify-self-end">
+                    <button class="closePayment text-gray-400 hover:text-gray-600 focus:outline-none justify-self-end">
                         <svg class="w-6 h-6 closePay" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -286,36 +293,46 @@
                 </div>
 
                 <div class="pt-4">
-                <div class="grid grid-cols-2 grid-rows-5">
-                    <p>โต๊ะ</p>
-                    <p class="justify-self-end"><span>4</span> คน</p>
-                    <p>จำนวนคน</p>
-                    <p class="justify-self-end"><span>4</span> คน</p>
-                    <p>ราคาต่อหัว</p>
-                    <p class="justify-self-end"><span>4</span> คน</p>
-                    <p>ราคารวม</p>
-                    <p class="justify-self-end"><span>4</span> คน</p>
-                    <p>ส่วนลดจากโปรโมชั่น</p>
-                    <p class="justify-self-end"><span>4</span> คน</p>
-                </div>
-                <div>
-                    
-                </div>
-                        
-                <div class="mt-4 flex justify-end gap-2">
-                    <button
-                        class="closePayment flex gap-1 bg-[#FA5D2A] hover:bg-[#fa6d3f] text-white font-bold py-2 px-4 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
-                        ยกเลิก
-                    </button>
-                    <button
-                        class="closePayment flex gap-1 bg-[#009179] hover:bg-[#199c86] text-white font-bold py-2 px-4  rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>ยืนยัน
-                    </button>
-                </div>
+                    <div class="grid grid-cols-2 grid-rows-5">
+                        <p>โต๊ะ</p>
+                        <p class="justify-self-end"><span>4</span> คน</p>
+                        <p>จำนวนคน</p>
+                        <p class="justify-self-end"><span>4</span> คน</p>
+                        <p>ราคาต่อหัว</p>
+                        <p class="justify-self-end"><span>4</span> คน</p>
+                        <p>ราคารวม</p>
+                        <p class="justify-self-end"><span>4</span> คน</p>
+                        <p>ส่วนลดจากโปรโมชั่น</p>
+                        <p class="justify-self-end"><span>4</span> คน</p>
+                    </div>
+                    <div>
+
+                    </div>
+
+                    <div class="mt-4 flex justify-end gap-2">
+                        <button
+                            class="closePayment flex gap-1 bg-[#FA5D2A] hover:bg-[#fa6d3f] text-white font-bold py-2 px-4 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-ban">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="m4.9 4.9 14.2 14.2" />
+                            </svg>
+                            ยกเลิก
+                        </button>
+                        <button
+                            class="closePayment flex gap-1 bg-[#009179] hover:bg-[#199c86] text-white font-bold py-2 px-4  rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-check-circle">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <path d="m9 11 3 3L22 4" />
+                            </svg>ยืนยัน
+                        </button>
+                    </div>
                 </div>
 
-                
+
 
             </div>
         </div>
