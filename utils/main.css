@@ -1,0 +1,18 @@
+.bg-egg {
+    background-color: #EEE8C8;
+}
+
+.w-full {
+    width: 100vw;
+}
+
+
+
+/* layout */
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
