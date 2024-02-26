@@ -16,6 +16,7 @@
     </style>
 
 </head>
+
 <body class="w-screen h-screen flex flex-1">
 
 
@@ -145,7 +146,8 @@
                             <div class="flex flex-col gap-2">
                                 <hr>
                                 <div class="bottom flex flex-col items-end w-full">
-                                    <button
+                                    <form action="AddCustomer.php">
+                                    <button type="submit" name="add"
                                         class="openModal flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -157,11 +159,13 @@
                                         </svg> เพิ่มลูกค้า
                                         <span class="hidden">$id</span>
                                     </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                     HTML;
+                    
                     } else {
                         echo <<<HTML
                             <div>
@@ -232,12 +236,16 @@
                     }
 
                 }
+                if(isset($_GET["add"])) {
+                    
+                }
                 ?>
+
 
             </div>
         </div>
     </div>
-<div>
+    <div>
 
         <!-- hidden -->
         <?php
@@ -363,7 +371,7 @@
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                             <path d="m9 11 3 3L22 4" />
                         </svg>ยืนยัน
-                        
+
                     </button>
                 </div>
             </div>
@@ -373,6 +381,7 @@
 </body>
 <script src="./ManageTable2.js"></script>
 <script>
-    
+
 </script>
+
 </html>
