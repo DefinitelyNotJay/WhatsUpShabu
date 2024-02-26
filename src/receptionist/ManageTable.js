@@ -10,17 +10,25 @@ const openPaymentsBtns = document.getElementsByClassName("openPayments");
 const payment = document.getElementById("payment");
 const closePaymentBtns = document.getElementsByClassName("closePayment");
 
+const tableId = document.getElementById("table-no");
+
+
+
 [...openModalBtns].forEach((element) =>
   element.addEventListener("click", (e) => {
-    modal.classList.remove("hidden");
+    // modal.classList.remove("hidden");
+    // window.location.href = "AddCustomer.php";
+    const data = e.target.querySelector("span.hidden").textContent;
+
   })
 );
 
 // console.log(openModalBtns);
-console.log(...closeBtn);
+// console.log(...closeBtn);
 
-closeModalBtn.addEventListener("click", () => {
+closeModalBtn.addEventListener("click", (e) => {
   modal.classList.add("hidden");
+
 });
 
 [...closeBtn].forEach(element => element.addEventListener("click", () => {
