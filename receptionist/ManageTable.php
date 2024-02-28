@@ -167,7 +167,7 @@
                                         <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                     </svg>
-                                    <p class="font-semibold text-lg">4/4</p>
+                                    <p class="font-semibold text-lg">$customer_amount/4</p>
                                 </div>
                             </div>
                             <div class="flex flex-col gap-2">

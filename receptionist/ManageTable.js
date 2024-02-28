@@ -9,7 +9,7 @@ const addCustomerBtn = document.getElementsByClassName("addCustomerBtn");
     
 }))
 
-const getInfoFromID = async (id) => {
+const getInfoFromID = (id) => {
     let url = `ManageTable.php?id=` + id;
     window.location.href = url;
 }
