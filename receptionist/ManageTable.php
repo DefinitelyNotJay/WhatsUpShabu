@@ -60,7 +60,7 @@
                     <img src="../images/icon.png" alt="WhatsUpShabuIcon">
                     <!-- Navbar -->
                     <div class="w-100 pt-4">
-                        <div class="nav flex-column">
+                        <div class="nav flex-column px-3">
                             <a class="nav-link text-black d-flex align-items-center gap-2 text-lg px-4 py-6 bg-white rounded-lg"
                                 id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" aria-selected="true"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

@@ -22,8 +22,11 @@
     $sql_insertBill = "INSERT INTO bill (table_id, total, `status`, promotion_id ) VALUES ('$table_id', '$total', 'unpaid', $promotion_id);";
     $result = mysqli_query($conn, $sql_insertBill);
     echo $result;
+    
+    $sql_update = "UPDATE tables SET `start_time` = NOW(), `status` = 'busy', customer_amount = '$customer_amount' WHERE id = '$table_id'";
+    $result2 = mysqli_query($conn, $sql_update);
 
-    // $sql = "UPDATE tables SET status = 'busy' ";
+    header("Location: ManageTable.php");
     
 ?>
 </body>
