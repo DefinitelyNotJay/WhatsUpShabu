@@ -5,35 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Manage Tables</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../utils/main.css">
     <link rel="stylesheet" href="../utils/output.css">
+    
 </head>
 <style>
-    * {
-        font-family: "Noto Sans Thai", sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* {
+    font-family: "Noto Sans Thai", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    .body {
-        background-color: red;
-    }
+.body {
+    background-color: red;
+}
 
-    .bg-primary,
-    .bg-warning {
-        padding: 0px;
-    }
+.bg-primary,
+.bg-warning {
+    padding: 0px;
+}
 
-    .row>* {
-        padding-right: 0px;
-        padding-left: 0px;
-        margin: 0px;
-    }
+.row>* {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin: 0px;
+}
 </style>
+
 
 <body class="w-full h-screen">
 
@@ -59,7 +60,7 @@
                     <!-- Logo -->
                     <img src="../images/icon.png" alt="WhatsUpShabuIcon">
                     <!-- Navbar -->
-                    <div class="w-100 pt-4">
+                    <div class="w-100 pt-4 px-3">
                         <div class="nav flex-column">
                             <a class="nav-link text-black d-flex align-items-center gap-2 text-lg px-4 py-6 bg-white rounded-lg"
                                 id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" aria-selected="true"><svg
@@ -174,7 +175,7 @@
                                 <hr>
                                 <div class="bottom flex flex-col items-end w-full">
                                     <button id=$id
-                                        type="button"  
+                                    type="button" data-bs-toggle="modal" data-bs-target="#addCustomerModal"
                                         class="addCustomerBtn flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -184,7 +185,8 @@
                                             <line x1="19" x2="19" y1="8" y2="14" />
                                             <line x1="22" x2="16" y1="11" y2="11" />
                                         </svg> เพิ่มลูกค้า
-                                        <span class="hidden">$id</span>
+                                        <!-- <span class="hidden">$id</span> -->
+                                        <!-- <input type="hidden" name="id" id=$id> -->
                                     </button>
                                 </div>
                             </div>
@@ -263,11 +265,7 @@
 
                     }
                     ?>
-
-
-                </div>
-            </div>
-            <div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content overflow-hidden">
@@ -290,7 +288,11 @@
                                     <form action="" id="addCustomerForm" class="grid row-gap-3">
                                         <div class="row justify-content-center px-6">
                                             <div class="col-md-6">โต๊ะ</div>
-                                            
+                                            <?php
+                                            $sql = "SELECT * FROM tables WHERE id = $id";
+                                            $result = mysqli_query($conn, $sql);
+                                            echo "<div class='col-md-6 text-end'>$id</div>";
+                                            ?>
 
                                         </div>
                                         <div class="row justify-content-center px-6">
@@ -336,41 +338,14 @@
                             </div>
                         </div>
                     </div>
-
+                </div>
+            </div>
         </div>
-        <?php
-    // require_once('../utils/config.php');
-
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
-    
-?>
     </div>
+    
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="./ManageTable.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-<script>
-const addModal = new bootstrap.Modal(document.getElementById("addCustomerModal"));
-
-const addCustomerBtn = document.getElementsByClassName("addCustomerBtn");
-
-[...addCustomerBtn].forEach(btn => btn.addEventListener("click", (e)=>{
-    e.preventDefault();
-    let id = e.target.getAttribute("id");
-    getInfoFromID(id);
-    
-}))
-
-const getInfoFromID = async (id) => {
-    let url = `/WhatsUpShabu2/receptionist/AddCustomer.php?id=` + id;
-    window.location.href = url;
-}
-
-
-
-
-</script>
-    
 </html>
