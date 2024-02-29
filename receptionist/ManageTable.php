@@ -243,8 +243,8 @@
                                                 </svg>
                                                 <p class="text-lg font-semibold text-white">$start_time</p>
                                             </div>
-                                            <button
-                                                class="openPayments flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl ">
+                                            <button tableId = $id
+                                                class="purchaseBtn flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                                     fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round" class="lucide lucide-credit-card">
@@ -267,75 +267,7 @@
 
                 </div>
             </div>
-            <div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content overflow-hidden">
-                                <div class="modal-header row px-4 row-gap-3">
-                                    <div class="col-md-4"></div>
-                                    <h5 class="modal-title col-md-4 text-center text-2xl" id="exampleModalCenterTitle">
-                                        เพิ่มลูกค้า</h5>
-                                    <div class="col-md-4 text-end">
-                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
-                                                <path d="M18 6 6 18" />
-                                                <path d="m6 6 12 12" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="modal-body text-lg">
-                                    <form action="" id="addCustomerForm" class="grid row-gap-3">
-                                        <div class="row justify-content-center px-6">
-                                            <div class="col-md-6">โต๊ะ</div>
-                                            
-
-                                        </div>
-                                        <div class="row justify-content-center px-6">
-                                            <div class="col-md-6">จำนวนคน</div>
-                                            <div class="d-flex col-md-6 text-end justify-content-end">
-                                                <select class="form-select form-select-sm w-fit text-lg"
-                                                    aria-label="Small select">
-                                                    <option selected value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-center px-6">
-                                            <div class="col-md-6">โปรโมชั่น</div>
-                                            <div class="col-md-6 d-flex justify-content-end">
-                                                <select class="form-select form-select-sm w-fit text-lg"
-                                                    aria-label="Small select">
-                                                    <option selected value='0'>ไม่มี</option>;
-                                                    <?php
-                                                    $sql = "SELECT id, `name` FROM promotion";
-                                                    $result = mysqli_query($conn, $sql);
-                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                        $id = $row["id"];
-                                                        // $description = $row["description"];
-                                                        // $status = $row["status"];
-                                                        // $end_date = $row["end-date"];
-                                                        $name = $row["name"];
-                                                        echo "<option value='$id'>$name</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                        aria-label="Close">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            
 
         </div>
         <?php
@@ -351,26 +283,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-<script>
-const addModal = new bootstrap.Modal(document.getElementById("addCustomerModal"));
-
-const addCustomerBtn = document.getElementsByClassName("addCustomerBtn");
-
-[...addCustomerBtn].forEach(btn => btn.addEventListener("click", (e)=>{
-    e.preventDefault();
-    let id = e.target.getAttribute("id");
-    getInfoFromID(id);
-    
-}))
-
-const getInfoFromID = async (id) => {
-    let url = `/WhatsUpShabu2/receptionist/AddCustomer.php?id=` + id;
-    window.location.href = url;
-}
-
-
-
-
+<script src="./ManageTable.js">
 </script>
     
 </html>
