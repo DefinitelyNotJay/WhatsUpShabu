@@ -283,7 +283,32 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-<script src="./ManageTable.js">
+<script>
+
+const addCustomerBtn = document.getElementsByClassName("addCustomerBtn");
+
+const purchaseBtns = document.querySelectorAll(".purchaseBtn");
+
+[...addCustomerBtn].forEach(btn => btn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    let id = e.target.closest("button").getAttribute("id");
+    getInfoFromID(id);
+    
+}))
+
+purchaseBtns.forEach(btn => btn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    let table_id = e.target.closest("button").getAttribute("tableId");
+    let url = `Payment.php?table_id=` + table_id;
+    window.location.href = url;
+}))
+
+const getInfoFromID = (id) => {
+    let url = `AddCustomer.php?id=` + id;
+    window.location.href = url;
+}
+
+
 </script>
     
 </html>

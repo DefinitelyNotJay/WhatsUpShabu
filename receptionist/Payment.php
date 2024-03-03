@@ -89,7 +89,7 @@
                     </div>
                     
                     <div class="flex w-full justify-center gap-2">
-                        <button type="submit" id="cancel" class="btn btn-outline-danger">ยกเลิก</button>
+                        <button type="button" id="cancel" class="btn btn-outline-danger">ยกเลิก</button>
                         <?php
                             echo '<button type="submit" id="submit" class="btn btn-outline-primary" tableId='.$table_id.' >ยืนยัน</button>';
                         ?>
@@ -99,6 +99,20 @@
             </div>
 
 </body>
-<script src="./Payment.js"></script>
+<script>
+    let submitBtn = document.getElementById("submit");
+let cancelBtn = document.getElementById("cancel");
 
+cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "ManageTable.php";
+})
+
+submitBtn.addEventListener("click", (e)=>{
+    let id = e.target.getAttribute("tableId");
+    alert(id);
+    window.location.href = `action.php?paymentId=` + id;
+})
+</script>
+    
 </html>

@@ -96,6 +96,14 @@
             </div>
 
 </body>
-<script src="./AddCustomer.js"></script>
+<script>
+cancelBtn = document.getElementById("cancel");
+submitBtn = document.getElementById("submit");
+
+cancelBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    window.location.href = "./ManageTable.php";
+});
+</script>
 
 </html>
