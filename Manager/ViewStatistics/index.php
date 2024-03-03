@@ -32,6 +32,7 @@
             border-radius: 1cap;
         }
         .menu-bar:hover {
+            color: #6A311D;
             background-color: #bba83b79; /* Change background color on hover */
         }
         .menu-bar.log-out {
@@ -139,12 +140,7 @@
                     </a>
                     <a href="../ManageMenu/index.php" class="unstyled-link">
                         <div class="menu-bar d-flex align-items-center">
-                            <svg width="40" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
-                                <path d="M31.2176 6.66699H6.83668C5.15353 6.66699 3.78906 8.15938 3.78906 10.0003V30.0003C3.78906 31.8413 5.15353 33.3337 6.83668 33.3337H31.2176C32.9008 33.3337 34.2653 31.8413 34.2653 30.0003V10.0003C34.2653 8.15938 32.9008 6.66699 31.2176 6.66699Z" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M15.9805 6.66699V13.3337" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M3.78906 13.333H34.2653" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9.88477 6.66699V13.3337" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <svg width="40" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="3" class="mr-2"><path d="M31.2176 6.66699H6.83668C5.15353 6.66699 3.78906 8.15938 3.78906 10.0003V30.0003C3.78906 31.8413 5.15353 33.3337 6.83668 33.3337H31.2176C32.9008 33.3337 34.2653 31.8413 34.2653 30.0003V10.0003C34.2653 8.15938 32.9008 6.66699 31.2176 6.66699Z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.9805 6.66699V13.3337"  stroke-linecap="round" stroke-linejoin="round"/><path d="M3.78906 13.333H34.2653"  stroke-linecap="round" stroke-linejoin="round"/><path d="M9.88477 6.66699V13.3337"  stroke-linecap="round" stroke-linejoin="round"/></svg>
                             <h5 class="fw-bold">จัดการเมนูอาหาร</h5>
                         </div>
                     </a>

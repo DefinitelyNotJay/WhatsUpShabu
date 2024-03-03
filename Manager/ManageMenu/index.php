@@ -34,6 +34,7 @@
         }
         .menu-bar:hover {
             background-color: #bba83b79; /* Change background color on hover */
+            color: #6A311D;
         }
         .menu-bar.log-out {
             margin-top: 470px;
@@ -173,12 +174,7 @@
                     </a>
                     <a href="../ManageMenu/index.php" class="unstyled-link">
                         <div class="menu-bar d-flex align-items-center selectbar">
-                            <svg width="40" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
-                                <path d="M31.2176 6.66699H6.83668C5.15353 6.66699 3.78906 8.15938 3.78906 10.0003V30.0003C3.78906 31.8413 5.15353 33.3337 6.83668 33.3337H31.2176C32.9008 33.3337 34.2653 31.8413 34.2653 30.0003V10.0003C34.2653 8.15938 32.9008 6.66699 31.2176 6.66699Z" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M15.9805 6.66699V13.3337" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M3.78906 13.333H34.2653" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9.88477 6.66699V13.3337" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <svg width="40" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="3" class="mr-2"><path d="M31.2176 6.66699H6.83668C5.15353 6.66699 3.78906 8.15938 3.78906 10.0003V30.0003C3.78906 31.8413 5.15353 33.3337 6.83668 33.3337H31.2176C32.9008 33.3337 34.2653 31.8413 34.2653 30.0003V10.0003C34.2653 8.15938 32.9008 6.66699 31.2176 6.66699Z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.9805 6.66699V13.3337"  stroke-linecap="round" stroke-linejoin="round"/><path d="M3.78906 13.333H34.2653"  stroke-linecap="round" stroke-linejoin="round"/><path d="M9.88477 6.66699V13.3337"  stroke-linecap="round" stroke-linejoin="round"/></svg>
                             <h5 class="fw-bold">จัดการเมนูอาหาร</h5>
                         </div>
                     </a>
@@ -208,7 +204,7 @@
                             <path d="M20.0006 36.6663C29.2054 36.6663 36.6673 29.2044 36.6673 19.9997C36.6673 10.7949 29.2054 3.33301 20.0006 3.33301C10.7959 3.33301 3.33398 10.7949 3.33398 19.9997C3.33398 29.2044 10.7959 36.6663 20.0006 36.6663Z" fill="#F6851F" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M30 33.333C30 30.6808 28.9464 28.1373 27.0711 26.2619C25.1957 24.3866 22.6522 23.333 20 23.333C17.3478 23.333 14.8043 24.3866 12.9289 26.2619C11.0536 28.1373 10 30.6808 10 33.333" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>                            
+                        </svg>   
                         <h6 class="fw-bold">ผู้จัดการ</h6>
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_136_173)"><path d="M8.75 12.5L15 18.75L21.25 12.5H8.75Z" fill="black"/></g>
@@ -250,7 +246,7 @@
                         // Output menus by type
                         foreach ($menusByType as $type => $menus) {
                             echo "<div class='container-fuild category mb-4'>";
-                            echo "<h2>$type</h2>";
+                            echo "<h4 class='fw-bold'>$type</h4>";
                             echo "<div class='container-menu d-flex flex-wrap'>";
                             foreach ($menus as $menu) {
                                 echo "<div class='menu d-flex align-items-center shadow bg-body-tertiary rounded'>";
@@ -527,8 +523,8 @@
                     document.getElementById('Name-delete').innerHTML = "ต้องการลบเมนู<strong>" + menuDetails[menuId]['name'] + "</strong>?";
 
                     // Show the modal
-                    var editModal = new bootstrap.Modal(document.getElementById('deleteMenuModal'));
-                    editModal.show();
+                    var deleteModal = new bootstrap.Modal(document.getElementById('deleteMenuModal'));
+                    deleteModal.show();
                 });
             });
         });
