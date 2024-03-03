@@ -18,6 +18,14 @@
             background-color: #EEE8C8;
             padding-top: 10px;
         }
+        .unstyled-link {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+        .unstyled-link:hover {
+            color: inherit;
+        }
         .menu-bar {
             height: 5rem;
             padding: 10px;
@@ -157,23 +165,29 @@
                     <!-- Loco -->
                     <img src="./image/icon.png" width="100%">
                     <!-- MenuBar -->
-                    <div class="menu-bar d-flex align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3 mr-2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-                        <h5 class="fw-bold">สถิติ</h5>
-                    </div>
-                    <div class="menu-bar d-flex align-items-center selectbar">
-                        <svg width="40" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
-                            <path d="M31.2176 6.66699H6.83668C5.15353 6.66699 3.78906 8.15938 3.78906 10.0003V30.0003C3.78906 31.8413 5.15353 33.3337 6.83668 33.3337H31.2176C32.9008 33.3337 34.2653 31.8413 34.2653 30.0003V10.0003C34.2653 8.15938 32.9008 6.66699 31.2176 6.66699Z" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M15.9805 6.66699V13.3337" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M3.78906 13.333H34.2653" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9.88477 6.66699V13.3337" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <h5 class="fw-bold">จัดการเมนูอาหาร</h5>
-                    </div>  
-                    <div class="menu-bar d-flex align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ticket-plus mr-2"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
-                        <h5 class="fw-bold">จัดการโปรโมชั่น</h5>
-                    </div>
+                    <a href="../ViewStatistics/index.php" class="unstyled-link">
+                        <div class="menu-bar d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3 mr-2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                            <h5 class="fw-bold">สถิติ</h5>
+                        </div>
+                    </a>
+                    <a href="../ManageMenu/index.php" class="unstyled-link">
+                        <div class="menu-bar d-flex align-items-center selectbar">
+                            <svg width="40" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
+                                <path d="M31.2176 6.66699H6.83668C5.15353 6.66699 3.78906 8.15938 3.78906 10.0003V30.0003C3.78906 31.8413 5.15353 33.3337 6.83668 33.3337H31.2176C32.9008 33.3337 34.2653 31.8413 34.2653 30.0003V10.0003C34.2653 8.15938 32.9008 6.66699 31.2176 6.66699Z" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15.9805 6.66699V13.3337" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3.78906 13.333H34.2653" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9.88477 6.66699V13.3337" stroke="#6A311D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <h5 class="fw-bold">จัดการเมนูอาหาร</h5>
+                        </div>
+                    </a>
+                    <a href="../ManagePromotion/index.php" class="unstyled-link">
+                        <div class="menu-bar d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ticket-plus mr-2"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
+                            <h5 class="fw-bold">จัดการโปรโมชั่น</h5>
+                        </div>
+                    </a>
                     <div class="menu-bar d-flex align-items-center log-out">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" class="mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
                         <h5 class="fw-bold">ออกจากระบบ</h5>
@@ -246,7 +260,7 @@
                                 echo "<div class='menu-option d-flex align-items-center shadow bg-body-tertiary rounded mr-1 button-edit' data-toggle='modal' data-target='#editMenuModal' data-menu-id='" . $menu["ID"] . "'>"; 
                                 echo "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-settings-2 mr-1'><path d='M20 7h-9'/><path d='M14 17H5'/><circle cx='17' cy='17' r='3'/><circle cx='7' cy='7' r='3'/></svg>";
                                 echo "<h6 class='fw-bold mt-2'>แก้ไข</h6></div>";
-                                echo '<div class="menu-option d-flex align-items-center shadow bg-body-tertiary rounded button-delete">';
+                                echo '<div class="menu-option d-flex align-items-center shadow bg-body-tertiary rounded button-delete" data-toggle="modal" data-target="#deleteMenuModal" data-menu-id="' . $menu["ID"] . '" >';
                                 echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 mr-1"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>';
                                 echo "<h6 class='fw-bold mt-2'>ลบ</h6></div>";
                                 echo "</div></div></div>";
@@ -271,7 +285,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-2 mr-1"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                                             <h6 class="fw-bold">แก้ไข</h6>
                                         </button>
-                                        <button class="menu-option d-flex align-items-center shadow bg-body-tertiary rounded button-delete btn">
+                                        <button class="menu-option d-flex align-items-center shadow bg-body-tertiary rounded button-delete btn" data-toggle='modal' data-target='#deleteMenuModal'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 mr-1"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                                             <h6 class="fw-bold">ลบ</h6>
                                         </button>
@@ -293,40 +307,43 @@
                     <h3 class="modal-title">เพิ่มเมนู</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <!-- Add your form or content for adding a menu here -->
                     <form id="form1" action="" method="post">
                         <p>
                             <label for="Name" class="form-label">ชื่อ :</label>
-                            <input type="text" class="form-control required" id="Name" name="Name" value="" />
+                            <input type="text" class="form-control required" id="Name" name="Name" value="" required />
                         </p>
                         <p>
                             <label for="Type" class="form-label">ประเภท : </label>
-                            <select id="Type" name="Type" class="form-control">
+                            <select id="Type" name="Type" class="form-control required" required>
                                 <option value="" selected>เลือกประเภท</option>
                                 <option value="เนื้อ">เนื้อ</option>
                                 <option value="หมู">หมู</option>
                                 <option value="ไก่">ไก่</option>
-                                <!-- Add more options as needed -->
+                                <option value="ทะเล">ทะเล</option>
+                                <option value="ลูกชิ้น">ลูกชิ้น</option>
+                                <option value="ของกินเล่น">ของกินเล่น</option>
+                                <option value="ของหวาน">ของหวาน</option>
+                                <option value="ผลไม้">ผลไม้</option>
                             </select>
                         </p>
                         <p>
                             <label for="Image" class="form-label">รูปภาพ (URL) : </label>
-                            <input type="text" class="form-control" id="Image" name="Image" value="" />
+                            <input type="text" class="form-control required" id="Image" name="Image" value="" required />
                             <div class="text-center">
                                 <img id="imagePreview" src="" alt="Image Preview" class="mx-auto align-items-center imagePreview">
                             </div>
                         </p>
                         <p>
                             <label for="Description" class="form-label">คำอธิบาย : </label>
-                            <textarea type="text" class="form-control" id="Description" name="Description" rows="3" value=""></textarea>
+                            <textarea type="text" class="form-control required" id="Description" name="Description" rows="3" required></textarea>
                         </p>
                     </div>
                     <!-- Modal Footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="add-menu-option d-flex align-items-center shadow bg-body-tertiary rounded btn-cancle" data-bs-dismiss="modal">
+                        <button type="button" class="add-menu-option d-flex align-items-center shadow bg-body-tertiary rounded btn-cancle" data-bs-dismiss="modal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban mr-1"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
                             <h6 class="fw-bold mt-2">ยกเลิก</h6>
                         </button>
@@ -352,7 +369,7 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <!-- Add your form or content for adding a menu here -->
-                    <form id="form1" action="" method="post">
+                    <form id="form2" action="" method="post">
 
                     <!-- Add a hidden input for storing the menu ID -->
                     <input type="hidden" id="MenuID" name="MenuID" value="">
@@ -368,7 +385,11 @@
                                 <option value="เนื้อ">เนื้อ</option>
                                 <option value="หมู">หมู</option>
                                 <option value="ไก่">ไก่</option>
-                                <!-- Add more options as needed -->
+                                <option value="ทะเล">ทะเล</option>
+                                <option value="ลูกชิ้น">ลูกชิ้น</option>
+                                <option value="ของกินเล่น">ของกินเล่น</option>
+                                <option value="ของหวาน">ของหวาน</option>
+                                <option value="ผลไม้">ผลไม้</option>
                             </select>
                         </p>
                         <p>
@@ -398,11 +419,47 @@
             </div>
         </div>
     </div>
+    <!-- Modal Delete Menu -->
+    <div class="modal" id="deleteMenuModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h3 class="modal-title">ลบเมนู</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <!-- Add your form or content for adding a menu here -->
+                    <form id="form1" action="" method="post" class="text-center">
+
+                    <!-- Add a hidden input for storing the menu ID -->
+                    <input type="hidden" id="MenuID-delete" name="MenuID" value="">
+                    <h id="Name-delete"></h>
+
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="add-menu-option d-flex align-items-center shadow bg-body-tertiary rounded btn-cancle" data-bs-dismiss="modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban mr-1"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+                            <h6 class="fw-bold mt-2">ยกเลิก</h6>
+                        </button>
+                        <button type="submit" id="delete-menu" name="delete-menu" class="add-menu-option d-flex align-items-center shadow bg-body-tertiary rounded btn-confirm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle mr-1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <h6 class="fw-bold mt-2">ยืนยัน</h6>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
-        //Add Image Preview
+        
         document.addEventListener('DOMContentLoaded', function() {
 
-            // Attach event listener to the Image input
+            //Add Image Preview in Add Menu
             document.getElementById('Image').addEventListener('input', function(event) {
                 // Get the entered URL
                 var imageUrl = event.target.value;
@@ -420,7 +477,7 @@
                 }
             });
 
-            // Attach event listener to all edit buttons
+            // Edit Menu
             var editButtons = document.querySelectorAll('.button-edit');
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
@@ -453,6 +510,27 @@
                     editModal.show();
                 });
             });
+
+            // Delete Menu
+            var deleteButtons = document.querySelectorAll('.button-delete');
+            deleteButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    // Get the menu ID from the data attribute
+                    var menuId = button.getAttribute('data-menu-id');
+
+                    // Fetch menu details using AJAX or use the data already available on the page
+                    // For simplicity, assuming the menu details are already available in PHP
+                    var menuDetails = <?php echo json_encode($menuDetails); ?>;
+
+                    // Populate the modal content with the selected menu information
+                    document.getElementById('MenuID-delete').value = menuId;
+                    document.getElementById('Name-delete').innerHTML = "ต้องการลบเมนู<strong>" + menuDetails[menuId]['name'] + "</strong>?";
+
+                    // Show the modal
+                    var editModal = new bootstrap.Modal(document.getElementById('deleteMenuModal'));
+                    editModal.show();
+                });
+            });
         });
     </script>
 
@@ -466,11 +544,12 @@
 
         $sql = "INSERT INTO menu (name, image, description, status, type) VALUES ('$name', '$image', '$description', 'instock', '$type');";
         if (mysqli_query($conn, $sql)) {
-            echo "Record added successfully";
+            echo "<script>window.location.href = 'index.php';</script>";
         } else {
             echo "Error added record: " . mysqli_error($conn);
         }
     }
+    //Edit Menu
     if(isset($_POST['edit-menu'])){
         $menuId= $_POST['MenuID'];
         $name= $_POST['Name'];
@@ -481,6 +560,18 @@
         $sql = "UPDATE menu SET name = '$name', type = '$type', image = '$image', description = '$description' WHERE ID = $menuId";
         if (mysqli_query($conn, $sql)) {
             echo "Record updated successfully";
+            echo "<script>window.location.href = 'index.php';</script>";
+        } else {
+            echo "Error added record: " . mysqli_error($conn);
+        }
+    }
+    //Delete Menu
+    if(isset($_POST['delete-menu'])){
+        $menuId= $_POST['MenuID'];
+
+        $sql = "DELETE FROM menu WHERE ID = $menuId";
+        if (mysqli_query($conn, $sql)) {
+            echo "<script>window.location.href = 'index.php';</script>";
         } else {
             echo "Error added record: " . mysqli_error($conn);
         }
