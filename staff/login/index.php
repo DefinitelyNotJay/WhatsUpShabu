@@ -47,15 +47,15 @@
         <div class="flex-cen">
             <img src="icon.png" alt="WhatsUpShabuIcon">
         </div>
-        <div class="">
-            <form >
+        <div>
+            <form id="loginForm" action="routes.php" method="post">
                 <div class="mb-3">
-                    <label for="userName" class="form-label">User Name</label>
-                    <input type="text" class="form-control" id="" aria-describedby="emailHelp">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="passwd">
+                    <label for="passed" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="passwd" name="passwd">
                 </div>
                 <div class="mb-3 form-check">
                     <label class="form-check-label" for="">Show Password</label>
@@ -69,8 +69,8 @@
     </div>
     <script>
         function showPass() {
-            var passwordInput = document.getElementById("passwd");
-            var checkbox = document.getElementById("showPassword");
+            let passwordInput = document.getElementById("passwd");
+            let checkbox = document.getElementById("showPassword");
 
             if (checkbox.checked) {
                 passwordInput.type = "text";
