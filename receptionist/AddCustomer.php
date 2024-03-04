@@ -1,3 +1,4 @@
+<?php session_start()?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +24,7 @@
     </style>
     <?php
     require_once("../utils/config.php");
+    echo $_SESSION["username"];
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $id = isset($_GET["id"]) ? $_GET["id"] : null;
     if ($id) {
@@ -34,9 +36,15 @@
             // Enclose $id in quotes in the alert
         }
     }
+
+    if(isset($_GET["cancel"])){
+       header("Location: ManageTable.php");
+    }
+    
+    
     ?>
 
-    <div id="modal"
+    <div
         class="fixed flex items-center justify-center top-0 right-0 left-0 z-50 inset-0 overflow-y-auto bg-[#ffffff6f]">
         <div class="w-[30%] h-fit bg-white  rounded-lg shadow-lg p-6">
             <div class="w-full grid grid-cols-3 grid-rows-1 border-b-2 border-gray-200 pb-4">
@@ -86,7 +94,7 @@
                         </select>
                     </div>
                     <div class="flex w-full justify-center gap-2">
-                        <button type="submit" id="cancel" class="btn btn-outline-danger">ยกเลิก</button>
+                        <a href="ManageTable.php"><button type="button" id="cancel" class="btn btn-outline-danger" name="cancel">ยกเลิก</button></a>
                         <?php
                             echo '<button type="submit" id="submit" tableId='.$table_id.' class="btn btn-outline-primary">ยืนยัน</button>';
                         ?>
@@ -100,10 +108,10 @@
 cancelBtn = document.getElementById("cancel");
 submitBtn = document.getElementById("submit");
 
-cancelBtn.addEventListener("click", (e)=>{
-    e.preventDefault();
-    window.location.href = "./ManageTable.php";
-});
+// cancelBtn.addEventListener("click", (e)=>{
+//     e.preventDefault();
+//     window.location.href = "./ManageTable.php";
+// });
 </script>
 
 </html>

@@ -1,3 +1,4 @@
+<?php session_start()?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,13 +40,23 @@
 
     <?php
     require_once('../utils/config.php');
-
-
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
+    
+    if(!isset($_SESSION['username']) OR $_SESSION['role'] !== "receptionist"){
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
+
+    if(isset($_POST["logout"])){
+        session_destroy();
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
+
 
 
     ?>
@@ -84,7 +95,9 @@
                     </div>
                 </div>
                 <div>
-                    <p class="text-lg flex gap-2  px-4 py-6">
+                   <form action="ManageTable.php" method="post">
+                   <button type="submit" name="logout">
+                        <p class="text-lg flex gap-2  px-4 py-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="lucide lucide-log-out">
@@ -94,6 +107,8 @@
                         </svg>
                         ออกจากระบบ
                     </p>
+                </button>
+                   </form>
                 </div>
             </div>
 
@@ -109,12 +124,8 @@
                         <circle cx="12" cy="10" r="4" />
                         <circle cx="12" cy="12" r="10" />
                     </svg>
-                    <p class="text-lg">พนักงานต้อนรับ</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-chevron-down">
-                        <path d="m6 9 6 6 6-6" />
-                    </svg>
+                    <p class="text-lg"><?php echo $_SESSION['name']?></p>
+                  
                 </div>
             </div>
             <!-- tables -->
@@ -173,8 +184,10 @@
                             <div class="flex flex-col gap-2">
                                 <hr>
                                 <div class="bottom flex flex-col items-end w-full">
-                                    <button id=$id
-                                        type="button"  
+                                    <form action="AddCustomer.php" method="get">
+                                    <input type="text" value = $id class="hidden" name=id>
+                                    <button
+                                        type="submit" name="addCustomer"
                                         class="addCustomerBtn flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -184,8 +197,8 @@
                                             <line x1="19" x2="19" y1="8" y2="14" />
                                             <line x1="22" x2="16" y1="11" y2="11" />
                                         </svg> เพิ่มลูกค้า
-                                        <span class="hidden">$id</span>
                                     </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +256,8 @@
                                                 </svg>
                                                 <p class="text-lg font-semibold text-white">$start_time</p>
                                             </div>
-                                            <button tableId = $id
+                                            <form action="Payment.php" method="get">
+                                            <button
                                                 class="purchaseBtn flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                                     fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
@@ -253,6 +267,8 @@
                                                 </svg>
                                                 <span>ชำระเงิน</span>
                                             </button>
+                                            <input type="text" value=$id name="table_id" class="hidden">
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -266,49 +282,12 @@
 
 
                 </div>
-            </div>
-            
-
+                </div>
         </div>
-        <?php
-    // require_once('../utils/config.php');
-
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
-    
-?>
     </div>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-<script>
-
-const addCustomerBtn = document.getElementsByClassName("addCustomerBtn");
-
-const purchaseBtns = document.querySelectorAll(".purchaseBtn");
-
-[...addCustomerBtn].forEach(btn => btn.addEventListener("click", (e)=>{
-    e.preventDefault();
-    let id = e.target.closest("button").getAttribute("id");
-    getInfoFromID(id);
-    
-}))
-
-purchaseBtns.forEach(btn => btn.addEventListener("click", (e)=>{
-    e.preventDefault();
-    let table_id = e.target.closest("button").getAttribute("tableId");
-    let url = `Payment.php?table_id=` + table_id;
-    window.location.href = url;
-}))
-
-const getInfoFromID = (id) => {
-    let url = `AddCustomer.php?id=` + id;
-    window.location.href = url;
-}
-
-
-</script>
-    
 </html>
