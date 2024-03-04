@@ -223,7 +223,7 @@
                 <div class="custom-div2 shadow p-3 mb-5 bg-body-tertiary rounded overflow-auto">
                 <?php
                     // --- SQL SELECT statement  
-                    $sql = "SELECT * FROM promotion ORDER BY CASE WHEN status = 'ใช้งาน' THEN 0 ELSE 1 END, end_date;";
+                    $sql = "SELECT * FROM promotion ORDER BY CASE WHEN status = 'active' THEN 0 ELSE 1 END, end_date;";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -237,6 +237,7 @@
                             //detail
                             $promotionDetails[$row['ID']] = array(
                                 'name' => $row['name'],
+                                'discount' => $row['discount'],
                                 'status' => $row['status'],
                                 'end_date' => $row['end_date']
                             );
@@ -244,12 +245,12 @@
                             // Update Status
                             $today = date('Y-m-d');
                             if ($row['end_date'] >= $today) {
-                                $row['status'] = 'ใช้งาน';
-                                $updateSql = "UPDATE promotion SET status = 'ใช้งาน' WHERE ID = " . $row['ID'];
+                                $row['status'] = 'active';
+                                $updateSql = "UPDATE promotion SET status = 'active' WHERE ID = " . $row['ID'];
                                 mysqli_query($conn, $updateSql);
                             }else{
-                                $row['status'] = 'ไม่ใช้งาน';
-                                $updateSql = "UPDATE promotion SET status = 'ไม่ใช้งาน' WHERE ID = " . $row['ID'];
+                                $row['status'] = 'inactive';
+                                $updateSql = "UPDATE promotion SET status = 'inactive' WHERE ID = " . $row['ID'];
                                 mysqli_query($conn, $updateSql);
                             }
                             
@@ -267,10 +268,11 @@
                         // Output promotions by Status
                         foreach ($promotionByStatus as $Status => $promotions) {
                             echo "<div class='container-fuild category mb-4'>";
-                            echo "<h4 class='fw-bold'>$Status</h4>";
+                            $status_pro = ($Status == 'active') ? 'ใช้งาน' : 'ไม่ใช้งาน';
+                            echo "<h4 class='fw-bold'>$status_pro</h4>";
                             echo "<div class='container-menu d-flex flex-wrap'>";
                             foreach ($promotions as $promotion) {
-                                $inactive = ($Status == 'ไม่ใช้งาน') ? 'not' : '';
+                                $inactive = ($Status == 'inactive') ? 'not' : '';
                                 echo '<div class="menu d-flex align-items-center shadow bg-body-tertiary rounded '. $inactive .'">';
                                 echo '<div class="content-menu">';
                                 echo '<h5 class="fw-bold text-center desc-pro mt-3">' . $promotion["name"] . '</h5>';
@@ -291,7 +293,7 @@
                 ?>
                     <!-- 1 Category -->
                     <div class="container-fuild category mb-4">
-                        <h4 class="fw-bold">ใช้งาน</h4>
+                        <h4 class="fw-bold">active</h4>
                         <div class="container-menu d-flex flex-wrap">
                             <!-- 1 menu -->
                             <div class="menu d-flex align-items-center shadow bg-body-tertiary rounded">
@@ -327,7 +329,7 @@
                         </div>
                     </div>
                     <div class="container-fuild category">
-                        <h4 class="fw-bold">ไม่ใช้งาน</h4>
+                        <h4 class="fw-bold">inactive</h4>
                         <div class="container-menu d-flex flex-wrap">
                             <!-- 1 menu -->
                             <div class="menu d-flex align-items-center shadow bg-body-tertiary rounded not">
@@ -369,6 +371,10 @@
                             <input type="text" class="form-control required" id="Name" name="Name" value="" required />
                         </p>
                         <p>
+                            <label for="Discount" class="form-label">ส่วนลด (%)</label>
+                            <input type="number" class="form-control required" id="Discount" name="Discount" value="" required />
+                        </p>
+                        <p>
                             <label for="Date" class="form-label">วันที่หมด</label>
                             <input type="date" class="form-control" id="Date" name="Date" required />
                         </p>
@@ -404,10 +410,13 @@
 
                         <!-- Add a hidden input for storing the menu ID -->
                         <input type="hidden" id="ProID" name="ProID" value="">
-
                         <p>
                             <label for="Name-edit" class="form-label">ชื่อ</label>
                             <input type="text" class="form-control required" id="Name-edit" name="Name" value="" required />
+                        </p>
+                        <p>
+                            <label for="Discount-edit" class="form-label">ส่วนลด (%)</label>
+                            <input type="number" class="form-control required" id="Discount-edit" name="Discount" value="" required />
                         </p>
                         <p>
                             <label for="Date-edit" class="form-label">วันที่หมด</label>
@@ -483,6 +492,7 @@
                     // Populate the modal content with the selected menu information
                     document.getElementById('ProID').value = proId;
                     document.getElementById('Name-edit').value = promotionDetails[proId]['name'];
+                    document.getElementById('Discount-edit').value = promotionDetails[proId]['discount'];
                     document.getElementById('Date-edit').value = promotionDetails[proId]['end_date'];
 
                     // Show the modal
@@ -518,10 +528,11 @@
     <?php
     //Add Promotion
     if(isset($_POST['add-pro'])){
-        $name= $_POST['Name'];
+        $name = $_POST['Name'];
+        $discount = $_POST['Discount'];
         $date = $_POST['Date'];
 
-        $sql = "INSERT INTO promotion (name, status, end_date) VALUES ('$name', 'ใช้งาน', '$date');";
+        $sql = "INSERT INTO promotion (name, discount, status, end_date) VALUES ('$name', $discount, 'active', '$date');";
         if (mysqli_query($conn, $sql)) {
             echo "<script>window.location.href = 'index.php';</script>";
         } else {
@@ -532,12 +543,13 @@
     if(isset($_POST['edit-pro'])){
         $proId= $_POST['ProID'];
         $name= $_POST['Name'];
+        $discount = $_POST['Discount'];
         $date = $_POST['Date'];
 
-        $sql = "UPDATE promotion SET name = '$name', end_date = '$date' WHERE ID = $proId";
+        $sql = "UPDATE promotion SET name = '$name', discount = '$discount', end_date = '$date' WHERE ID = $proId";
         if (mysqli_query($conn, $sql)) {
             // Refresh the status after updating end_date
-            $updateStatusSql = "UPDATE promotion SET status = CASE WHEN end_date >= '$today' THEN 'ใช้งาน' ELSE 'ไม่ใช้งาน' END WHERE ID = $proId";
+            $updateStatusSql = "UPDATE promotion SET status = CASE WHEN end_date >= '$today' THEN 'active' ELSE 'inactive' END WHERE ID = $proId";
             mysqli_query($conn, $updateStatusSql);
     
             echo "<script>window.location.href = 'index.php';</script>";
@@ -552,7 +564,7 @@
         $sql = "DELETE FROM promotion WHERE ID = $proId";
         if (mysqli_query($conn, $sql)) {
             // Refresh the status after updating end_date
-            $updateStatusSql = "UPDATE promotion SET status = CASE WHEN end_date >= '$today' THEN 'ใช้งาน' ELSE 'ไม่ใช้งาน' END WHERE ID = $proId";
+            $updateStatusSql = "UPDATE promotion SET status = CASE WHEN end_date >= '$today' THEN 'active' ELSE 'inactive' END WHERE ID = $proId";
             mysqli_query($conn, $updateStatusSql);
     
             echo "<script>window.location.href = 'index.php';</script>";

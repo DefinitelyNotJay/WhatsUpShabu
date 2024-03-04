@@ -74,8 +74,18 @@
             margin: 1.5%;
             border-radius: 1cap;
         }
-        .selectyear {
+        .btn-selectyear {
+            color: #ffffff;
             width: 10%;
+            margin-right: 10px;
+            background-color: rgba(250, 93, 42, 0.5);
+        }
+        .btn-selectyear:hover {
+            color: #ffffff;
+            background-color: rgba(250, 93, 42, 0.8);
+        }
+        .selectyear {
+            background-color: rgba(250, 93, 42, 0.8);
         }
         .menu {
             width: 31.5%;
@@ -124,6 +134,20 @@
     </style>
 </head>
 <body>
+    <!-- Connect Database -->
+    <?php
+        $servername = "localhost";
+        $username = "root"; //ตามที่กำหนดให้
+        $password = ""; //ตามที่กำหนดให้
+        $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
+        // Create connection
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        // Check connection
+        if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+        }
+        echo "";
+    ?>
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
@@ -181,15 +205,25 @@
                 <div class="custom-div2 shadow p-3 mb-5 bg-body-tertiary rounded overflow-auto">
                     <!-- 1 Category -->
                     <div class="container-fuild category mb-4">
-                        <div class="form-group">
-                            <label for="year" class="mb-2">เลือกปี:</label>
-                            <select class="form-control mb-2 text-center selectyear" id="year">
-                              <option value="2021">2021</option>
-                              <option value="2022">2022</option>
-                              <!-- Add more years as needed -->
-                            </select>
-                          <canvas id="incomeChart" height="123"></canvas>
-                        </div>
+                        <form id="form1" action="" method="post">
+                            <div class="form-group">
+                                <?php
+                                // --- SQL SELECT statement  
+                                $sql = "SELECT DISTINCT YEAR(date) AS year FROM bill ORDER BY year DESC;";
+                                $result = mysqli_query($conn, $sql);
+
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $year = $row['year'];
+                                        echo '<button type="submit" class="btn btn-selectyear shadow bg-body-tertiary rounded" id="' .$year . '" name="showChart" value="' .$year . '">' .$year . '</button>';
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
+                                ?>
+                            </div>
+                        </form>
+                        <canvas id="incomeChart" class="mt-2" height="132"></canvas>
                     </div>
                 </div>
             </main>
@@ -199,16 +233,17 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script>
+
         document.addEventListener('DOMContentLoaded', function () {
+            
         // Get the canvas element
         var ctx = document.getElementById('incomeChart').getContext('2d');
         var incomeChart;
 
         // Function to update the chart based on the selected year
-        function updateChart(selectedYear) {
-            // You would need to fetch your monthly income data for the selected year
-            // For this example, I'll use a dummy data array
-            var dummyMonthlyIncomeData = [10, 12, 15, 9, 8, 15, 30, 5, 25, 45, 40, 31];
+        function updateChart(selectedYear, MonthlyIncomeData) {
+            
+            var MonthlyIncomeData = MonthlyIncomeData;
 
             // Chart data
             var data = {
@@ -220,7 +255,7 @@
                 borderWidth: 2,
                 pointBackgroundColor: '#FA5D2A',
                 pointRadius: 2,
-                data: dummyMonthlyIncomeData,
+                data: MonthlyIncomeData,
             }]
             };
 
@@ -253,19 +288,40 @@
             type: 'line',
             data: data,
             options: options
+
+            
             });
+
+            document.getElementById(`${selectedYear}`).classList.add('selectyear');
         }
 
-        // Event listener for changes in the year dropdown
-        document.getElementById('year').addEventListener('change', function () {
-            var selectedYear = this.value;
-            updateChart(selectedYear);
-        });
+        <?php
+            if(isset($_POST['showChart'])){
+                $selectedYear = $_POST['showChart'];
+            }else {
+                $selectedYear = 2024;
+            }
+            $sql = "SELECT MONTH(date) AS month, SUM(total) AS total_income FROM bill WHERE YEAR(date) = $selectedYear and status != 'unpaid' GROUP BY MONTH(date)";
+            $result = mysqli_query($conn, $sql);
 
-        // Initial chart with default values (you can set initial values based on your requirements)
-        updateChart(2021);
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $monthlyIncomeData[$row['month']] = $row['total_income'];
+                }
+            }
+            $jsMonthlyIncomeData = json_encode(array_values($monthlyIncomeData));
+
+            echo "updateChart(" . $selectedYear . ", $jsMonthlyIncomeData);";
+        ?>
+
         });
 
   </script>
+
+
+  <?php
+        // close connection
+        mysqli_close($conn);
+    ?>
 </body>
 </html>
