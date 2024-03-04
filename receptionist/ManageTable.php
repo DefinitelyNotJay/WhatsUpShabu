@@ -51,6 +51,12 @@
         exit();
     }
 
+    if(isset($_POST["logout"])){
+        session_destroy();
+        header("Location: /WhatsUpShabu2/staff/login/index.php");
+        exit();
+    }
+
     ?>
 
 
@@ -87,7 +93,9 @@
                     </div>
                 </div>
                 <div>
-                    <p class="text-lg flex gap-2  px-4 py-6">
+                   <form action="ManageTable.php" method="post">
+                   <button type="submit" name="logout">
+                        <p class="text-lg flex gap-2  px-4 py-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="lucide lucide-log-out">
@@ -97,6 +105,8 @@
                         </svg>
                         ออกจากระบบ
                     </p>
+                </button>
+                   </form>
                 </div>
             </div>
 
