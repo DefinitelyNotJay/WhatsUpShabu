@@ -12,8 +12,8 @@
         $username = $_POST['username'];
         $password = $_POST['passwd'];
         $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-        echo $username;
-        echo $password;
+        
+        $errors = array();
 
         $login_sql = "SELECT * FROM personnel WHERE `username` = '$username' AND `password` = '$password' ";
         $result = mysqli_query($conn, $login_sql);
@@ -21,24 +21,21 @@
             $role = $row['role'];
             $name = $row['name'];
         }
-        if($result -> num_rows > 0){
+        if(!($result -> num_rows > 0)){
+            header("Location: index.php");
+        } else {
             $_SESSION["username"] = $username;
             $_SESSION["password"] = $password;
             $_SESSION["role"] = $role;
             $_SESSION["name"] = $name;
-            
 
-            
             if($role === "receptionist"){
-                header("Location: /WhatsUpShabu2/receptionist/ManageTable.php");
+                header("Location: /WhatsUpShabu/receptionist/ManageTable.php");
             } elseif($role === "waiter"){
                 
             } elseif($role === "manager"){
-                header("Location: /WhatsUpShabu2/Manager/ManageMenu/index.php");
+                header("Location: /WhatsUpShabu/Manager/ManageMenu/index.php");
             }
-        } else {
-            echo "username or password wrong!";
-            header("Location: index.php");
         }
 
     ?>

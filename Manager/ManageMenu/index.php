@@ -7,7 +7,6 @@
     <link href="http://10.0.15.21/lab/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://10.0.15.21/lab/bootstrap/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
-
     <style>
         body {
             font-family: 'Noto Sans Thai';
