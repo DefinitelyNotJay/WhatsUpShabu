@@ -46,7 +46,13 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-
+    session_start();
+    echo $_SESSION['username'];
+    if(!isset($_SESSION['username'])){
+        header("Location: /WhatsUpShabu2/staff/login/index.php");
+    } else {
+        unset($_SESSION['username']);
+    }
 
     ?>
 
