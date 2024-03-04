@@ -51,11 +51,11 @@
             <form id="loginForm" action="routes.php" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+                    <input type="text" placeholder="Username" class="form-control" id="username" name="username" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="passed" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="passwd" name="passwd">
+                    <input type="password" placeholder="Enter password" class="form-control" id="passwd" name="passwd">
                 </div>
                 <div class="mb-3 form-check">
                     <label class="form-check-label" for="">Show Password</label>
@@ -77,6 +77,10 @@
             } else {
                 passwordInput.type = "password";
             }
+        }
+
+        const checkValidation = () => {
+
         }
     </script>
 </body>
