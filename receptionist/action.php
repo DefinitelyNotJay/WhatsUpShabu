@@ -1,3 +1,4 @@
+<?php session_start()?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,7 @@
 <?php
     require_once("../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    echo $_SESSION["username"];
     if(isset($_GET["table_id"])){
         $table_id = $_GET["table_id"];
         $customer_amount = $_GET["customer_amount"];

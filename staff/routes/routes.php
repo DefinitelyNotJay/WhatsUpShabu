@@ -9,7 +9,7 @@
     <?php
         $username = $_POST['username'];
         $password = $_POST['passwd'];
-
+        
         echo $username;
         echo $password;
     ?>

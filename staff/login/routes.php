@@ -1,3 +1,4 @@
+<?php session_start()?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,6 @@
 <body>
     <?php
         include_once("../../utils/config.php");
-        
         $username = $_POST['username'];
         $password = $_POST['passwd'];
         $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -19,12 +19,15 @@
         $result = mysqli_query($conn, $login_sql);
         while ($row = mysqli_fetch_assoc($result)){
             $role = $row['role'];
+            $name = $row['name'];
         }
         if($result -> num_rows > 0){
-
-            session_start();
             $_SESSION["username"] = $username;
             $_SESSION["password"] = $password;
+            $_SESSION["role"] = $role;
+            $_SESSION["name"] = $name;
+            
+
             
             if($role === "receptionist"){
                 header("Location: /WhatsUpShabu2/receptionist/ManageTable.php");
