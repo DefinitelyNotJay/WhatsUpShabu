@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../utils/main.css">
-    <link rel="stylesheet" href="../utils/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         .bg-login {
             background-image: url('login-bg-final.png');
@@ -77,32 +78,33 @@
 </head>
 
 <body>
-    <div class="flex w-full h-full">
-        <div class="w-half bg-login"></div>
-        <div class="flex flex-col w-half bg-main h-full justify-center items-center">
-            <div class="container">
-                <div class="flex-cen">
+    <div class="flex w-screen h-screen">
+        <div class="w-6/12 bg-login"></div>
+        <div class="flex flex-col w-6/12 bg-main h-full justify-center items-center">
+            <div class=" w-full flex flex-col justify-center items-center gap-y-4">
+                <div>
                     <img src="icon.png" alt="WhatsUpShabuIcon">
                 </div>
-                <div>
-                    <form id="loginForm" action="routes.php" method="post">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">ชื่อผู้ใช้</label>
-                            <input type="text" placeholder="กรอกชื่อผู้ใช้" class="form-control" id="username"
-                                name="username" aria-describedby="emailHelp">
+                <div class="w-full flex flex-col justify-center items-center">
+                    <form id="loginForm" action="routes.php" method="post" class="w-4/12">
+                        <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-y-1">
+                            <label for="username">ชื่อผู้ใช้</label>
+                            <input type="text" placeholder="กรอกชื่อผู้ใช้" id="username"
+                                name="username" aria-describedby="emailHelp" class="px-4 py-2 rounded-md">
                         </div>
-                        <div class="mb-3">
-                            <label for="passed" class="form-label">รหัสผ่าน</label>
-                            <input type="password" placeholder="กรอกรหัสผ่าน" class="form-control" id="passwd"
-                                name="passwd">
+                        <div class="flex flex-col gap-y-1">
+                            <label for="passed">รหัสผ่าน</label>
+                            <input type="password" placeholder="กรอกรหัสผ่าน" id="passwd"
+                                name="passwd" class="px-4 py-2 rounded-md">
                         </div>
-                        <div class="mb-3 form-check">
-                            <label class="form-check-label" for="">แสดงรหัสผ่าน</label>
+                        </div>
+                        <div class="flex gap-1 justify-end">
+                            <label class="form-check-label my-2 text-sm">แสดงรหัสผ่าน</label>
                             <input type="checkbox" class="form-check-input" onchange="showPass()" id="showPassword">
-                        </div>
-                        <div class="flex-right">
-                            <button type="submit" class="btn button">เข้าสู่ระบบ</button>
-                        </div>
+    </div>
+                            <button type="submit" class="text-center bg-[#f6851f] text-white w-full rounded-md my-2 py-2">เข้าสู่ระบบ</button>
+                        
                     </form>
                 </div>
             </div>
