@@ -33,15 +33,12 @@
         $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
         while ($row = mysqli_fetch_assoc($result)) {
             $table_id = $row["id"];
-            // Enclose $id in quotes in the alert
         }
     }
 
     if(isset($_GET["cancel"])){
        header("Location: ManageTable.php");
     }
-    
-    
     ?>
 
     <div
@@ -104,14 +101,4 @@
             </div>
 
 </body>
-<script>
-cancelBtn = document.getElementById("cancel");
-submitBtn = document.getElementById("submit");
-
-// cancelBtn.addEventListener("click", (e)=>{
-//     e.preventDefault();
-//     window.location.href = "./ManageTable.php";
-// });
-</script>
-
 </html>
