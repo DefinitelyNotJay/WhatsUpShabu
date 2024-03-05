@@ -34,6 +34,22 @@
         padding-left: 0px;
         margin: 0px;
     }
+
+
+
+
+    .addCustomerBtn:hover {
+        background-color: #f8f9fa;
+    }
+
+    .purchaseBtn {
+        background-color: #f8f9fa;
+    }
+
+    .logout:hover {
+        background-color: #6A311D;
+    }
+
 </style>
 
 <body class="w-full h-screen">
@@ -72,16 +88,8 @@
                     <!-- Navbar -->
                     <div class="w-100 pt-4">
                         <div class="nav flex-column px-3">
-                            <a class="nav-link text-black d-flex align-items-center gap-2 text-lg px-4 py-6 bg-white rounded-lg"
-                                id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" aria-selected="true"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-home">
-                                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                                    <polyline points="9 22 9 12 15 12 15 22" />
-                                </svg> หน้าหลัก</a>
-                            <a class="nav-link text-black d-flex align-items-center gap-2 text-lg px-4 py-6"
-                                href="#v-pills-profile" aria-selected="false">
+                            <a class="nav-link text-black d-flex align-items-center gap-2 text-lg bg-white px-4 py-6 rounded-lg "
+                                href="#v-pills-profile" aria-selected="true">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-settings-2">
@@ -94,9 +102,9 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="w-full flex hover:bg-white justify-center">
                    <form action="ManageTable.php" method="post">
-                   <button type="submit" name="logout">
+                   <button type="submit" name="logout" class="bg-white rounded-lg logout">
                         <p class="text-lg flex gap-2  px-4 py-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -156,7 +164,7 @@
                             </svg>
                             <p class="text-2xl font-semibold text-[#6A311D] table-number">$id</p>
                         </div>
-                        <div class="flex flex-col justify-between rounded-b-xl w-full h-5/6 bg-[#009179] p-2">
+                        <div class="table-card flex flex-col justify-between rounded-b-xl w-full h-5/6 bg-[#009179] p-2">
                             <div class="top text-white flex flex-col gap-2">
                                 <p class="text-xl font-semibold text-center">ข้อมูล</p>
                                 <div class="flex gap-2 ml-6">
