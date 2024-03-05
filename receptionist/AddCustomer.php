@@ -81,15 +81,13 @@
                             $result = mysqli_query($conn, $sql);
                             while ($row = mysqli_fetch_assoc($result)) {
                                 $id = $row["id"];
-                                // $description = $row["description"];
-                                // $status = $row["status"];
-                                // $end_date = $row["end-date"];
                                 $name = $row["name"];
+                                $percent_discount = $row["discount"];
                                 echo "<option value='$id'>$name</option>";
                             }
                             ?>
                         </select>
-                    </div>
+                        </div>
                     <div class="flex w-full justify-center gap-2">
                         <a href="ManageTable.php"><button type="button" id="cancel" class="btn btn-outline-danger" name="cancel">ยกเลิก</button></a>
                         <?php
