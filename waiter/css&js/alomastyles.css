@@ -99,9 +99,6 @@ body {
             display: flex;
             flex-direction: column;
           }
-              .innerorder{
-                height: 100%;
-              }
               /* แถวรายการออเดอร์ */
               .Orderlist_bar {
                 background-color: #fff;
@@ -179,8 +176,50 @@ body {
                         font-size: 20px;
                         justify-content: center;
                         
+                        
                       }
-                          
+
+              .innerorder{
+                height: 100%;
+              }
+                  .head_tab{
+                    width: 101.55%;
+                    height: 5%;
+                    background-color: #6A311D;
+                    margin-top: -1%;
+                    border-radius:10px 10px 0 0;
+                  }
+                  .head_order{
+                    width: 100%;
+                    height: 25%;
+                    border-bottom:1px ridge #6A311D ;
+                    padding: 10px;
+                  }
+                  .menu_bar{
+                    width: 100%;
+                    height: 70%;
+                    background-color: #FFF6F1;
+                    border-radius: 10px;
+                    margin: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: auto;
+                  }
+                  .submit_bar{
+                    width: 100%;
+                    height: 4%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                  }
+                      .receive_button{
+                        background-color: #FA5D2A;
+                        border: none;
+                        width: 70px;
+                        height: 40px;
+                        border-radius: 5px;
+                      }
 
               /* แถวสถานะ */
               .status_bar {

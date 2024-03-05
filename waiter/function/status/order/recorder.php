@@ -67,9 +67,10 @@
         </div>
       </div>
       <div class="outline innerorder">
-
-        <div >
-
+        <div class="head_tab">
+        </div>
+        <div class="head_order">
+    
         </div>
         <div class="menu_bar">
           <div class="menu_item">
@@ -77,7 +78,7 @@
           </div>
         </div>
         <div class="submit_bar">
-          <button class="recieve_button">รับ</button>
+          <button class="receive_button" onclick="window.location.href = '../Receive.php'">รับ</button>
         </div>
       </div>
     </div>
