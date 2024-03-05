@@ -16,7 +16,7 @@
             background-image: url('login-bg-final.png');
             background-repeat: no-repeat;
             background-size: cover;
-            filter: blur(1px);
+            
             /* -webkit-filter: blur(1px); */
         }
 
@@ -79,8 +79,10 @@
 
 <body>
     <div class="flex w-screen h-screen">
-        <div class="w-6/12 bg-login"></div>
-        <div class="flex flex-col w-6/12 bg-main h-full justify-center items-center">
+        <div class="w-6/12  p-12 bg-main ">
+            <div class="w-full h-full bg-login rounded-md"></div>
+        </div>
+        <div class="flex flex-col w-6/12 bg-[#f5f1de] h-full justify-center items-center">
             <div class=" w-full flex flex-col justify-center items-center gap-y-4">
                 <div>
                     <img src="icon.png" alt="WhatsUpShabuIcon">
@@ -103,7 +105,7 @@
                             <label class="form-check-label my-2 text-sm">แสดงรหัสผ่าน</label>
                             <input type="checkbox" class="form-check-input" onchange="showPass()" id="showPassword">
     </div>
-                            <button type="submit" class="text-center bg-[#f6851f] text-white w-full rounded-md my-2 py-2">เข้าสู่ระบบ</button>
+                            <button type="submit" class="text-center bg-[#f6851f] hover:bg-[#f68b2a] hover:text-black text-white w-full rounded-md my-2 py-2">เข้าสู่ระบบ</button>
                         
                     </form>
                 </div>
