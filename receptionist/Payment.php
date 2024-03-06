@@ -28,14 +28,18 @@
     $id = isset($_GET["table_id"]) ? $_GET["table_id"] : null;
     if ($id) {
         echo "<script>console.log('" . $id . "')</script>";
-        $sql = "SELECT * FROM bill JOIN tables JOIN promotion ON bill.table_id = tables.id AND bill.promotion_id = promotion.id  WHERE tables.id = '$id'";
+        $sql = "SELECT * FROM bill JOIN tables JOIN promotion ON bill.table_id = tables.id AND bill.promotion_id = promotion.id  WHERE tables.status = 'busy' AND tables.id = '$id'";
         $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
         // table_id, customer_amount, ราคาต่อหัว, total_amount, ส่วนลดจากโปรโมชั่น, ยอดรวมสุทธิ
         while ($row = mysqli_fetch_assoc($result)) {
             $table_id = $row["id"];
             $customer_amount = $row["customer_amount"];
             $promotion_name = $row["name"];
+            $total = $row["total"];
+            $discount_percent = $row["discount"];
         }
+        $all_cost = 299 * $customer_amount;
+        $promotion_discount = abs($total - $all_cost);
     }
     ?>
 
@@ -66,11 +70,11 @@
                     </div>
                     <div class="flex justify-between items-center">
                         <p>ราคาต่อหัว</p>
-                        <p><?php echo $each_cost?> บาท</p>
+                        <p>299 บาท</p>
                     </div>
                     <div class="flex justify-between items-center">
                         <p>ราคารวม</p>
-                        <p><?php echo $total_amount?> บาท</p>
+                        <p><?php echo $all_cost?> บาท</p>
                     </div>
                     <div class="flex justify-between text-black items-center text-center">
                         <p>โปรโมชั่น</p>
@@ -84,7 +88,7 @@
                     <div class="flex flex-col gap-2 text-black ">
                         <div class="flex justify-between">
                         <p>ยอดรวมสุทธิ</p>
-                        <p><?php echo $amount?> บาท</p>
+                        <p><?php echo $total?> บาท</p>
                         </div>
                         <hr>
                     </div>
@@ -114,6 +118,7 @@ submitBtn.addEventListener("click", (e)=>{
     alert(id);
     window.location.href = `action.php?paymentId=` + id;
 })
+
 </script>
     
 </html>

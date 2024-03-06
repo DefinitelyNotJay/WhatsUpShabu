@@ -15,6 +15,9 @@
 <body>
 
     <?php
+    session_start();
+    $_SESSION["table_id"] = $_GET["table_id"];
+
     // if (!isset($_SERVER['HTTP_REFERER'])) {
     //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
     //     exit();
@@ -27,6 +30,8 @@
     $password = "";
     $dbname = "WhatsUpShabu";
     $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
