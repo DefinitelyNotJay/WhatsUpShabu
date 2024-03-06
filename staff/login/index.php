@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../utils/main.css">
     <script src="https://cdn.tailwindcss.com"></script>
-
     <style>
         .bg-login {
             background-image: url('login-bg-final.png');

@@ -28,13 +28,13 @@
     $id = isset($_GET["table_id"]) ? $_GET["table_id"] : null;
     if ($id) {
         echo "<script>console.log('" . $id . "')</script>";
-        $sql = "SELECT * FROM tables WHERE id = '{$id}';";
+        $sql = "SELECT * FROM bill JOIN tables JOIN promotion ON bill.table_id = tables.id AND bill.promotion_id = promotion.id  WHERE tables.id = '$id'";
         $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
         // table_id, customer_amount, ราคาต่อหัว, total_amount, ส่วนลดจากโปรโมชั่น, ยอดรวมสุทธิ
         while ($row = mysqli_fetch_assoc($result)) {
             $table_id = $row["id"];
             $customer_amount = $row["customer_amount"];
-            // Enclose $id in quotes in the alert
+            $promotion_name = $row["name"];
         }
     }
     ?>

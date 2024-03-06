@@ -24,7 +24,6 @@
     </style>
     <?php
     require_once("../utils/config.php");
-    echo $_SESSION["username"];
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $id = isset($_GET["id"]) ? $_GET["id"] : null;
     if ($id) {
