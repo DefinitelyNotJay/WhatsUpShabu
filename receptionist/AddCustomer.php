@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="../utils/main.css">
-    <link rel="stylesheet" href="../utils/output.css">
+    
 </head>
 
 <body>
@@ -27,12 +27,10 @@
     require_once("../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $id = isset($_GET["id"]) ? $_GET["id"] : null;
-    if ($id) {
-        $sql = "SELECT * FROM tables WHERE id = '$id';";
-        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-        while ($row = mysqli_fetch_assoc($result)) {
-            $table_id = $row["id"];
-        }
+    $sql = "SELECT * FROM tables WHERE id = '$id';";
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    while ($row = mysqli_fetch_assoc($result)) {
+        $table_id = $row["id"];
     }
     if (isset($_GET["cancel"])) {
         header("Location: ManageTable.php");
@@ -42,12 +40,8 @@
     <div
         class="fixed flex items-center justify-center top-0 right-0 left-0 z-50 inset-0 overflow-y-auto bg-[#ffffff6f]">
         <div class="w-[30%] h-fit bg-white  rounded-lg shadow-lg p-6">
-            <div class="w-full grid grid-cols-3 grid-rows-1 border-b-2 border-gray-200 pb-4">
-                <div></div>
+            <div class="w-full flex justify-center border-b-2 border-gray-200 pb-4">
                 <h1 class="text-xl font-bold justify-self-center">เพิ่มลูกค้า</h1>
-                <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus:outline-none justify-self-end">
-
-                </button>
             </div>
 
             <div class="pt-4">
@@ -96,9 +90,9 @@
                                     stroke-linejoin="round" class="lucide lucide-ban mr-1">
                                     <circle cx="12" cy="12" r="10" />
                                     <path d="m4.9 4.9 14.2 14.2" />
-                                </svg>ยกเลิก</button></a>
-
-                        <button type="submit" id="submit" tableId='.$table_id.'
+                                </svg>ยกเลิก</button>
+                        </a>
+                        <button type="submit" id="submit" tableId=<?php echo $table_id?>
                             class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -111,7 +105,7 @@
                     </div>
                 </form>
             </div>
-
+        </div>
+    </div>
 </body>
-
 </html>
