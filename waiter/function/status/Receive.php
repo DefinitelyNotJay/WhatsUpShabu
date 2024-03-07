@@ -92,6 +92,7 @@
     $sql2 = "SELECT id, table_id FROM orders WHERE status='process';";
     $sql3 = "SELECT id, table_id FROM orders WHERE status='done';";
 
+
     $result1 = mysqli_query($conn, $sql1);
     $result2 = mysqli_query($conn, $sql2);
     $result3 = mysqli_query($conn, $sql3);
