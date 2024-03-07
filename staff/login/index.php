@@ -11,11 +11,19 @@
     <link rel="stylesheet" href="../utils/main.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        * {
+            font-family: "Noto Sans Thai", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         .bg-login {
-            background-image: url('login-bg-final.png');
+            background-image: url('Jane-Chang.jpg');
             background-repeat: no-repeat;
             background-size: cover;
-            
+            background-position: center;
+
             /* -webkit-filter: blur(1px); */
         }
 
@@ -27,6 +35,7 @@
             justify-content: center; */
             margin: 0;
         }
+
         .container {
             width: 40%;
         }
@@ -61,25 +70,20 @@
             display: flex;
         }
 
-        .w-full {
-            width: 100%;
-        }
-
-        .h-full {
-            height: 100%;
-        }
-
         .bg-main {
             background: #EEE8C8;
         }
-        
+
+        .anim-dr {
+            transition-duration: 0.75s;
+        }
     </style>
 </head>
 
 <body>
     <div class="flex w-screen h-screen">
-        <div class="w-6/12  p-12 bg-main ">
-            <div class="w-full h-full bg-login rounded-md"></div>
+        <div class="w-6/12 bg-main">
+            <div class="w-full h-full bg-login"></div>
         </div>
         <div class="flex flex-col w-6/12 bg-[#f5f1de] h-full justify-center items-center">
             <div class=" w-full flex flex-col justify-center items-center gap-y-4">
@@ -89,23 +93,24 @@
                 <div class="w-full flex flex-col justify-center items-center">
                     <form id="loginForm" action="routes.php" method="post" class="w-4/12">
                         <div class="flex flex-col gap-3">
-                        <div class="flex flex-col gap-y-1">
-                            <label for="username">ชื่อผู้ใช้</label>
-                            <input type="text" placeholder="กรอกชื่อผู้ใช้" id="username"
-                                name="username" aria-describedby="emailHelp" class="px-4 py-2 rounded-md">
-                        </div>
-                        <div class="flex flex-col gap-y-1">
-                            <label for="passed">รหัสผ่าน</label>
-                            <input type="password" placeholder="กรอกรหัสผ่าน" id="passwd"
-                                name="passwd" class="px-4 py-2 rounded-md">
-                        </div>
+                            <div class="flex flex-col gap-y-1">
+                                <label for="username">ชื่อผู้ใช้</label>
+                                <input type="text" placeholder="กรอกชื่อผู้ใช้" id="username" name="username"
+                                    aria-describedby="emailHelp" class="px-4 py-2 rounded-md">
+                            </div>
+                            <div class="flex flex-col gap-y-1">
+                                <label for="passed">รหัสผ่าน</label>
+                                <input type="password" placeholder="กรอกรหัสผ่าน" id="passwd" name="passwd"
+                                    class="px-4 py-2 rounded-md">
+                            </div>
                         </div>
                         <div class="flex gap-1 justify-end">
-                            <label class="form-check-label my-2 text-sm">แสดงรหัสผ่าน</label>
-                            <input type="checkbox" class="form-check-input" onchange="showPass()" id="showPassword">
-    </div>
-                            <button type="submit" class="text-center bg-[#f6851f] hover:bg-[#f68b2a] hover:text-black text-white w-full rounded-md my-2 py-2">เข้าสู่ระบบ</button>
-                        
+                            <input type="checkbox" class="accent-[#f6851f]" onchange="showPass()" id="showPassword">
+                            <label class="form-check-label my-2 text-sm ">แสดงรหัสผ่าน</label>
+                        </div>
+                        <button type="submit"
+                            class="anim-dr text-center bg-[#f6851f] hover:bg-slate-700 hover:text-white text-white w-full rounded-md my-2 py-2">เข้าสู่ระบบ</button>
+
                     </form>
                 </div>
             </div>
