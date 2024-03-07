@@ -1,4 +1,4 @@
-<?php session_start()?>
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,11 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Manage Tables</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../utils/main.css">
-    <link rel="stylesheet" href="../utils/output.css">
+    <!-- <link rel="stylesheet" href="../utils/output.css"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <style>
     * {
@@ -35,24 +36,22 @@
         margin: 0px;
     }
 
-
-
-
-    .addCustomerBtn:hover {
-        background-color: #f8f9fa;
+    .add-pay {
+        border: 1px solid black;
     }
 
-    .purchaseBtn {
-        background-color: #f8f9fa;
+    .add-pay:hover {
+        border: 1px solid white;
     }
-
-    .logout:hover {
-        background-color: #6A311D;
+    .hp-10{
+        height: 10%;
     }
-
+    .hp-90{
+        height: 90%;
+    }
 </style>
 
-<body class="w-full h-screen">
+<body class="">
 
     <?php
     require_once('../utils/config.php');
@@ -61,13 +60,13 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-    
-    if(!isset($_SESSION['username']) OR $_SESSION['role'] !== "receptionist"){
+
+    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
         header("Location: /WhatsUpShabu/staff/login/index.php");
         exit();
     }
 
-    if(isset($_POST["logout"])){
+    if (isset($_POST["logout"])) {
         session_destroy();
         header("Location: /WhatsUpShabu/staff/login/index.php");
         exit();
@@ -78,17 +77,18 @@
     ?>
 
 
-    <div class="row h-100 m-0 p-0 container-fluid">
+    <d+
+    iv class="flex h-screen w-screen m-0 p-0">
         <!-- Leftbar -->
-        <div class="col-2 h-100 bg-egg py-3">
-            <div class="d-flex flex-column h-100 w-100 text-black justify-content-between">
+        <div class="flex flex-col h-full w-2/12 bg-egg pt-3">
+            <div class="flex flex-col h-full w-full text-black justify-between">
                 <div>
                     <!-- Logo -->
-                    <img src="../images/icon.png" alt="WhatsUpShabuIcon">
+                    <img src="../images/icon.png" alt="WhatsUpShabuIcon" class="px-2 py-2">
                     <!-- Navbar -->
-                    <div class="w-100 pt-4">
-                        <div class="nav flex-column px-3">
-                            <a class="nav-link text-black d-flex align-items-center gap-2 text-lg bg-white px-4 py-6 rounded-lg "
+                    <div class="w-full pt-4">
+                        <div class="nav flex-col px-3">
+                            <a class="flex nav-link text-black items-center gap-2 text-lg bg-white px-4 py-6 rounded-lg font-semibold"
                                 href="#v-pills-profile" aria-selected="true">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -102,28 +102,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-full flex hover:bg-white justify-center">
-                   <form action="ManageTable.php" method="post">
-                   <button type="submit" name="logout" class="bg-white rounded-lg logout">
-                        <p class="text-lg flex gap-2  px-4 py-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-log-out">
-                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                            <polyline points="16 17 21 12 16 7" />
-                            <line x1="21" x2="9" y1="12" y2="12" />
-                        </svg>
-                        ออกจากระบบ
-                    </p>
-                </button>
-                   </form>
+                <div class="w-full flex justify-center">
+                    <form action="ManageTable.php" method="post" class="w-full">
+                        <button type="submit" name="logout"
+                            class="w-full logout bg-[#EEE8C8] hover:bg-[#f3efd9] duration-500">
+                            <p class="text-lg flex gap-2  px-4 py-6 font-semibold">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-log-out">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                    <polyline points="16 17 21 12 16 7" />
+                                    <line x1="21" x2="9" y1="12" y2="12" />
+                                </svg>
+                                ออกจากระบบ
+                            </p>
+                        </button>
+                    </form>
                 </div>
             </div>
 
         </div>
-        <div class="col-10 h-screen">
-            <div class="flex align-items-center justify-content-between container bg-white w-100 px-4 py-4 h-1/12">
-                <h1 class="text-2xl">การจัดการโต๊ะ</h1>
+        <div class="w-10/12 h-full">
+            <div class="flex items-center justify-between bg-white w-full hp-10 px-4 py-4 h-1/12">
+                <h1 class="text-2xl font-semibold">การจัดการโต๊ะ</h1>
                 <div class="flex gap-2 align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -132,12 +133,14 @@
                         <circle cx="12" cy="10" r="4" />
                         <circle cx="12" cy="12" r="10" />
                     </svg>
-                    <p class="text-lg"><?php echo $_SESSION['name']?></p>
-                  
+                    <p class="text-lg font-semibold">
+                        <?php echo $_SESSION['name'] ?>
+                    </p>
+
                 </div>
             </div>
             <!-- tables -->
-            <div class="bg-gray h-11/12 p-3">
+            <div class="bg-gray w-full hp-90 p-3">
                 <div class="rounded-lg bg-white h-full grid grid-cols-4 grid-rows-3 py-6 px-4 gap-x-4 gap-y-6">
                     <?php
                     $select_tables = "SELECT * FROM tables;";
@@ -154,7 +157,7 @@
                             echo <<<HTML
                             <div>
                         <div
-                            class="w-full h-1/6 text-center text-xl bg-[#EEE8C8] rounded-t-xl flex items-center justify-center gap-2">
+                            class="w-full h-1/6 text-center text-xl bg-[#EEE8C8] rounded-t-xl flex items-center justify-center gap-2 ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 stroke="#6A311D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                 class="lucide lucide-utensils">
@@ -165,7 +168,8 @@
                             <p class="text-2xl font-semibold text-[#6A311D] table-number">$id</p>
                         </div>
                         <div class="table-card flex flex-col justify-between rounded-b-xl w-full h-5/6 bg-[#009179] p-2">
-                            <div class="top text-white flex flex-col gap-2">
+                            <!-- top -->
+                            <div class="top text-white flex flex-col gap-1">
                                 <p class="text-xl font-semibold text-center">ข้อมูล</p>
                                 <div class="flex gap-2 ml-6">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -189,14 +193,16 @@
                                     <p class="font-semibold text-lg">$customer_amount/4</p>
                                 </div>
                             </div>
+                            <!-- bot -->
                             <div class="flex flex-col gap-2">
                                 <hr>
                                 <div class="bottom flex flex-col items-end w-full">
                                     <form action="AddCustomer.php" method="get">
                                     <input type="text" value = $id class="hidden" name=id>
                                     <button
-                                        type="submit"
-                                        class="addCustomerBtn flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl"><svg
+                                        type="submit" name="addCustomer"
+                                        class="hover:bg-[#a5b3aa] hover:text-white flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] rounded-xl duration-500 add-pay">
+                                        <svg
                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="lucide lucide-user-plus">
@@ -228,7 +234,7 @@
                                     <p class="text-2xl font-semibold text-[#6A311D] table-number">$id</p>
                                 </div>
                                 <div class="bg-[#FA5D2A] flex flex-col justify-between rounded-b-xl w-full h-5/6  p-2">
-                                    <div class="top text-white flex flex-col gap-2">
+                                    <div class="top text-white flex flex-col gap-1">
                                         <p class="text-xl font-semibold text-center">ข้อมูล</p>
                                         <div class="flex gap-2 ml-6">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -266,9 +272,10 @@
                                             </div>
                                             <form action="Payment.php" method="get">
                                             <button
-                                                class="purchaseBtn flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl ">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                                    fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
+                                                class="hover:bg-[#a5b3aa] hover:text-white flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] rounded-xl duration-500 add-pay">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round" class="lucide lucide-credit-card">
                                                     <rect width="20" height="14" x="2" y="5" rx="2" />
                                                     <line x1="2" x2="22" y1="10" y2="10" />
@@ -290,7 +297,7 @@
 
 
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 </body>
@@ -298,4 +305,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+
 </html>
