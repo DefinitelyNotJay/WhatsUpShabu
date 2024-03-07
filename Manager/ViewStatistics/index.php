@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="http://10.0.15.21/lab/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://10.0.15.21/lab/bootstrap/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <style>
         body {
@@ -159,24 +159,24 @@
                     <a href="../ViewStatistics/index.php" class="unstyled-link">
                         <div class="menu-bar d-flex align-items-center selectbar">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3 mr-2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-                            <h5 class="fw-bold">สถิติ</h5>
+                            <h5 class="fw-bold mt-2">สถิติ</h5>
                         </div>
                     </a>
                     <a href="../ManageMenu/index.php" class="unstyled-link">
                         <div class="menu-bar d-flex align-items-center">
                             <svg width="40" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="3" class="mr-2"><path d="M31.2176 6.66699H6.83668C5.15353 6.66699 3.78906 8.15938 3.78906 10.0003V30.0003C3.78906 31.8413 5.15353 33.3337 6.83668 33.3337H31.2176C32.9008 33.3337 34.2653 31.8413 34.2653 30.0003V10.0003C34.2653 8.15938 32.9008 6.66699 31.2176 6.66699Z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.9805 6.66699V13.3337"  stroke-linecap="round" stroke-linejoin="round"/><path d="M3.78906 13.333H34.2653"  stroke-linecap="round" stroke-linejoin="round"/><path d="M9.88477 6.66699V13.3337"  stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            <h5 class="fw-bold">จัดการเมนูอาหาร</h5>
+                            <h5 class="fw-bold mt-2">จัดการเมนูอาหาร</h5>
                         </div>
                     </a>
                     <a href="../ManagePromotion/index.php" class="unstyled-link">
                         <div class="menu-bar d-flex align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ticket-plus mr-2"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
-                            <h5 class="fw-bold">จัดการโปรโมชั่น</h5>
+                            <h5 class="fw-bold mt-2">จัดการโปรโมชั่น</h5>
                         </div>
                     </a>
                     <div class="menu-bar d-flex align-items-center log-out">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" class="mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-                        <h5 class="fw-bold">ออกจากระบบ</h5>
+                        <h5 class="fw-bold mt-2">ออกจากระบบ</h5>
                     </div>
                 </div>
             </div>
@@ -186,7 +186,7 @@
                 <!-- Option Bar -->
                 <div class="custom-div1 d-flex">
                     <div class="option-bar d-flex align-items-center">
-                        <h4 class="fw-bold">รายได้</h4>
+                        <h4 class="fw-bold mt-2">รายได้</h4>
                     </div>
                     <div class="role d-flex align-items-center ms-auto me-3">
                         <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-1">
@@ -194,7 +194,7 @@
                             <path d="M30 33.333C30 30.6808 28.9464 28.1373 27.0711 26.2619C25.1957 24.3866 22.6522 23.333 20 23.333C17.3478 23.333 14.8043 24.3866 12.9289 26.2619C11.0536 28.1373 10 30.6808 10 33.333" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>                            
-                        <h6 class="fw-bold">ผู้จัดการ</h6>
+                        <h6 class="fw-bold mt-2">ผู้จัดการ</h6>
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_136_173)"><path d="M8.75 12.5L15 18.75L21.25 12.5H8.75Z" fill="black"/></g>
                             <defs><clipPath id="clip0_136_173"><rect width="30" height="30" fill="white"/></clipPath></defs>
@@ -202,7 +202,7 @@
                     </div>
                 </div>
                 <!-- Content -->
-                <div class="custom-div2 shadow p-3 mb-5 bg-body-tertiary rounded overflow-auto">
+                <div class="custom-div2 shadow p-3 mb-5 rounded overflow-auto">
                     <!-- 1 Category -->
                     <div class="container-fuild category mb-4">
                         <form id="form1" action="" method="post">
@@ -215,7 +215,7 @@
                                 if (mysqli_num_rows($result) > 0) {
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $year = $row['year'];
-                                        echo '<button type="submit" class="btn btn-selectyear shadow bg-body-tertiary rounded" id="' .$year . '" name="showChart" value="' .$year . '">' .$year . '</button>';
+                                        echo '<button type="submit" class="btn btn-selectyear shadow rounded" id="' .$year . '" name="showChart" value="' .$year . '">' .$year . '</button>';
                                     }
                                 } else {
                                     echo "0 results";
