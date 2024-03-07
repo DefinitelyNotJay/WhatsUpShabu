@@ -195,7 +195,7 @@
                                     <form action="AddCustomer.php" method="get">
                                     <input type="text" value = $id class="hidden" name=id>
                                     <button
-                                        type="submit" name="addCustomer"
+                                        type="submit"
                                         class="addCustomerBtn flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] border-black border-[1px] rounded-xl"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

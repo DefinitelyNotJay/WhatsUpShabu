@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../utils/main.css">
     <link rel="stylesheet" href="../utils/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
@@ -20,6 +21,13 @@
             margin: 0;
             box-sizing: border-box;
             font-family: "Noto Sans Thai", sans-serif;
+        }
+
+
+
+        .confirm-btn:hover {
+            background-color: #009179c2;
+            color: white;
         }
     </style>
     <?php
@@ -37,6 +45,7 @@
             $promotion_name = $row["name"];
             $total = $row["total"];
             $discount_percent = $row["discount"];
+            $bill_id = $row[""];
         }
         $all_cost = 299 * $customer_amount;
         $promotion_discount = abs($total - $all_cost);
@@ -48,7 +57,7 @@
         <div class="w-[30%] h-fit bg-white  rounded-lg shadow-lg p-6">
             <div class="w-full grid grid-cols-3 grid-rows-1 border-b-2 border-gray-200 pb-4">
                 <div></div>
-                <h1 class="text-xl font-bold justify-self-center">เลขที่ใบเสร็จ</h1>
+                <h1 class="text-xl font-bold justify-self-center">ใบเสร็จ <?php echo $table_id?></h1>
                 <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus:outline-none justify-self-end">
                     
                 </button>
@@ -94,18 +103,24 @@
                     </div>
                     
                     <div class="flex w-full justify-center gap-2">
-                        <button type="button" id="cancel" class="btn btn-outline-danger">ยกเลิก</button>
-                        <?php
-                            echo '<button type="submit" id="submit" class="btn btn-outline-primary" tableId='.$table_id.' >ยืนยัน</button>';
-                        ?>
-                        
+                        <button type="button" id="cancel" class="flex items-center gap-1 text-white bg-[#FA5D2A] hover:bg-[#fa5e2abe] px-2 rounded">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban mr-1"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+                            ยกเลิก
+                        </button>
+                       
+                           <button type="submit" id="confirm" class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded" tableId=<?php echo $table_id?>>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle mr-1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                           ยืนยัน
+                        </button>
+                      
                     </div>
                 
             </div>
+</div>
 
 </body>
 <script>
-    let submitBtn = document.getElementById("submit");
+    let submitBtn = document.getElementById("confirm");
 let cancelBtn = document.getElementById("cancel");
 
 cancelBtn.addEventListener("click", (e) => {

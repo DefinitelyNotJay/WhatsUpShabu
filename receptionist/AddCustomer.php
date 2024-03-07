@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../utils/main.css">
     <link rel="stylesheet" href="../utils/output.css">
 </head>
@@ -87,13 +88,28 @@
                             ?>
                         </select>
                         </div>
-                    <div class="flex w-full justify-center gap-2">
-                        <a href="ManageTable.php"><button type="button" id="cancel" class="btn btn-outline-danger" name="cancel">ยกเลิก</button></a>
-                        <?php
-                            echo '<button type="submit" id="submit" tableId='.$table_id.' class="btn btn-outline-primary">ยืนยัน</button>';
-                        ?>
-                        
+                   <div class="flex w-full justify-center gap-2">
+                        <a href="ManageTable.php"><button type="button" id="cancel" class="flex items-center gap-1 text-white bg-[#FA5D2A] hover:bg-[#fa5e2abe] px-2 py-2 rounded" name="cancel">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban mr-1"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>ยกเลิก</button></a>
+                       
+                            <button type="submit" id="submit" tableId='.$table_id.' class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle mr-1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                                ยืนยัน
+                            </button>
+                         
                     </div>
+                    <!-- <div class="flex w-full justify-center gap-2">
+                        <a href="ManageTable.php"><button type="button" name="cancel" id="cancel" class="flex items-center gap-1 text-white bg-[#FA5D2A] hover:bg-[#fa5e2abe] px-2 rounded"></a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban mr-1"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+                            ยกเลิก
+                        </button>
+                       
+                           <button type="submit" id="submit" class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded" tableId=<?php echo $id?>>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle mr-1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                           ยืนยัน
+                        </button>
+                      
+                    </div> -->
                 </form>
             </div>
 
