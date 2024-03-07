@@ -1,3 +1,4 @@
+<?php header('Refresh: 0.01; URL = function/ordermanage.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 

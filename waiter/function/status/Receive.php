@@ -88,16 +88,23 @@
         <div class="Orderlist_bar">
         <?php
     // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
-    $orders = "SELECT id, table_id FROM orders WHERE status='sent';";
-    $result = mysqli_query($conn, $orders);
+    $sql1 = "SELECT id, table_id FROM orders WHERE status='sent';";
+    $sql2 = "SELECT id, table_id FROM orders WHERE status='process';";
+    $sql3 = "SELECT id, table_id FROM orders WHERE status='done';";
 
+    $result1 = mysqli_query($conn, $sql1);
+    $result2 = mysqli_query($conn, $sql2);
+    $result3 = mysqli_query($conn, $sql3);
+    $sent_orders_count1 = mysqli_num_rows($result1);
+    $sent_orders_count2 = mysqli_num_rows($result2);
+    $sent_orders_count3 = mysqli_num_rows($result3);
     // ตรวจสอบว่ามีข้อมูลในตารางหรือไม่
-    if (mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result1) > 0) {
         // วนลูปแสดงผลข้อมูล
-        while($row = mysqli_fetch_assoc($result)) {
+        while($row = mysqli_fetch_assoc($result1)) {
 ?>
           <!-- สร้าง Orderlist_item -->
-          <button class="Orderlist_item" onclick="window.location.href = 'order/recorder.php'">
+          <button class="Orderlist_item" onclick="window.location.href = 'order/recorder.php?order_id=<?php echo $row['id']; ?>'">
             <div class="line l1 s1">
               <h4>รายการที่ <?php echo $row["id"]; ?></h4>
               <a class="date_time">03/03/2024 20:10:44 น.</a>
@@ -142,7 +149,7 @@
       <div class="status_bar">
         <div class="status" id="receive">
           <button class="status_button" style="color: #6A311D;" onclick="window.location.href = 'Receive.php'">
-            <div class="notification b1">1</div>
+            <div class="notification b1"><?php echo $sent_orders_count1 ?></div>
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-concierge-bell">
@@ -156,7 +163,7 @@
         </div>
         <div class="status" id="arranging">
           <button class="status_button" onclick="window.location.href = 'Arranging.php'">
-            <div class="notification b2">1</div>
+            <div class="notification b2"><?php echo $sent_orders_count2 ?></div>
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-file-clock">
@@ -170,7 +177,7 @@
         </div>
         <div class="status" id="finished">
           <button class="status_button" onclick="window.location.href = 'Finished.php'">
-            <div class="notification b3">1</div>
+            <div class="notification b3"><?php echo $sent_orders_count3 ?></div>
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-clipboard-check">
