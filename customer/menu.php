@@ -15,15 +15,15 @@
 <body>
 
     <?php
-    session_start();
-    $_SESSION["table_id"] = $_GET["table_id"];
+    // session_start();
+    // $_SESSION["table_id"] = $_GET["table_id"];
 
     // if (!isset($_SERVER['HTTP_REFERER'])) {
     //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
     //     exit();
     // }
     ?>
-    
+   
     <?php
     $servername = "localhost";
     $username = "root";
@@ -137,14 +137,14 @@
                                 <label id="Description-label" class="label-content"></label>
                                 <div class="input-group input-group-sm mb-3">
                                     <button class="btn btn-add" type="button" onclick="incrementValue()">+</button>
-                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity"
+                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity" name="quantity"
                                         value="0" min="0" max="10">
                                     <button class="btn btn-decrease" type="button" onclick="decrementValue()">-</button>
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <button class="btn btn-accept">ยืนยัน</button>
-                                <button class="btn btn-cancel">ยกเลิก</button>
+                                <button class="btn btn-accept" onclick="SaveOrderItem()">ยืนยัน</button>
+                                <button class="btn btn-cancel" onclick="ShowOrders()">ยกเลิก</button>
                             </div>
                         </form>
                     </div>
@@ -162,8 +162,6 @@
                     // Get the menu ID from the data attribute
                     var menuId = item.getAttribute('data-menu-id');
 
-                    // Fetch menu details using AJAX or use the data already available on the page
-                    // For simplicity, assuming the menu details are already available in PHP
                     var menuDetails = <?php echo json_encode($menuDetails); ?>;
 
                     // Populate the labels with the selected menu information
@@ -203,6 +201,48 @@
                 input.value = value - 1;
             }
         }
+
+        function SaveOrderItem() { 
+            let menuID = document.forms.form1.MenuID.value;
+            let quantity = document.forms.form1.quantity.value;
+
+            let existingOrderItems = localStorage.getItem('orderItems');
+
+            if (existingOrderItems) {
+
+                existingOrderItems = JSON.parse(existingOrderItems);
+
+                let existingItemIndex = existingOrderItems.findIndex(item => item.menuID === menuID);
+
+                if (existingItemIndex !== -1) {
+                    existingOrderItems[existingItemIndex].quantity = parseInt(existingOrderItems[existingItemIndex].quantity) + parseInt(quantity);
+                } else {
+                    existingOrderItems.push({ menuID: menuID, quantity: quantity });
+                }
+            } else {
+                existingOrderItems = [{ menuID: menuID, quantity: quantity }];
+            }
+
+            localStorage.setItem('orderItems', JSON.stringify(existingOrderItems));
+
+        }
+        
+        function ShowOrders() {
+
+            let orderItems = localStorage.getItem('orderItems');
+
+            if (orderItems) {
+
+                orderItems = JSON.parse(orderItems);
+
+                orderItems.forEach((orderItem, index) => {
+                    alert('Order ' + (index + 1) + ':' + 'Menu ID: ' + orderItem.menuID + 'Quantity: ' + orderItem.quantity);
+                });
+            } else {
+                alert('No orders available.');
+            }
+        }
+
     </script>
     <?php
     // close connection
