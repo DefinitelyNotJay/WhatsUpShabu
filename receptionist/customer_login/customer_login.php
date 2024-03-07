@@ -29,8 +29,14 @@
     while($row = mysqli_fetch_assoc($result)){
         $status = $row['status'];
     }
+    date_default_timezone_set('Asia/Bangkok');
+    $currentDateTime = date('Y-m-d H:i:s');
+    $futureDateTime = date('Y-m-d H:i:s', strtotime('+2 hours', strtotime($currentDateTime)));
+    $end_time_db = date('H:i:s', strtotime($futureDateTime));
+    // echo $end_time_db;
+    // $end_time_hs = date('H:i', strtotime($futureDateTime));
 
-    $sql_update = "UPDATE tables SET `start_time` = NOW(), `status` = 'busy', customer_amount = '$customer_amount' WHERE id = '$table_id'";
+    $sql_update = "UPDATE tables SET `start_time` = '$end_time_db', `status` = 'busy', customer_amount = '$customer_amount' WHERE id = '$table_id'";
         $result2 = mysqli_query($conn, $sql_update);
         echo "<a href='/WhatsUpShabu/customer/menu.php?table_id=$table_id'><img class='h-[200px]' src='./qr/$table_id.png'></a><br>";
 

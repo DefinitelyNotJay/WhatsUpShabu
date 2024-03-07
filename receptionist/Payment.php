@@ -121,7 +121,7 @@
 </body>
 <script>
     let submitBtn = document.getElementById("confirm");
-let cancelBtn = document.getElementById("cancel");
+    let cancelBtn = document.getElementById("cancel");
 
 cancelBtn.addEventListener("click", (e) => {
     e.preventDefault();
