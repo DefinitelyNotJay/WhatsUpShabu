@@ -15,6 +15,22 @@
 
 <body>
 
+<?php
+        $servername = "localhost";
+        $username = "root"; //ตามที่กำหนดให้
+        $password = ""; //ตามที่กำหนดให้
+        $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
+        // Create connection
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        // Check connection
+        if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+        }
+        echo "";
+    ?>
+
+
+
   <div class="back">
 
     <div class="function">
@@ -67,23 +83,34 @@
           </div>
         </div>
       </div>
+
       <div class="outline">
         <div class="Orderlist_bar">
-          
+        <?php
+    // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
+    $orders = "SELECT id, table_id FROM orders WHERE status='sent';";
+    $result = mysqli_query($conn, $orders);
+
+    // ตรวจสอบว่ามีข้อมูลในตารางหรือไม่
+    if (mysqli_num_rows($result) > 0) {
+        // วนลูปแสดงผลข้อมูล
+        while($row = mysqli_fetch_assoc($result)) {
+?>
+          <!-- สร้าง Orderlist_item -->
           <button class="Orderlist_item" onclick="window.location.href = 'order/recorder.php'">
             <div class="line l1 s1">
-              <h4 class="Order_ID">รายการที่ 000001</h4>
+              <h4>รายการที่ <?php echo $row["id"]; ?></h4>
               <a class="date_time">03/03/2024 20:10:44 น.</a>
             </div>
             <div class="line l2">
               <a class="status_order" id="rec">ยังไม่ได้รับ</a>
             </div>
             <div class="line l3">
-              <a>โต๊ะที่:</a>
-              <a class="Table_Number">02</a>
+              <a class="key">โต๊ะที่:</a>
+              <a class="Table_Number value"><?php echo $row["table_id"]; ?></a>
             </div>
             <div class="line"></div>
-            <div style = " width:99%; height:0.5px; background-color:#aaa; margin-left:0.5%;"></div>
+            <div style="width: 99%; height: 0.5px; background-color: #aaa; margin-left: 0.5%;"></div>
             <div class="line l4">
               <div class="amount_list">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -101,7 +128,15 @@
               </div>
             </div>
           </button>
+<?php
+        }
+    } else {
+        echo "ไม่พบข้อมูล";
+    }
 
+    // ปิดการเชื่อมต่อ
+    mysqli_close($conn);
+?>
         </div>
       </div>
       <div class="status_bar">
