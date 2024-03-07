@@ -24,7 +24,6 @@
     </style>
     <?php
     require_once("../utils/config.php");
-    echo $_SESSION["username"];
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $id = isset($_GET["id"]) ? $_GET["id"] : null;
     if ($id) {
@@ -81,15 +80,13 @@
                             $result = mysqli_query($conn, $sql);
                             while ($row = mysqli_fetch_assoc($result)) {
                                 $id = $row["id"];
-                                // $description = $row["description"];
-                                // $status = $row["status"];
-                                // $end_date = $row["end-date"];
                                 $name = $row["name"];
+                                $percent_discount = $row["discount"];
                                 echo "<option value='$id'>$name</option>";
                             }
                             ?>
                         </select>
-                    </div>
+                        </div>
                     <div class="flex w-full justify-center gap-2">
                         <a href="ManageTable.php"><button type="button" id="cancel" class="btn btn-outline-danger" name="cancel">ยกเลิก</button></a>
                         <?php

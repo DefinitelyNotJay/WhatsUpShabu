@@ -13,12 +13,25 @@
 </head>
 
 <body>
+
+    <?php
+    session_start();
+    $_SESSION["table_id"] = $_GET["table_id"];
+
+    // if (!isset($_SERVER['HTTP_REFERER'])) {
+    //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+    //     exit();
+    // }
+    ?>
+    
     <?php
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "WhatsUpShabu";
     $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -116,13 +129,16 @@
                                 <label id="Name-label" class="label-content"></label>
                             </div>
                             <div class="form-group text-center">
-                                <img id="imagePreview-edit" src="" alt="Image Preview" class="mx-auto align-items-center imagePreview" style="border: 2px solid #FA5D2A; max-width: 100%; max-height: 100%;">
+                                <img id="imagePreview-edit" src="" alt="Image Preview"
+                                    class="mx-auto align-items-center imagePreview"
+                                    style="border: 2px solid #FA5D2A; max-width: 100%; max-height: 100%;">
                             </div>
                             <div class="form-group text-center">
                                 <label id="Description-label" class="label-content"></label>
                                 <div class="input-group input-group-sm mb-3">
                                     <button class="btn btn-add" type="button" onclick="incrementValue()">+</button>
-                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity" value="0" min="0" max="10">
+                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity"
+                                        value="0" min="0" max="10">
                                     <button class="btn btn-decrease" type="button" onclick="decrementValue()">-</button>
                                 </div>
                             </div>
@@ -138,11 +154,11 @@
     </section>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Attach event listener to all items
             var items = document.querySelectorAll('.item');
-            items.forEach(function(item) {
-                item.addEventListener('click', function() {
+            items.forEach(function (item) {
+                item.addEventListener('click', function () {
                     // Get the menu ID from the data attribute
                     var menuId = item.getAttribute('data-menu-id');
 

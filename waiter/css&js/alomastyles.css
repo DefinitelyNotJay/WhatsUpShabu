@@ -1,0 +1,272 @@
+
+/* สี
+    #6A311D
+    #FA5D2A 
+    #FA8460
+    #EEE8C8
+    #FFF6F1*/
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: darkgray;
+  }
+    .back{
+      width: 100vw;
+      height: 100vh;
+      background-color: darkgray;
+      display: flex;
+    }
+
+        /* ส่วนแถบหน้า */
+        .function {
+          background-color: #EEE8C8;
+          width: 20%;
+          align-items: center;
+          height: 100%;
+          z-index: 999;
+          display: flex;
+          flex-direction: column; /* จัดเรียงแนวตั้ง */
+        }
+
+            .logo {
+              width: 80%;
+              height: auto;
+              margin-top: 20px;
+              margin-bottom: 50px;
+            }
+            .func_menu {
+              border: none;
+              border-radius: 10px;
+              background-color:#EEE8C8;
+              width: 80%;
+              height: 10%;
+              margin-top: 25%;
+              margin-left: auto;
+              margin-right: auto;
+            }
+
+      /* ส่วนแถบหลัก */
+      .main{
+        width: 100%;
+        height: 100%;
+        background-color: darkgray;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* จัดวางตรงกลางตามแนวตั้ง */
+      }
+          /* ส่วนหัว */
+          .header {
+            display: flex;
+            background-color: #fff;
+            width: 100%;
+            height: 10%;
+            padding:0 10px;
+            z-index: 999;
+            justify-content: center;
+          }
+              /* ชื่อพนักงาน */
+              .empName {
+                font-size:18px;
+                color: #6A311D;
+                padding-top:1.5%;
+                margin-left: auto; /* ขยับไปทางขวาของพื้นที่ที่กำหนด */
+              }
+
+                  .dropdown{
+                    height: 100px;
+                  }
+
+                      .emp_img{
+                        width: 50px;
+                        height: auto;
+                        border-radius: 50%;
+                      }
+                      #dropdownMenuButton{
+                        background-color:#fff;
+                        color: #6A311D ;
+                        border: none;
+                        
+                      }
+          /* ขอบเขตงานหลัก */
+          .outline{
+            background-color: #fff;
+            align-items: center;
+            width: 98%;
+            height: 78%;
+            margin: .5% 0;
+            border-radius: 10px;
+            padding: 0.75%;
+            display: flex;
+            flex-direction: column;
+          }
+              /* แถวรายการออเดอร์ */
+              .Orderlist_bar {
+                background-color: #fff;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto; /* ทำให้มีการเลื่อนแนวตั้งเมื่อมีเนื้อหาเกินขอบเขต */
+              }
+
+                  /* รายการ(1order) */
+                  .Orderlist_item {
+                    display: flex;
+                    flex-direction: column;
+                    background-color: #FFF6F1;
+                    border:0.25px ridge #eee;
+                    border-radius: 10px;
+                    margin-bottom: 5px;
+                    width: 100%;
+                    height: 200px;
+                    padding: 0;
+                  }
+                      .line{
+                        display: flex;
+                        flex-direction: row;
+                        width: 100%;
+                        height: 40px;
+                        padding:5px 20px;
+                      }
+                      .s1{
+                        background-color: #cb2d2d;
+                        border-radius:10px 10px 0 0;
+                        color:#fff;
+                      }
+                          #rec{
+                            color: #cb2d2d;
+                          }
+                      .s2{
+                        background-color: #e69d01;
+                        border-radius:10px 10px 0 0;
+                        color:#fff;
+                      }
+                          #arg{
+                            color: #e69a01;
+                          }
+                      .s3{
+                        background-color: #1f9f02;
+                        border-radius:10px 10px 0 0;
+                        color:#fff;
+                      }
+                          #fin{
+                            color: #1f9f02;
+                          }
+                      /* รายละเอียดเล็กน้อย */
+                      .date_time{
+                        margin-left:auto;
+                        font-size: 18px;
+                      }
+                      .key{
+                        width: 15%;
+                        display: flex;
+                      }
+                      .value{
+                        margin-left: 10%;
+                      }
+                      .amount_list{
+                        width: 50px;
+                        height: 30px;
+                        background-color:antiquewhite;
+                        border-radius: 5px;
+                        padding: 2px;
+                      }
+                      .status_order{
+                        font-size: 20px;
+                        justify-content: center;
+                        
+                        
+                      }
+
+              .innerorder{
+                height: 100%;
+              }
+                  .head_tab{
+                    width: 101.55%;
+                    height: 5%;
+                    background-color: #6A311D;
+                    margin-top: -1%;
+                    border-radius:10px 10px 0 0;
+                  }
+                  .head_order{
+                    width: 100%;
+                    height: 25%;
+                    border-bottom:1px ridge #6A311D ;
+                    padding: 10px;
+                  }
+                  .menu_bar{
+                    width: 100%;
+                    height: 70%;
+                    background-color: #FFF6F1;
+                    border-radius: 10px;
+                    margin: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: auto;
+                  }
+                  .submit_bar{
+                    width: 100%;
+                    height: 4%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                  }
+                      .receive_button{
+                        background-color: #FA5D2A;
+                        border: none;
+                        width: 70px;
+                        height: 40px;
+                        border-radius: 5px;
+                      }
+
+              /* แถวสถานะ */
+              .status_bar {
+                background-color: #EEE8C8;
+                width: 99%;
+                min-height:10.35%;
+                height: 11%;
+                max-height:11%;
+                z-index: 999;
+                display: flex;
+                border-radius: 10px 10px 0 0;
+              }
+
+                  .status {
+                    display: flex;
+                    flex-grow: 1;
+                    text-align: center;
+                    width: 30%;
+                    height: 90%;
+                    margin:auto;
+                  }
+
+                      .status_button {
+                        width: 99%;
+                        height: 100%;
+                        margin:auto;
+                        border: none;
+                        background-color: #EEE8C8;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                      }
+                          /* แจ้งเตือน */
+                          .notification{
+                            position: relative;
+                            background-color: red;
+                            color: white;
+                            border-radius: 50%;
+                            width: 30px;
+                            height: 30px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            left: 5%;
+                            top: 10%;
+
+                          }
+
