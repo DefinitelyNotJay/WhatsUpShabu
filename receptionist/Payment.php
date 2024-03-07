@@ -13,45 +13,39 @@
 
 <body>
     <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            font-family: "Noto Sans Thai", sans-serif;
-        }
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Noto Sans Thai", sans-serif;
+    }
     </style>
+
     <?php
     session_start();
     require_once("../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $id = isset($_GET["table_id"]) ? $_GET["table_id"] : null;
-    if ($id) {
-        echo "<script>console.log('" . $id . "')</script>";
-        $sql = "SELECT * FROM bill JOIN tables JOIN promotion ON bill.table_id = tables.id AND bill.promotion_id = promotion.id  WHERE tables.status = 'busy' AND tables.id = '$id'";
-        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-        while ($row = mysqli_fetch_assoc($result)) {
-            $table_id = $row["id"];
-            $customer_amount = $row["customer_amount"];
-            $promotion_name = $row["name"];
-            $total = $row["total"];
-            $discount_percent = $row["discount"];
-        }
-        $all_cost = 299 * $customer_amount;
-        $promotion_discount = abs($total - $all_cost);
+    $id = $_GET["table_id"];
+    $sql = "SELECT * FROM bill JOIN tables JOIN promotion ON bill.table_id = tables.id AND bill.promotion_id = promotion.id  WHERE tables.status = 'busy' AND tables.id = '$id'";
+    $result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $table_id = $row["id"];
+        $customer_amount = $row["customer_amount"];
+        $promotion_name = $row["name"];
+        $total = $row["total"];
+        $discount_percent = $row["discount"];
     }
+    $all_cost = 299 * $customer_amount;
+    $promotion_discount = abs($total - $all_cost);
     ?>
 
-    <div id="modal"
-        class="fixed flex items-center justify-center top-0 right-0 left-0 z-50 inset-0 overflow-y-auto bg-[#ffffff6f]">
-        <div class="w-[30%] h-fit bg-white  rounded-lg shadow-lg p-6">
-            <div class="w-full grid grid-cols-3 grid-rows-1 border-b-2 border-gray-200 pb-4">
-                <div></div>
-                <h1 class="text-xl font-bold justify-self-center">ใบเสร็จ
+    <div
+        class="flex h-screen items-center justify-center bg-[#ffffff6f] ">
+        <div class="w-[30%] bg-white  rounded-lg shadow-lg p-6">
+            <div class="w-full flex justify-center border-b-2 border-gray-200 pb-4">
+                <h1 class="text-xl font-bold">ใบเสร็จ
                     <?php echo $table_id ?>
                 </h1>
-                <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus:outline-none justify-self-end">
-
-                </button>
             </div>
 
             <div class="pt-4 flex flex-col gap-y-6">
@@ -64,7 +58,6 @@
                         <input value=<?php echo $table_id ?> name="table_id" class="hidden">
                     </div>
                     <div class="flex justify-between items-center">
-
                         <p>จำนวนลูกค้า</p>
                         <p>
                             <?php echo $customer_amount ?> คน
@@ -104,50 +97,36 @@
                 </div>
 
                 <div class="flex w-full justify-center gap-2">
-                    <button type="button" id="cancel"
-                        class="flex items-center gap-1 text-white bg-[#FA5D2A] hover:bg-[#fa5e2abe] px-2 rounded">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-ban mr-1">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="m4.9 4.9 14.2 14.2" />
-                        </svg>
-                        ยกเลิก
-                    </button>
+                    <a href="ManageTable.php">
+                        <button type="button" id="cancel"
+                            class="flex items-center gap-1 text-white bg-[#FA5D2A] hover:bg-[#fa5e2abe] px-2 py-2 rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-ban mr-1">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="m4.9 4.9 14.2 14.2" />
+                            </svg>
+                            ยกเลิก
+                        </button>
+                    </a>
 
-                    <button type="submit" id="confirm"
-                        class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded"
-                        tableId=<?php echo $table_id ?>>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-check-circle mr-1">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                            <path d="m9 11 3 3L22 4" />
-                        </svg>
-                        ยืนยัน
-                    </button>
-
+                    <a href="action.php?paymentId=<?php echo $table_id ?>">
+                        <button type="submit" id="confirm"
+                            class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded"
+                            tableId=<?php echo $table_id ?>>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-check-circle mr-1">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <path d="m9 11 3 3L22 4" />
+                            </svg>
+                            ยืนยัน
+                        </button>
+                    </a>
                 </div>
-
             </div>
         </div>
-
+    </div>
 </body>
-<script>
-    let submitBtn = document.getElementById("confirm");
-    let cancelBtn = document.getElementById("cancel");
-
-    cancelBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.location.href = "ManageTable.php";
-    })
-
-    submitBtn.addEventListener("click", (e) => {
-        let id = e.target.getAttribute("tableId");
-        alert(id);
-        window.location.href = `action.php?paymentId=` + id;
-    })
-
-</script>
 
 </html>
