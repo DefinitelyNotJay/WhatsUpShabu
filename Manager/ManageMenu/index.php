@@ -266,29 +266,6 @@
                         echo "0 results";
                     }
                 ?>
-                    <!-- 1 Category -->
-                    <div class="container-fuild category mb-4">
-                        <h2>เนื้อ</h2>
-                        <div class="container-menu d-flex flex-wrap">
-                            <!-- 1 menu -->
-                            <div class="menu d-flex align-items-center shadow  rounded">
-                                <img src="./image/เสื้อร้องไห้.jpg" width="35%" height="100%" class="mr-2 rounded">
-                                <div>
-                                    <h5 class="fw-bold">เสื้อร้องไห้</h5>
-                                    <div class="menu-edit d-flex">
-                                        <button class="menu-option d-flex align-items-center shadow  rounded mr-1 button-edit btn" data-toggle="modal" data-target="#editMenuModal">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-2 mr-1"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
-                                            <h6 class="fw-bold">แก้ไข</h6>
-                                        </button>
-                                        <button class="menu-option d-flex align-items-center shadow  rounded button-delete btn" data-toggle='modal' data-target='#deleteMenuModal'>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 mr-1"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-                                            <h6 class="fw-bold">ลบ</h6>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </main>
         </div>
