@@ -29,22 +29,6 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// รับค่า ID ของรายการที่ต้องการเปลี่ยนสถานะจาก URL parameter
-$order_id = $_GET['order_id']; // ต้องตรวจสอบความปลอดภัยก่อนใช้งานเพื่อป้องกันการโจมตี SQL Injection
-
-
-// คำสั่ง SQL เพื่อปรับปรุงสถานะของรายการในฐานข้อมูล
-$sql = "UPDATE orders SET status = 'process' WHERE id = $order_id";
-
-if (mysqli_query($conn, $sql)) {
-   
-} else {
-    echo "Error updating record: " . mysqli_error($conn);
-}
-
-
-// ปิดการเชื่อมต่อ
-mysqli_close($conn);
 ?>
 
 
@@ -101,22 +85,61 @@ mysqli_close($conn);
       </div>
       <div class="outline innerorder">
         <div class="head_tab">
+          <button class="back_page">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left">
+            <path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
+          </button>
         </div>
         <div class="head_order">
     
         </div>
         <div class="menu_bar">
           <div class="menu_item">
-
+            <div class="pic_frame">
+              <img src="../../../pic/logo.png" class="menu_img">
+            </div>
+            <div class="name_menu_frame">
+              <div>
+                <h5 class="name_menu">name</h5>
+                <a class="oneset">1 ชุด มี x ชิ้น</a>
+              </div>
+              <a class="quantity">x ชุด</a>
+              <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div>
+            </div>
           </div>
         </div>
         <div class="submit_bar">
-        <button class="receive_button" onclick="window.location.href = '../Receive.php?order_id=<?php echo $order_id; ?>', updateStatusAndRedirect($order_id)">รับ</button>
-        
+        <form action="" method="post">
+          <input type="hidden" id="orderID" name="orderID" value="">
+          <button type="submit" class="receive_button">รับ</button>
+        </form>
         </div>
       </div>
     </div>
   </div>
-</body>
 
+<?php
+  // รับค่า ID ของรายการที่ต้องการเปลี่ยนสถานะจาก URL parameter
+  $order_id = $_GET['order_id'];
+  echo "<script>document.getElementById('orderID').value = ". $order_id ."</script>";
+
+
+  if(isset($_POST['orderID'])){
+    $order_id = $_POST['orderID'];
+    $sql = "UPDATE orders SET status = 'process' WHERE id = $order_id";
+    
+    if (mysqli_query($conn, $sql)) {
+      echo "Record updated successfully";
+      echo "<script>window.location.href = '../Receive.php';</script>";
+    } else {
+        echo "Error added record: " . mysqli_error($conn);
+    }
+  }
+
+
+  // ปิดการเชื่อมต่อ
+  mysqli_close($conn);
+?>
+
+</body>
 </html>

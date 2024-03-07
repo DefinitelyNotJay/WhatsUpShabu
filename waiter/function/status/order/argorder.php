@@ -19,7 +19,8 @@
 
     <div class="function">
       <img src="../../../pic/logo.png" alt="Company Logo" class="logo">
-      <button class="func_menu" id="ordermanage" style="background-color: #fff; color: #6A311D;" onclick="window.location.href = '../../ordermanage.php'">
+      <button class="func_menu" id="ordermanage" style="background-color: #fff; color: #6A311D;"
+        onclick="window.location.href = '../../ordermanage.php'">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
           class="lucide lucide-clipboard-list">
@@ -53,15 +54,8 @@
         <div class="empName">
           <div class="dropdown">
             <img src="../../../pic/emp.jpg" class="emp_img">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="btn btn-secondary" id="dropdownMenuButton">
               นายสมปอง สมปราถนา
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">โปรไฟล์</a>
-              <a class="dropdown-item" href="#">ตั้งค่า</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">ออกจากระบบ</a>
             </div>
           </div>
         </div>
@@ -70,15 +64,26 @@
         <div class="head_tab">
         </div>
         <div class="head_order">
-    
+
         </div>
         <div class="menu_bar">
           <div class="menu_item">
-
+            <div class="pic_frame">
+              <img src="../../../pic/logo.png" class="menu_img">
+            </div>
+            <div class="name_menu_frame">
+              <div>
+                <h5 class="name_menu">name</h5>
+                <a class="oneset">1 ชุด มี x ชิ้น</a>
+              </div>
+              <a class="quantity">x ชุด</a>
+              <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div>
+            </div>
           </div>
         </div>
+
         <div class="submit_bar">
-          <button class="receive_button" >รับ</button>
+          <button class="receive_button">รับ</button>
         </div>
       </div>
     </div>

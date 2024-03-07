@@ -92,7 +92,7 @@ body {
             background-color: #fff;
             align-items: center;
             width: 98%;
-            height: 78%;
+            height: 77%;
             margin: .5% 0;
             border-radius: 10px;
             padding: 0.75%;
@@ -117,7 +117,7 @@ body {
                     background-color: #FFF6F1;
                     border:0.25px ridge #eee;
                     border-radius: 10px;
-                    margin-bottom: 50px;
+                    margin-bottom: 5px;
                     width: 100%;
                     height: 200px;
                     padding: 0;
@@ -189,22 +189,81 @@ body {
                     margin-top: -1%;
                     border-radius:10px 10px 0 0;
                   }
+                      .back_page{
+                        border:none;
+                        background-color: #6A311D;
+                        height: 100%;
+                      }
                   .head_order{
                     width: 100%;
                     height: 25%;
                     border-bottom:1px ridge #6A311D ;
                     padding: 10px;
                   }
-                  .menu_bar{
+                  .menu_bar {
                     width: 100%;
                     height: 70%;
                     background-color: #FFF6F1;
                     border-radius: 10px;
                     margin: 10px;
+                    padding: 10px;
                     display: flex;
                     flex-direction: column;
                     overflow-y: auto;
-                  }
+                    align-items: center;
+                }
+                
+                .menu_item {
+                    background-color: #FA8460;
+                    border: 0.25px double #6A311D;
+                    margin-bottom: 5px;
+                    width: 100%;
+                    height: 80px;
+                    padding: 5px 20px;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 4px;
+                    margin-bottom:5px;
+                }
+                
+                .pic_frame {
+                    display: flex;
+                    width: 60px;
+                    height: 90%;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #eee;
+                }
+                
+                .menu_img {
+                    width: 50px;
+                    height: 50px;
+                }
+                
+                .name_menu_frame {
+                    width: calc(100% - 70px); /* ลบขนาดของรูปภาพออก */
+                    display: flex;
+                    align-items: center;
+                    margin: auto;
+                    color: #fff;
+                }
+                
+                .name_menu {
+                  color: #fff;
+                    margin: 0;
+                    order: -1; /* เปลี่ยนลำดับให้ชื่ออยู่ด้านซ้ายของรูปภาพ */
+                }
+                
+                .oneset{
+                  color: #fff;
+                  margin: 0;
+                } 
+                .quantity {
+                  color: #fff;
+                  margin-left:auto;
+                  opacity: 80%;
+              }
+
                   .submit_bar{
                     width: 100%;
                     height: 4%;
