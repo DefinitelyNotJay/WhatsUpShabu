@@ -16,7 +16,6 @@
 <body>
 
   <div class="back">
-
     <div class="function">
       <img src="pic/logo.png" alt="Company Logo" class="logo">
       <button class="func_menu" id="ordermanage" onclick="window.location.href = 'function/ordermanage.php'">
