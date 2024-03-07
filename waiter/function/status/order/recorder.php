@@ -15,6 +15,39 @@
 
 <body>
 
+<?php
+// เชื่อมต่อกับฐานข้อมูล
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "WhatsUpShabu";
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// ตรวจสอบการเชื่อมต่อ
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// รับค่า ID ของรายการที่ต้องการเปลี่ยนสถานะจาก URL parameter
+$order_id = $_GET['order_id']; // ต้องตรวจสอบความปลอดภัยก่อนใช้งานเพื่อป้องกันการโจมตี SQL Injection
+
+
+// คำสั่ง SQL เพื่อปรับปรุงสถานะของรายการในฐานข้อมูล
+$sql = "UPDATE orders SET status = 'process' WHERE id = $order_id";
+
+if (mysqli_query($conn, $sql)) {
+   
+} else {
+    echo "Error updating record: " . mysqli_error($conn);
+}
+
+
+// ปิดการเชื่อมต่อ
+mysqli_close($conn);
+?>
+
+
   <div class="back">
 
     <div class="function">
@@ -78,7 +111,8 @@
           </div>
         </div>
         <div class="submit_bar">
-          <button class="receive_button" onclick="window.location.href = '../Receive.php'">รับ</button>
+        <button class="receive_button" onclick="window.location.href = '../Receive.php?order_id=<?php echo $order_id; ?>', updateStatusAndRedirect($order_id)">รับ</button>
+        
         </div>
       </div>
     </div>
