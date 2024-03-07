@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,11 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Manage Tables</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../utils/main.css">
-    <!-- <link rel="stylesheet" href="../utils/output.css"> -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <style>
@@ -20,40 +16,11 @@
         padding: 0;
         box-sizing: border-box;
     }
-
-    .body {
-        background-color: red;
-    }
-
-    .bg-primary,
-    .bg-warning {
-        padding: 0px;
-    }
-
-    .row>* {
-        padding-right: 0px;
-        padding-left: 0px;
-        margin: 0px;
-    }
-
-    .add-pay {
-        border: 1px solid black;
-    }
-
-    .add-pay:hover {
-        border: 1px solid white;
-    }
-    .hp-10{
-        height: 10%;
-    }
-    .hp-90{
-        height: 90%;
-    }
 </style>
 
-<body class="">
-
+<body>
     <?php
+    session_start();
     require_once('../utils/config.php');
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
@@ -77,8 +44,7 @@
     ?>
 
 
-    <d+
-    iv class="flex h-screen w-screen m-0 p-0">
+    <div class="flex h-screen w-screen m-0 p-0">
         <!-- Leftbar -->
         <div class="flex flex-col h-full w-2/12 bg-egg pt-3">
             <div class="flex flex-col h-full w-full text-black justify-between">
@@ -88,8 +54,8 @@
                     <!-- Navbar -->
                     <div class="w-full pt-4">
                         <div class="nav flex-col px-3">
-                            <a class="flex nav-link text-black items-center gap-2 text-lg bg-white px-4 py-6 rounded-lg font-semibold"
-                                href="#v-pills-profile" aria-selected="true">
+                            <a
+                                class="flex text-black items-center gap-2 text-lg bg-white px-4 py-6 rounded-lg font-semibold justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-settings-2">
@@ -98,7 +64,8 @@
                                     <circle cx="17" cy="17" r="3" />
                                     <circle cx="7" cy="7" r="3" />
                                 </svg>
-                                การจัดการโต๊ะ</a>
+                                <p class="text-center">การจัดการโต๊ะ</p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -120,10 +87,9 @@
                     </form>
                 </div>
             </div>
-
         </div>
         <div class="w-10/12 h-full">
-            <div class="flex items-center justify-between bg-white w-full hp-10 px-4 py-4 h-1/12">
+            <div class="flex items-center justify-between bg-white w-full h-[10%] px-4 py-4 h-1/12">
                 <h1 class="text-2xl font-semibold">การจัดการโต๊ะ</h1>
                 <div class="flex gap-2 align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -140,7 +106,7 @@
                 </div>
             </div>
             <!-- tables -->
-            <div class="bg-gray w-full hp-90 p-3">
+            <div class="bg-gray w-full h-[90%] p-3">
                 <div class="rounded-lg bg-white h-full grid grid-cols-4 grid-rows-3 py-6 px-4 gap-x-4 gap-y-6">
                     <?php
                     $select_tables = "SELECT * FROM tables;";
@@ -152,6 +118,7 @@
                         $start_time = $row["start_time"];
 
                         $table_status = $status == "free" ? "โต๊ะว่าง" : "โต๊ะกำลังใช้งาน";
+                        $end_time_hs = date('H:i', strtotime($start_time));
 
                         if ($status === "free") {
                             echo <<<HTML
@@ -268,7 +235,7 @@
                                                     <circle cx="12" cy="12" r="10" />
                                                     <polyline points="12 6 12 12 16 14" />
                                                 </svg>
-                                                <p class="text-lg font-semibold text-white">$start_time</p>
+                                                <p class="text-lg font-semibold text-white">$end_time_hs</p>
                                             </div>
                                             <form action="Payment.php" method="get">
                                             <button
@@ -291,19 +258,12 @@
                             HTML;
 
                         }
-
                     }
                     ?>
-
-
                 </div>
             </div>
         </div>
     </div>
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
 
 </html>
