@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,64 +10,107 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../utils/main.css">
     <link rel="stylesheet" href="../utils/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .bg-login{
-            min-height: 100%;
-            width: 100%;
-            /* background-image: url('https://thumb.ac-illust.com/4c/4c635190a40b5947a0d4af3efd2adb73_w.jpeg'); */
-            background: #FFF9DB;
+        * {
+            font-family: "Noto Sans Thai", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        body{
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+        .bg-login {
+            background-image: url('Jane-Chang.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            /* filter: blur(1px);
+            -webkit-filter: blur(1px); */
+        }
+
+        body {
+            width: 100vw;
             height: 100vh;
+            /* display: flex;
+            align-items: center;
+            justify-content: center; */
             margin: 0;
         }
-        .container{
-            width: 40%;
+
+        .container-main {
+            width: 35%;
         }
-        .flex-cen{
+
+        .flex-cen {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 50px;
+            margin-bottom: 75px;
         }
-        button{
-            width: 20%;
-        }
-        .flex-right{
+
+        .flex-right {
             display: flex;
             align-items: center;
             justify-content: right;
         }
+
+        .w-half {
+            width: 50%;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .h-full {
+            height: 100%;
+        }
+
+        .bg-main {
+            background: #EEE8C8;
+        }
     </style>
 </head>
-<body class="bg-login">
-    <div class="container">
-        <div class="flex-cen">
-            <img src="icon.png" alt="WhatsUpShabuIcon">
+
+<body>
+    <div class="flex w-full h-full">
+        <div class="flex w-half justify-center items-center bg-login">
         </div>
-        <div>
-            <form id="loginForm" action="routes.php" method="post">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" placeholder="Username" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+        <div class="flex flex-col w-half bg-main h-full justify-center items-center">
+            <div class="container-main">
+                <div class="flex-cen">
+                    <img src="icon.png" alt="WhatsUpShabuIcon">
                 </div>
-                <div class="mb-3">
-                    <label for="passed" class="form-label">Password</label>
-                    <input type="password" placeholder="Enter password" class="form-control" id="passwd" name="passwd">
+                <div>
+                    <form id="loginForm" action="routes.php" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">ชื่อผู้ใช้</label>
+                            <input type="text" placeholder="กรอกชื่อผู้ใช้" class="form-control" id="username"
+                                name="username" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="passed" class="form-label">รหัสผ่าน</label>
+                            <input type="password" placeholder="กรอกรหัสผ่าน" class="form-control" id="passwd"
+                                name="passwd">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <label class="form-check-label" for="">แสดงรหัสผ่าน</label>
+                            <input type="checkbox" class="form-check-input" onchange="showPass()" id="showPassword">
+                        </div>
+                        <div class="flex-right">
+                            <button type="submit"
+                                class="bg-orange-500 hover:bg-orange-700 text-white font-regular py-2 px-4 rounded-full">เข้าสู่ระบบ</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="mb-3 form-check">
-                    <label class="form-check-label" for="">Show Password</label>
-                    <input type="checkbox" class="form-check-input" onchange="showPass()" id="showPassword">
-                </div>
-                <div class="flex-right">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
+
     <script>
         function showPass() {
             let passwordInput = document.getElementById("passwd");
@@ -84,4 +128,5 @@
         }
     </script>
 </body>
+
 </html>
