@@ -15,6 +15,22 @@
 
 <body>
 
+
+<?php
+        $servername = "localhost";
+        $username = "root"; //ตามที่กำหนดให้
+        $password = ""; //ตามที่กำหนดให้
+        $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
+        // Create connection
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        // Check connection
+        if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+        }
+        echo "";
+    ?>
+
+
   <div class="back">
 
     <div class="function">
@@ -70,20 +86,32 @@
       <div class="outline">
         <div class="Orderlist_bar">
 
+        <?php
+    // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
+    $sql = "SELECT id, table_id FROM orders WHERE status='process';";
+    $result = mysqli_query($conn, $sql);
+    $sent_orders_count = mysqli_num_rows($result);
+
+    // ตรวจสอบว่ามีข้อมูลในตารางหรือไม่
+    if (mysqli_num_rows($result) > 0) {
+        // วนลูปแสดงผลข้อมูล
+        while($row = mysqli_fetch_assoc($result)) {
+?>
+          <!-- สร้าง Orderlist_item -->
           <button class="Orderlist_item" onclick="window.location.href = 'order/argorder.php'">
             <div class="line l1 s2">
-              <h4 class="Order_ID">รายการที่ 000001</h4>
+              <h4>รายการที่ <?php echo $row["id"]; ?></h4>
               <a class="date_time">03/03/2024 20:10:44 น.</a>
             </div>
             <div class="line l2">
               <a class="status_order" id="arg">กำลังจัดรายการ</a>
             </div>
             <div class="line l3">
-              <a>โต๊ะที่:</a>
-              <a class="Table_Number">02</a>
+              <a class="key">โต๊ะที่:</a>
+              <a class="Table_Number value"><?php echo $row["table_id"]; ?></a>
             </div>
             <div class="line"></div>
-            <div style = " width:99%; height:0.5px; background-color:#aaa; margin-left:0.5%;"></div>
+            <div style="width: 99%; height: 0.5px; background-color: #aaa; margin-left: 0.5%;"></div>
             <div class="line l4">
               <div class="amount_list">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -97,17 +125,26 @@
                   <path d="m5 11 4-7" />
                   <path d="m9 11 1 9" />
                 </svg>
-                <a>99</a>
+                <a></a>
               </div>
             </div>
           </button>
+<?php
+        }
+    } else {
+        echo "ไม่พบข้อมูล";
+    }
+
+    // ปิดการเชื่อมต่อ
+    
+?>
 
         </div>
       </div>
       <div class="status_bar">
         <div class="status" id="receive">
           <button class="status_button" onclick="window.location.href = 'Receive.php'">
-            <div class="notification b1">1</div>
+            <div class="notification b1"></div>
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-concierge-bell">
@@ -121,7 +158,7 @@
         </div>
         <div class="status" id="arranging">
           <button class="status_button" style="color: #6A311D;" onclick="window.location.href = 'Arranging.php'">
-            <div class="notification b2">1</div>
+            <div class="notification b2"><?php echo $sent_orders_count ?></div>
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-file-clock">
@@ -150,5 +187,5 @@
     </div>
   </div>
 </body>
-
+<?php mysqli_close($conn); ?>
 </html>
