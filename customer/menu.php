@@ -15,16 +15,13 @@
 <body>
 
     <?php
-    session_start();
-    $_SESSION["table_id"] = $_GET["table_id"];
+    // session_start();
+    // $_SESSION["table_id"] = $_GET["table_id"];
 
     // if (!isset($_SERVER['HTTP_REFERER'])) {
     //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
     //     exit();
     // }
-    ?>
-    
-    <?php
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -51,6 +48,11 @@
             <button class="btn btn_select meat" id="meat">เนื้อ</button>
             <button class="btn btn_select pig" id="pig">หมู</button>
             <button class="btn btn_select chicken" id="chicken">ไก่</button>
+            <button class="btn btn_select seafood" id="chicken">ทะเล</button>
+            <button class="btn btn_select meatball" id="chicken">ลูกชิ้น</button>
+            <button class="btn btn_select other" id="chicken">ของกินเล่น</button>
+            <button class="btn btn_select desert" id="chicken">ของหวาน</button>
+            <button class="btn btn_select fruit" id="chicken">ผลไม้</button>
         </div>
     </section>
 
@@ -85,8 +87,8 @@
                 echo "<div class='container-menu d-flex flex-wrap'>";
                 foreach ($menus as $menu) {
                     echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item' data-toggle='modal' data-target='#addordermodal' data-menu-id='" . $menu["ID"] . "'>";
-                    echo "<img src='" . $menu["image"] . "' width='35%' height='100%' class='mr-2'>";
-                    echo "<div>" . $menu["name"] . "";
+                    echo "<img src='" . $menu["image"] . "' width='110px' height='80px' class='mr-2'>";
+                    echo "<div id='" . $menu["name"] . "'>" . $menu["name"] . "";
                     echo "<div class='item_description'>" . $menu["description"] . "";
                     echo "</div></div></div>";
                     echo "<br>";
@@ -100,9 +102,9 @@
     </section>
 
     <section class="bottom_section">
-        <button class="btn btn-button" onclick="window.location.href='order.php'">
+        <button class="btn btn-button ordercount" onclick="window.location.href='order.php'">
             <label>รายการอาหาร</label>
-            <div class="btn-button-num">0</div>
+            <div class="btn-button-num ordercount">0</div>
         </button>
         <button class="btn btn-button" onclick="window.location.href='status_order.php'">
             <label>สถานะอาหาร</label>
@@ -132,8 +134,7 @@
                                 <label id="Description-label" class="label-content"></label>
                                 <div class="input-group input-group-sm mb-3">
                                     <button class="btn btn-add" type="button" onclick="incrementValue()">+</button>
-                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity"
-                                        value="0" min="0" max="10">
+                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity" value="0" min="0" max="10">
                                     <button class="btn btn-decrease" type="button" onclick="decrementValue()">-</button>
                                 </div>
                             </div>
@@ -150,12 +151,32 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var searchInput = document.getElementById('search');
+            searchInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+
+                    // Get the entered value
+                    var searchValue = searchInput.value.trim();
+
+                    // Scroll to the div with an ID similar to the entered value
+                    var targetElement = document.getElementById(searchValue);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        console.log('Element not found for search value: ' + searchValue);
+                    }
+                }
+            });
             var meatbutton = document.getElementById('meat');
             var meatelement = document.getElementById('เนื้อ');
             var chichkenbutton = document.getElementById('chicken');
             var chickenelement = document.getElementById('ไก่');
             var pigbutton = document.getElementById('pig');
             var pigelement = document.getElementById('หมู');
+            
 
             meatbutton.addEventListener('click', function() {
                 meatelement.scrollIntoView({
@@ -205,6 +226,7 @@
 
                 });
             });
+            
         });
 
         function incrementValue() {
@@ -218,36 +240,38 @@
         function decrementValue() {
             var input = document.getElementById('quantity');
             var value = parseInt(input.value, 10);
-            if (value > 0) {
+            if (value > 1) {
                 input.value = value - 1;
             }
         }
 
-        function SaveOrderItem() { 
+        function SaveOrderItem() {
             let menuID = document.forms.form1.MenuID.value;
-            let quantity = document.forms.form1.quantity.value;
+            let quantity = parseInt(document.forms.form1.quantity.value);
 
-            let existingOrderItems = localStorage.getItem('orderItems');
+            if (isNaN(quantity) || quantity <= 0) {
+                alert('กรุณากรอกจำนวนให้ถูกต้อง');
+                return;
+            }
 
-            if (existingOrderItems) {
+            let existingOrderItems = localStorage.getItem('orderItems') || '[]';
 
-                existingOrderItems = JSON.parse(existingOrderItems);
+            existingOrderItems = JSON.parse(existingOrderItems);
 
-                let existingItemIndex = existingOrderItems.findIndex(item => item.menuID === menuID);
+            let existingItem = existingOrderItems.find(item => item.menuID === menuID);
 
-                if (existingItemIndex !== -1) {
-                    existingOrderItems[existingItemIndex].quantity = parseInt(existingOrderItems[existingItemIndex].quantity) + parseInt(quantity);
-                } else {
-                    existingOrderItems.push({ menuID: menuID, quantity: quantity });
-                }
+            if (existingItem) {
+                existingItem.quantity += quantity;
             } else {
-                existingOrderItems = [{ menuID: menuID, quantity: quantity }];
+                existingOrderItems.push({
+                    menuID: menuID,
+                    quantity: quantity
+                });
             }
 
             localStorage.setItem('orderItems', JSON.stringify(existingOrderItems));
-
         }
-        
+
         function ShowOrders() {
 
             let orderItems = localStorage.getItem('orderItems');
@@ -263,7 +287,6 @@
                 alert('No orders available.');
             }
         }
-
     </script>
     <?php
     // close connection
