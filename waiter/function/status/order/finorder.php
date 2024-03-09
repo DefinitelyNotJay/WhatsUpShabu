@@ -30,6 +30,16 @@ if (!$conn) {
 }
 
 $order_id = $_GET['order_id'];
+$order_id = intval($order_id); // Ensure $order_id is an integer to prevent SQL injection
+
+$order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
+$result = mysqli_query($conn, $order_sql);
+$order = mysqli_fetch_assoc($result);
+
+$sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
+        
+$result1 = mysqli_query($conn, $sql1);
+$row_count = mysqli_num_rows($result1);
 ?>
 
 
@@ -90,13 +100,25 @@ $order_id = $_GET['order_id'];
         </div>
         
         <div class="head_order">
-    
+        <div class="line ">
+        <a class="status_order" id="fin">เสิร์ฟแล้ว</a>
+            </div>
+            <div class="line">
+              <a class="key">โต๊ะที่:</a>
+              <a class="Table_Number value"><?php echo $order["table_id"]; ?></a>
+            </div>
+            <div class="line">
+              <a class="key">เวลาที่อัพเดท :</a>
+              <a class="update_time value"><?php echo " "; ?></a>
+            </div>
+            <div class="line">
+              <a class="key">รายการทั้งหมด :</a>
+              <a class="update_time value"><?php echo "".$row_count." "; ?>รายการ</a>
+            </div>
         </div>
         
         <div class="menu_bar">
         <?php 
-        $sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
-        $result1 = mysqli_query($conn, $sql1);
 
         if (mysqli_num_rows($result1) > 0) {
         // วนลูปแสดงผลข้อมูล
@@ -119,7 +141,7 @@ $order_id = $_GET['order_id'];
                 <a class="oneset"><?php echo $row2['description'];?></a>
               </div>
               <a class="quantity"><?php echo $row["quantity"]." "; ?> ชุด</a>
-              <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div>
+              <!-- <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div> -->
             </div>
           </div>
           <?php
@@ -133,7 +155,7 @@ $order_id = $_GET['order_id'];
         <div class="submit_bar">
         <form action="" method="post">
           <input type="hidden" id="orderID" name="orderID" value="">
-          <button type="submit" class="receive_button">รับ</button>
+          <!-- <button type="submit" class="receive_button">รับ</button> -->
         </form>
         </div>
       </div>
@@ -141,23 +163,6 @@ $order_id = $_GET['order_id'];
   </div>
 
 <?php
-  // รับค่า ID ของรายการที่ต้องการเปลี่ยนสถานะจาก URL parameter
-  $order_id = $_GET['order_id'];
-  echo "<script>document.getElementById('orderID').value = ". $order_id ."</script>";
-
-
-  if(isset($_POST['orderID'])){
-    $order_id = $_POST['orderID'];
-    $sql = "UPDATE orders SET status = 'process' WHERE id = $order_id";
-    
-    if (mysqli_query($conn, $sql)) {
-      echo "Record updated successfully";
-      echo "<script>window.location.href = '../Receive.php';</script>";
-    } else {
-        echo "Error added record: " . mysqli_error($conn);
-    }
-  }
-
 
   // ปิดการเชื่อมต่อ
   mysqli_close($conn);

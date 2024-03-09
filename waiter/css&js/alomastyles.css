@@ -282,6 +282,13 @@ body {
                         height: 40px;
                         border-radius: 5px;
                       }
+                      .arranging_button{
+                        background-color: #FA5D2A;
+                        border: none;
+                        width: 70px;
+                        height: 40px;
+                        border-radius: 5px;
+                      }
 
               /* แถวสถานะ */
               .status_bar {
