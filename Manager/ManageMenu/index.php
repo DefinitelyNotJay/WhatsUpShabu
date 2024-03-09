@@ -19,58 +19,20 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         .hp-10 {
             height: 10%;
         }
-
         .hp-90 {
             height: 90%;
         }
-
         .unstyled-link {
             text-decoration: none;
             color: inherit;
             cursor: pointer;
         }
-
         .unstyled-link:hover {
             color: inherit;
         }
-
-
-        .menu-bar:hover {
-            background-color: #bba83b79;
-            /* Change background color on hover */
-            color: #6A311D;
-        }
-
-        .menu-bar.log-out {
-            margin-top: 470px;
-        }
-
-        .selectbar {
-            background-color: #FEFCF4;
-            color: #6A311D;
-        }
-
-        .mr-2 {
-            margin-right: 20px;
-        }
-
-        .mr-1 {
-            margin-right: 10px;
-        }
-
-        .custom-div2 {
-            height: 82dvh;
-            width: 97%;
-            background-color: #ffffff;
-            /* Add background color for the custom div */
-            margin: 1.5%;
-            border-radius: 1cap;
-        }
-
         .menu {
             width: 32.5%;
             height: 125px;
@@ -79,17 +41,6 @@
             color: #000000;
             background-color: #EEE8C8;
         }
-
-        .menu-option {
-            width: 7rem;
-            height: 2.5rem;
-            cursor: pointer;
-            margin-top: 20px;
-            margin-left: 15px;
-            padding: 10px;
-            border-radius: 1cap;
-        }
-
         .button-edit {
             background-color: #FFF59B;
         }
@@ -116,49 +67,34 @@
             height: 200px;
             margin-top: 10px;
         }
-
-        .add-menu-option {
-            color: #ffffff;
-            width: 7rem;
-            height: 2.5rem;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 1cap;
-            border: #000000;
-        }
-
-        .btn-cancle {
-            background-color: #fa5e2abe;
-        }
-
-        .btn-cancle:hover {
-            background-color: #FA5D2A;
-        }
-
-        .btn-confirm {
-            background-color: #009179c2;
-        }
-
-        .btn-confirm:hover {
-            background-color: #009179;
-        }
     </style>
 </head>
 
 <body>
-    <!-- Connect Database -->
     <?php
+    session_start();
     $servername = "localhost";
-    $username = "root"; //ตามที่กำหนดให้
-    $password = ""; //ตามที่กำหนดให้
-    $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
-    // Create connection
+    $username = "root";
+    $password = "";
+    $dbname = "WhatsUpShabu";
     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
+
+    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
+
+    if (isset($_POST["logout"])) {
+        session_destroy();
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
     ?>
+
+
     <div class="flex w-screen h-screen">
 
         <!-- Sidebar -->
@@ -212,7 +148,7 @@
                 </a>
             </div>
             <div class="w-full flex justify-center">
-                <form action="ManageTable.php" method="post" class="w-full">
+                <form action="" method="post" class="w-full">
                     <button type="submit" name="logout"
                         class="w-full logout bg-[#EEE8C8] hover:bg-[#f3efd9] duration-500">
                         <p class="text-normal flex gap-2  px-4 py-6 font-semibold">
@@ -265,9 +201,9 @@
                 </div>
             </div>
             <!-- Content -->
-            <!-- custom-div2 -->
             <div class="flex hp-90 w-full bg-gray-200 px-3 py-3">
-                <div class="flex flex-col w-full bg-white shadow-sm  rounded-xl overflow-y-auto overflow-x-hidden pl-4 py-3 pr-1">
+                <div
+                    class="flex flex-col w-full bg-white shadow-sm  rounded-xl overflow-y-auto overflow-x-hidden pl-4 py-3 pr-1">
                     <?php
                     // --- SQL SELECT statement  
                     $sql = "SELECT * FROM menu;";
@@ -370,10 +306,10 @@
                             <label for="Image" class="form-label">รูปภาพ (URL) : </label>
                             <input type="text" class="form-control required" id="Image" name="Image" value=""
                                 required />
-                        <div class="text-center">
-                            <img id="imagePreview" src="" alt="Image Preview"
-                                class="mx-auto align-items-center imagePreview">
-                        </div>
+                            <div class="text-center">
+                                <img id="imagePreview" src="" alt="Image Preview"
+                                    class="mx-auto align-items-center imagePreview">
+                            </div>
                         </div>
                         <div>
                             <label for="Description" class="form-label">คำอธิบาย : </label>
@@ -418,7 +354,8 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h3 class="modal-title font-bold">แก้ไขเมนู</h3>
-                    <button type="button" class="btn-close flex justify-center items-center font-bold" data-bs-dismiss="modal" aria-label="Close">X</button>
+                    <button type="button" class="btn-close flex justify-center items-center font-bold"
+                        data-bs-dismiss="modal" aria-label="Close">X</button>
                 </div>
 
                 <!-- Modal Body -->
@@ -450,10 +387,10 @@
                         <div>
                             <label for="Image-edit" class="form-label">รูปภาพ (URL) : </label>
                             <input type="text" class="form-control" id="Image-edit" name="Image" value="" />
-                        <div class="text-center">
-                            <img id="imagePreview-edit" src="" alt="Image Preview"
-                                class="mx-auto align-items-center imagePreview">
-                        </div>
+                            <div class="text-center">
+                                <img id="imagePreview-edit" src="" alt="Image Preview"
+                                    class="mx-auto align-items-center imagePreview">
+                            </div>
                         </div>
                         <div>
                             <label for="Description-edit" class="form-label">คำอธิบาย : </label>

@@ -8,8 +8,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+            </script>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap"
             rel="stylesheet">
         <script src="https://cdn.tailwindcss.com"></script>
@@ -37,51 +37,7 @@
 
             .unstyled-link:hover {
                 color: inherit;
-            }
-
-            .menu-bar {
-                height: 5rem;
-                padding: 10px;
-                cursor: pointer;
-                border-radius: 1cap;
-            }
-
-            .menu-bar:hover {
-                background-color: #bba83b79;
-                /* Change background color on hover */
-                color: #6A311D;
-            }
-
-            .menu-bar.log-out {
-                margin-top: 470px;
-            }
-
-            .selectbar {
-                background-color: #FEFCF4;
-                color: #6A311D;
-            }
-
-            .mr-2 {
-                margin-right: 20px;
-            }
-
-            .mr-1 {
-                margin-right: 10px;
-            }
-
-            .main-content {
-                padding: 0;
-                background-color: rgb(202, 202, 202);
-            }
-
-            .custom-div1 {
-                height: 10vh;
-                width: 100%;
-                background-color: #ffffff;
-                /* Add background color for the custom div */
-            }
-
-
+            }    
             .menu {
                 width: 31%;
                 height: 120px;
@@ -101,29 +57,22 @@
             .menu.not:hover {
                 background-color: #fa5e2a;
             }
-
-            .menu-option {
-                width: 7rem;
-                height: 2.5rem;
-                cursor: pointer;
-                border-radius: 1cap;
-                color: #000000;
-            }
-
-            .menu-option.button-edit {
+            .button-edit {
                 background-color: #F1DC6B;
             }
 
-            .menu-option.button-edit:hover {
+            .button-edit:hover {
                 background-color: #ecd138;
+                cursor: pointer;
             }
 
-            .menu-option.button-delete {
+            .button-delete {
                 background-color: #F07777;
             }
 
-            .menu-option.button-delete:hover {
+            .button-delete:hover {
                 background-color: #ec4949;
+                cursor: pointer;
             }
 
             .modal-header {
@@ -135,30 +84,36 @@
                 width: 7rem;
                 height: 2.5rem;
                 cursor: pointer;
-                margin-top: 20px;
-                margin-left: 15px;
                 padding: 10px;
                 border-radius: 1cap;
                 border: #000000;
             }
-
         </style>
     </head>
 
     <body>
         <!-- Connect Database -->
         <?php
+        session_start();
         $servername = "localhost";
-        $username = "root"; //ตามที่กำหนดให้
-        $password = ""; //ตามที่กำหนดให้
-        $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
-        // Create connection
+        $username = "root"; 
+        $password = ""; 
+        $dbname = "WhatsUpShabu";    
         $conn = mysqli_connect($servername, $username, $password, $dbname);
-        // Check connection
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        echo "";
+
+        if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
+            header("Location: /WhatsUpShabu/staff/login/index.php");
+            exit();
+        }
+
+        if (isset($_POST["logout"])) {
+            session_destroy();
+            header("Location: /WhatsUpShabu/staff/login/index.php");
+            exit();
+        }
         ?>
         <div class="flex w-screen h-screen">
 
@@ -213,7 +168,7 @@
                     </a>
                 </div>
                 <div class="w-full flex justify-center">
-                    <form action="ManageTable.php" method="post" class="w-full">
+                    <form action="" method="post" class="w-full">
                         <button type="submit" name="logout"
                             class="w-full logout bg-[#EEE8C8] hover:bg-[#f3efd9] duration-500">
                             <p class="text-normal flex gap-2  px-4 py-6 font-semibold">
@@ -266,7 +221,6 @@
                     </div>
                 </div>
                 <!-- Content -->
-                <!-- custom-div2 -->
                 <div class="flex hp-90 w-full bg-gray-200 px-3 py-3">
                     <div
                         class="flex flex-col w-full bg-white shadow-sm  rounded-xl overflow-y-auto overflow-x-hidden pl-4 py-3 pr-1">
@@ -327,11 +281,11 @@
                                     echo '<div class="menu flex items-center px-3 py-3 shadow-sm rounded-lg duration-500' . $inactive . '">';
                                     echo '<div class="flex flex-col justify-between items-center h-full w-full">';
                                     echo '<h1 class="font-bold text-center text-lg">' . $promotion["name"] . '</h1>';
-                                    echo '<div class="menu-edit flex justify-between w-9/12 px-2">';
-                                    echo '<div class="duration-500 menu-option flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-edit data-toggle="modal" data-target="#editProModal" data-pro-id="' . $promotion["ID"] . '">';
+                                    echo '<div class="menu-edit flex justify-center gap-3 w-full px-2">';
+                                    echo '<div class="duration-500 flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-edit data-toggle="modal" data-target="#editProModal" data-pro-id="' . $promotion["ID"] . '">';
                                     echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-2 mr-1"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                                         <h6 class="font-semibold">แก้ไข</h6></div>';
-                                    echo '<div class="duration-500 menu-option flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-delete data-toggle="modal" data-target="#deleteProModal" data-pro-id="' . $promotion["ID"] . '">';
+                                    echo '<div class="duration-500 flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-delete data-toggle="modal" data-target="#deleteProModal" data-pro-id="' . $promotion["ID"] . '">';
                                     echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 mr-1"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                                         <h6 class="font-semibold">ลบ</h6></div>';
                                     echo "</div></div></div>";
@@ -356,7 +310,8 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h3 class="modal-title font-bold">เพิ่มโปรโมชั่น</h3>
-                        <button type="button" class="btn-close font-bold flex items-center justify-center" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        <button type="button" class="btn-close font-bold flex items-center justify-center"
+                            data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
                     <!-- Modal Body -->
                     <div class="modal-body">
@@ -414,7 +369,8 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h3 class="modal-title font-bold">แก้ไขโปรโมชั่น</h3>
-                        <button type="button" class="btn-close font-bold flex items-center justify-center" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        <button type="button" class="btn-close font-bold flex items-center justify-center"
+                            data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
                     <!-- Modal Body -->
                     <div class="modal-body">
@@ -475,7 +431,8 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h3 class="modal-title font-bold">ลบโปรโมชั่น</h3>
-                        <button type="button" class="btn-close flex items-center justify-center font-bold" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        <button type="button" class="btn-close flex items-center justify-center font-bold"
+                            data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
 
                     <!-- Modal Body -->
@@ -518,7 +475,6 @@
         </div>
 
         <script>
-
             document.addEventListener('DOMContentLoaded', function () {
 
                 // Edit Menu
@@ -534,12 +490,18 @@
 
                         // Populate the modal content with the selected menu information
                         document.getElementById('ProID').value = proId;
-                        document.getElementById('Name-edit').value = promotionDetails[proId]['name'];
-                        document.getElementById('Discount-edit').value = promotionDetails[proId]['discount'];
-                        document.getElementById('Date-edit').value = promotionDetails[proId]['end_date'];
+                        document.getElementById('Name-edit').value = promotionDetails[proId][
+                            'name'];
+                        document.getElementById('Discount-edit').value = promotionDetails[proId][
+                            'discount'
+                        ];
+                        document.getElementById('Date-edit').value = promotionDetails[proId][
+                            'end_date'
+                        ];
 
                         // Show the modal
-                        var editModal = new bootstrap.Modal(document.getElementById('editProModal'));
+                        var editModal = new bootstrap.Modal(document.getElementById(
+                            'editProModal'));
                         editModal.show();
                     });
                 });
@@ -557,10 +519,13 @@
 
                         // Populate the modal content with the selected menu information
                         document.getElementById('ProID-delete').value = proId;
-                        document.getElementById('Pro-delete').innerHTML = "ต้องการลบโปรโมชั่น <strong>" + promotionDetails[proId]['name'] + "</strong> ?";
+                        document.getElementById('Pro-delete').innerHTML =
+                            "ต้องการลบโปรโมชั่น <strong>" + promotionDetails[proId]['name'] +
+                            "</strong> ?";
 
                         // Show the modal
-                        var deleteModal = new bootstrap.Modal(document.getElementById('deleteProModal'));
+                        var deleteModal = new bootstrap.Modal(document.getElementById(
+                            'deleteProModal'));
                         deleteModal.show();
                     });
                 });
