@@ -24,22 +24,22 @@
         die("Connection failed: " . mysqli_connect_error());
     }
     
-    if (!isset($_SESSION["session_id"])) {
-        $id = $_GET["session_id"];
-        $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id'";
-        $query_check_result = mysqli_query($conn, $sql_check_query);
-        if (mysqli_num_rows($query_check_result) <= 0) {
-            header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-            exit();
-        } else {
-            $_SESSION["table_id"] = $_GET["table_id"];
-            $_SESSION["session_id"] = $_GET["session_id"];
-            echo $_SESSION["session_id"] . "first time man!";
-        }
-        ;
-    } else {
-        echo $_SESSION["session_id"] . "already got one";
-    }
+    // if (!isset($_SESSION["session_id"])) {
+    //     $id = $_GET["session_id"];
+    //     $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id'";
+    //     $query_check_result = mysqli_query($conn, $sql_check_query);
+    //     if (mysqli_num_rows($query_check_result) <= 0) {
+    //         header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+    //         exit();
+    //     } else {
+    //         $_SESSION["table_id"] = $_GET["table_id"];
+    //         $_SESSION["session_id"] = $_GET["session_id"];
+    //         echo $_SESSION["session_id"] . "first time man!";
+    //     }
+    //     ;
+    // } else {
+    //     echo $_SESSION["session_id"] . "already got one";
+    // }
 
 
 
@@ -98,7 +98,7 @@
 
             foreach ($menusByType as $type => $menus) {
                 echo '<p id="' . $type . '">' . $type . '</p>';
-                echo "<div class='container-menu d-flex flex-wrap'>";
+                echo "<div class='container-menu d-flex flex-wrap mgin-10px'>";
                 foreach ($menus as $menu) {
                     echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item' data-toggle='modal' data-target='#addordermodal' data-menu-id='" . $menu["ID"] . "'>";
                     echo "<img src='" . $menu["image"] . "' width='110px' height='80px' class='mr-2'>";
@@ -151,12 +151,12 @@
                                 <div class="input-group input-group-sm mb-3">
                                     <button class="btn btn-decrease" type="button" onclick="decrementValue()">-</button>
                                     <input type="number" class="form-control" aria-label="Quantity" id="quantity"
-                                        value="0" min="0" max="10">
+                                        value="1" min="0" max="10">
                                     <button class="btn btn-add" type="button" onclick="incrementValue()">+</button>
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <button class="btn btn-cancel" onclick="ShowOrders()">ยกเลิก</button>
+                                <button class="btn btn-cancel">ยกเลิก</button>
                                 <button class="btn btn-accept" onclick="SaveOrderItem()">ยืนยัน</button>
                             </div>
                         </form>
@@ -167,6 +167,7 @@
     </section>
 
     <script>
+
         // Assume you have a variable to store the order count
         let orderCount = 0;
 
@@ -279,7 +280,7 @@
         function decrementValue() {
             var input = document.getElementById('quantity');
             var value = parseInt(input.value, 10);
-            if (value > 1) {
+            if (value > 0) {
                 input.value = value - 1;
             }
         }
@@ -311,21 +312,6 @@
             localStorage.setItem('orderItems', JSON.stringify(existingOrderItems));
         }
 
-        function ShowOrders() {
-
-            let orderItems = localStorage.getItem('orderItems');
-
-            if (orderItems) {
-
-                orderItems = JSON.parse(orderItems);
-
-                orderItems.forEach((orderItem, index) => {
-                    alert('Order ' + (index + 1) + ':' + 'Menu ID: ' + orderItem.menuID + 'Quantity: ' + orderItem.quantity);
-                });
-            } else {
-                alert('No orders available.');
-            }
-        }
     </script>
     <?php
     // close connection
