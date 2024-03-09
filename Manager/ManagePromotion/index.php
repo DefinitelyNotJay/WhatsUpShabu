@@ -37,51 +37,7 @@
 
             .unstyled-link:hover {
                 color: inherit;
-            }
-
-            .menu-bar {
-                height: 5rem;
-                padding: 10px;
-                cursor: pointer;
-                border-radius: 1cap;
-            }
-
-            .menu-bar:hover {
-                background-color: #bba83b79;
-                /* Change background color on hover */
-                color: #6A311D;
-            }
-
-            .menu-bar.log-out {
-                margin-top: 470px;
-            }
-
-            .selectbar {
-                background-color: #FEFCF4;
-                color: #6A311D;
-            }
-
-            .mr-2 {
-                margin-right: 20px;
-            }
-
-            .mr-1 {
-                margin-right: 10px;
-            }
-
-            .main-content {
-                padding: 0;
-                background-color: rgb(202, 202, 202);
-            }
-
-            .custom-div1 {
-                height: 10vh;
-                width: 100%;
-                background-color: #ffffff;
-                /* Add background color for the custom div */
-            }
-
-
+            }    
             .menu {
                 width: 31%;
                 height: 120px;
@@ -101,29 +57,22 @@
             .menu.not:hover {
                 background-color: #fa5e2a;
             }
-
-            .menu-option {
-                width: 7rem;
-                height: 2.5rem;
-                cursor: pointer;
-                border-radius: 1cap;
-                color: #000000;
-            }
-
-            .menu-option.button-edit {
+            .button-edit {
                 background-color: #F1DC6B;
             }
 
-            .menu-option.button-edit:hover {
+            .button-edit:hover {
                 background-color: #ecd138;
+                cursor: pointer;
             }
 
-            .menu-option.button-delete {
+            .button-delete {
                 background-color: #F07777;
             }
 
-            .menu-option.button-delete:hover {
+            .button-delete:hover {
                 background-color: #ec4949;
+                cursor: pointer;
             }
 
             .modal-header {
@@ -135,8 +84,6 @@
                 width: 7rem;
                 height: 2.5rem;
                 cursor: pointer;
-                margin-top: 20px;
-                margin-left: 15px;
                 padding: 10px;
                 border-radius: 1cap;
                 border: #000000;
@@ -335,10 +282,10 @@
                                     echo '<div class="flex flex-col justify-between items-center h-full w-full">';
                                     echo '<h1 class="font-bold text-center text-lg">' . $promotion["name"] . '</h1>';
                                     echo '<div class="menu-edit flex justify-center gap-3 w-full px-2">';
-                                    echo '<div class="duration-500 menu-option flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-edit data-toggle="modal" data-target="#editProModal" data-pro-id="' . $promotion["ID"] . '">';
+                                    echo '<div class="duration-500 flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-edit data-toggle="modal" data-target="#editProModal" data-pro-id="' . $promotion["ID"] . '">';
                                     echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-2 mr-1"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                                         <h6 class="font-semibold">แก้ไข</h6></div>';
-                                    echo '<div class="duration-500 menu-option flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-delete data-toggle="modal" data-target="#deleteProModal" data-pro-id="' . $promotion["ID"] . '">';
+                                    echo '<div class="duration-500 flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-delete data-toggle="modal" data-target="#deleteProModal" data-pro-id="' . $promotion["ID"] . '">';
                                     echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 mr-1"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                                         <h6 class="font-semibold">ลบ</h6></div>';
                                     echo "</div></div></div>";
