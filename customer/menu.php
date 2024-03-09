@@ -139,8 +139,8 @@
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <button class="btn btn-accept" onclick="SaveOrderItem()">ยืนยัน</button>
                                 <button class="btn btn-cancel" onclick="ShowOrders()">ยกเลิก</button>
+                                <button class="btn btn-accept" onclick="SaveOrderItem()">ยืนยัน</button>
                             </div>
                         </form>
                     </div>
