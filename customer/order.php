@@ -146,7 +146,7 @@
     if (isset($_POST['accept'])) {
         $table_id = 'A-02';
         date_default_timezone_set('Asia/Bangkok');
-        $start_time = date('H:i:s');
+        $start_time = date('Y-m-d H:i:s');
 
         $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
 

@@ -1,7 +1,13 @@
+* {
+    font-family: "Noto Sans Thai", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background: #FFF6F1;
     margin: 0;
-    font-family: Arial, sans-serif;
     overflow-y: scroll;
 }
 
