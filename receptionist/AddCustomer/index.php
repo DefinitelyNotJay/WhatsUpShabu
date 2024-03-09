@@ -8,11 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
@@ -24,16 +20,23 @@
             font-family: "Noto Sans Thai", sans-serif;
         }
     </style>
+
     <?php
     session_start();
-    require_once("../../utils/config.php");
+    require_once('../../utils/config.php');
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $id = isset($_GET["id"]) ? $_GET["id"] : null;
-    $sql = "SELECT * FROM tables WHERE id = '$id';";
-    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    while ($row = mysqli_fetch_assoc($result)) {
-        $table_id = $row["id"];
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
     }
+
+    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
+
+    $table_id = $_GET["id"];
+
     ?>
 
     <div
@@ -42,7 +45,6 @@
             <div class="w-full flex justify-center border-b-2 border-gray-200 pb-4">
                 <h1 class="text-xl font-bold justify-self-center">เพิ่มลูกค้า</h1>
             </div>
-
             <div class="pt-4">
                 <form action="../action.php" id="addCustomerForm" method="get"
                     class="max-w-sm mx-auto flex flex-col justify-between text-lg gap-2">
@@ -75,7 +77,6 @@
                                 $name = $row["name"];
                                 $percent_discount = $row["discount"];
                                 echo "<option value='$id'>$name</option>";
-
                             }
                             ?>
                         </select>
@@ -107,5 +108,4 @@
         </div>
     </div>
 </body>
-
 </html>

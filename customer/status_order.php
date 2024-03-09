@@ -16,6 +16,11 @@
 
     <?php
     session_start();
+    if(!isset($_SESSION["session_id"])){
+        header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+        exit();
+    }
+    echo $_SESSION["session_id"];
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -36,12 +41,13 @@
     <section class="status_section" id="status_section">
         <?php
 
-        $table_id = 'A-01';
+        $table_id = $_SESSION["table_id"];
 
         $sql = "SELECT orders.*
         FROM orders
         INNER JOIN tables ON orders.table_id = tables.id
         WHERE orders.table_id = '$table_id' AND orders.start_time > tables.start_time;";
+        // แก้ AND orders.start_time > tables.start_time
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
             $orders = array();

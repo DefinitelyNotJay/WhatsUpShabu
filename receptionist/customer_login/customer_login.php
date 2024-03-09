@@ -41,11 +41,9 @@
 
     date_default_timezone_set('Asia/Bangkok');
     $currentDateTime = date('Y-m-d H:i:s');
-    $futureDateTime = date('Y-m-d H:i:s', strtotime('+2 hours', strtotime($currentDateTime)));
-    $end_time_db = date('H:i:s', strtotime($futureDateTime));
-    $session_id = md5("$table_id/$start_time");
+    $session_id = md5("$table_id/$currentDateTime");
     
-    $sql_update = "UPDATE tables SET `start_time` = '$end_time_db', `status` = 'busy', customer_amount = '$customer_amount', session_id = '$session_id' WHERE id = '$table_id'";
+    $sql_update = "UPDATE tables SET `start_time` = '$currentDateTime', `status` = 'busy', customer_amount = '$customer_amount', session_id = '$session_id' WHERE id = '$table_id'";
     $result2 = mysqli_query($conn, $sql_update);
     $url = 'http://localhost/WhatsUpShabu/customer/menu.php?table_id=' . $table_id. '&session_id='. $session_id . '';
     echo "<a href='/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=http://localhost/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'></a><br>";

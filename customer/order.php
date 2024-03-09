@@ -15,12 +15,12 @@
 <body>
 
     <?php
-    // session_start();
-    // if(!isset($_SESSION["session_id"])){
-    //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-    //     exit();
-    // }
-    // echo $_SESSION["session_id"];
+    session_start();
+    if(!isset($_SESSION["session_id"])){
+        header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+        exit();
+    }
+    echo $_SESSION["session_id"];
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -142,12 +142,14 @@
     </script>
 
     <?php
-
+    
     if (isset($_POST['accept'])) {
-        $table_id = 'A-02';
+        // แก้ table_id
+        $table_id = $_SESSION["table_id"];
         date_default_timezone_set('Asia/Bangkok');
-        $start_time = date('H:i:s');
-
+        $start_time = date('Y-m-d H:i:s');
+        // แก้ start_time
+        // $currentDateTime = date('Y-m-d H:i:s');
         $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
 
         if (mysqli_query($conn, $sql)) {

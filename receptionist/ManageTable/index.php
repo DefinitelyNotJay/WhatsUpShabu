@@ -37,6 +37,8 @@
         header("Location: /WhatsUpShabu/staff/login/index.php");
         exit();
     }
+
+
     ?>
 
 
@@ -113,7 +115,7 @@
                         $status = $row["status"];
                         $start_time = $row["start_time"];
                         $table_status = $status == "free" ? "โต๊ะว่าง" : "โต๊ะกำลังใช้งาน";
-                        $end_time_hs = date('H:i', strtotime($start_time));
+                        $end_time_hs = date('H:i', strtotime('+2 hours', strtotime($start_time)));
 
                         if ($status === "free") {
                             echo <<<HTML
@@ -159,7 +161,7 @@
                             <div class="flex flex-col gap-2">
                                 <hr>
                                 <div class="bottom flex flex-col items-end w-full">
-                                    <form action="../AddCustomer/AddCustomer.php" method="get">
+                                    <form action="../AddCustomer" method="get">
                                     <input type="text" value = $id class="hidden" name=id>
                                     <button
                                         type="submit" name="addCustomer"
@@ -180,7 +182,8 @@
                         </div>
                     </div>
                     HTML;
-                        } else {
+                        } 
+                        else {
                             echo <<<HTML
                             <div class="cursor-default">
                                 <div
@@ -251,7 +254,6 @@
                                 </div>
                             </div>
                             HTML;
-
                         }
                     }
                     ?>

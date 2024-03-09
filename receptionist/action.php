@@ -10,6 +10,7 @@
 <?php
     require_once("../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    // add customer
     if(isset($_GET["table_id"])){
         $table_id = $_GET["table_id"];
         $customer_amount = $_GET["customer_amount"];
@@ -23,7 +24,7 @@
         }
         $total = $customer_amount * $each_cost;
         $net_price = $total * ((100 - $discount_percent) / 100);
-        $date_now = date('Y-m-d');
+        $date_now = date('Y-m-d H-i-s');
         $sql_insertBill = "INSERT INTO bill (table_id, total, `status`, promotion_id, `date` ) VALUES ('$table_id', '$net_price', 'unpaid', '$promotion_id', '$date_now');";
         $result = mysqli_query($conn, $sql_insertBill);
 
@@ -35,7 +36,7 @@
         $sql_quert = "SELECT * FROM bill WHERE table_id = '$table_id' AND `status` = 'unpaid'";
         $result = mysqli_query($conn, $sql_quert);
 
-        
+
         while($row = mysqli_fetch_assoc($result)){
             $id = $row["id"];
         };

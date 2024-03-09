@@ -24,22 +24,22 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    // if (!isset($_SESSION["session_id"])) {
-    //     $id = $_GET["session_id"];
-    //     $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id'";
-    //     $query_check_result = mysqli_query($conn, $sql_check_query);
-    //     if (mysqli_num_rows($query_check_result) <= 0) {
-    //         header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-    //         exit();
-    //     } else {
-    //         $_SESSION["table_id"] = $_GET["table_id"];
-    //         $_SESSION["session_id"] = $_GET["session_id"];
-    //         echo $_SESSION["session_id"] . "first time man!";
-    //     }
-    //     ;
-    // } else {
-    //     echo $_SESSION["session_id"] . "already got one";
-    // }
+    if (!isset($_SESSION["session_id"])) {
+        $id = $_GET["session_id"];
+        $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id'";
+        $query_check_result = mysqli_query($conn, $sql_check_query);
+        if (mysqli_num_rows($query_check_result) <= 0) {
+            header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+            exit();
+        } else {
+            $_SESSION["table_id"] = $_GET["table_id"];
+            $_SESSION["session_id"] = $_GET["session_id"];
+            echo $_SESSION["session_id"] . "first time man!";
+        }
+        ;
+    } else {
+        echo $_SESSION["session_id"] . " " . $_SESSION["table_id"] . " " ."already got one";
+    }
 
 
 
@@ -125,10 +125,10 @@
             <div class="btn-button-num statuscount">0</div>
         </button>
         <?php
-
+        $table_id = $_SESSION["table_id"];
         $sql = "SELECT COUNT(*) as total_rows FROM orders
         INNER JOIN tables ON orders.table_id = tables.id
-        WHERE orders.table_id = 'A-01' AND orders.start_time > tables.start_time;";
+        WHERE orders.table_id = '$table_id' AND orders.start_time > tables.start_time;";
         $result = mysqli_query($conn, $sql);
 
         if ($result) {
