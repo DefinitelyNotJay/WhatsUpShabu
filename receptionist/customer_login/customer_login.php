@@ -35,6 +35,7 @@
         $status = $row['status'];
         $start_time = $row["start_time"];
     }
+
     date_default_timezone_set('Asia/Bangkok');
     $currentDateTime = date('Y-m-d H:i:s');
     $futureDateTime = date('Y-m-d H:i:s', strtotime('+2 hours', strtotime($currentDateTime)));

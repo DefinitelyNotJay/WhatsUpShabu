@@ -40,19 +40,27 @@
 </head>
 
 <body>
-    <!-- Connect Database -->
     <?php
+    session_start();
     $servername = "localhost";
-    $username = "root"; //ตามที่กำหนดให้
-    $password = ""; //ตามที่กำหนดให้
-    $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
-    // Create connection
+    $username = "root";
+    $password = "";
+    $dbname = "WhatsUpShabu";
     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-    echo "";
+
+    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
+
+    if (isset($_POST["logout"])) {
+        session_destroy();
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
     ?>
     <div class="flex w-screen h-screen">
         <!-- Sidebar -->

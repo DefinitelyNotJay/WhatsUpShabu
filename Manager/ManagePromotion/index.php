@@ -8,8 +8,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+            </script>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap"
             rel="stylesheet">
         <script src="https://cdn.tailwindcss.com"></script>
@@ -141,24 +141,32 @@
                 border-radius: 1cap;
                 border: #000000;
             }
-
         </style>
     </head>
 
     <body>
         <!-- Connect Database -->
         <?php
+        session_start();
         $servername = "localhost";
-        $username = "root"; //ตามที่กำหนดให้
-        $password = ""; //ตามที่กำหนดให้
-        $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
-        // Create connection
+        $username = "root"; 
+        $password = ""; 
+        $dbname = "WhatsUpShabu";    
         $conn = mysqli_connect($servername, $username, $password, $dbname);
-        // Check connection
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        echo "";
+
+        if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
+            header("Location: /WhatsUpShabu/staff/login/index.php");
+            exit();
+        }
+
+        if (isset($_POST["logout"])) {
+            session_destroy();
+            header("Location: /WhatsUpShabu/staff/login/index.php");
+            exit();
+        }
         ?>
         <div class="flex w-screen h-screen">
 
@@ -355,7 +363,8 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h3 class="modal-title font-bold">เพิ่มโปรโมชั่น</h3>
-                        <button type="button" class="btn-close font-bold flex items-center justify-center" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        <button type="button" class="btn-close font-bold flex items-center justify-center"
+                            data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
                     <!-- Modal Body -->
                     <div class="modal-body">
@@ -413,7 +422,8 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h3 class="modal-title font-bold">แก้ไขโปรโมชั่น</h3>
-                        <button type="button" class="btn-close font-bold flex items-center justify-center" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        <button type="button" class="btn-close font-bold flex items-center justify-center"
+                            data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
                     <!-- Modal Body -->
                     <div class="modal-body">
@@ -474,7 +484,8 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h3 class="modal-title font-bold">ลบโปรโมชั่น</h3>
-                        <button type="button" class="btn-close flex items-center justify-center font-bold" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        <button type="button" class="btn-close flex items-center justify-center font-bold"
+                            data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
 
                     <!-- Modal Body -->
@@ -517,7 +528,6 @@
         </div>
 
         <script>
-
             document.addEventListener('DOMContentLoaded', function () {
 
                 // Edit Menu
@@ -533,12 +543,18 @@
 
                         // Populate the modal content with the selected menu information
                         document.getElementById('ProID').value = proId;
-                        document.getElementById('Name-edit').value = promotionDetails[proId]['name'];
-                        document.getElementById('Discount-edit').value = promotionDetails[proId]['discount'];
-                        document.getElementById('Date-edit').value = promotionDetails[proId]['end_date'];
+                        document.getElementById('Name-edit').value = promotionDetails[proId][
+                            'name'];
+                        document.getElementById('Discount-edit').value = promotionDetails[proId][
+                            'discount'
+                        ];
+                        document.getElementById('Date-edit').value = promotionDetails[proId][
+                            'end_date'
+                        ];
 
                         // Show the modal
-                        var editModal = new bootstrap.Modal(document.getElementById('editProModal'));
+                        var editModal = new bootstrap.Modal(document.getElementById(
+                            'editProModal'));
                         editModal.show();
                     });
                 });
@@ -556,10 +572,13 @@
 
                         // Populate the modal content with the selected menu information
                         document.getElementById('ProID-delete').value = proId;
-                        document.getElementById('Pro-delete').innerHTML = "ต้องการลบโปรโมชั่น <strong>" + promotionDetails[proId]['name'] + "</strong> ?";
+                        document.getElementById('Pro-delete').innerHTML =
+                            "ต้องการลบโปรโมชั่น <strong>" + promotionDetails[proId]['name'] +
+                            "</strong> ?";
 
                         // Show the modal
-                        var deleteModal = new bootstrap.Modal(document.getElementById('deleteProModal'));
+                        var deleteModal = new bootstrap.Modal(document.getElementById(
+                            'deleteProModal'));
                         deleteModal.show();
                     });
                 });

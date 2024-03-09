@@ -146,19 +146,30 @@
 </head>
 
 <body>
-    <!-- Connect Database -->
     <?php
+    session_start();
     $servername = "localhost";
-    $username = "root"; //ตามที่กำหนดให้
-    $password = ""; //ตามที่กำหนดให้
-    $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
-    // Create connection
+    $username = "root";
+    $password = "";
+    $dbname = "WhatsUpShabu";
     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
+
+    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
+
+    if (isset($_POST["logout"])) {
+        session_destroy();
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
     ?>
+
+
     <div class="flex w-screen h-screen">
 
         <!-- Sidebar -->
@@ -212,7 +223,7 @@
                 </a>
             </div>
             <div class="w-full flex justify-center">
-                <form action="ManageTable.php" method="post" class="w-full">
+                <form action="" method="post" class="w-full">
                     <button type="submit" name="logout"
                         class="w-full logout bg-[#EEE8C8] hover:bg-[#f3efd9] duration-500">
                         <p class="text-normal flex gap-2  px-4 py-6 font-semibold">
@@ -267,7 +278,8 @@
             <!-- Content -->
             <!-- custom-div2 -->
             <div class="flex hp-90 w-full bg-gray-200 px-3 py-3">
-                <div class="flex flex-col w-full bg-white shadow-sm  rounded-xl overflow-y-auto overflow-x-hidden pl-4 py-3 pr-1">
+                <div
+                    class="flex flex-col w-full bg-white shadow-sm  rounded-xl overflow-y-auto overflow-x-hidden pl-4 py-3 pr-1">
                     <?php
                     // --- SQL SELECT statement  
                     $sql = "SELECT * FROM menu;";
@@ -370,10 +382,10 @@
                             <label for="Image" class="form-label">รูปภาพ (URL) : </label>
                             <input type="text" class="form-control required" id="Image" name="Image" value=""
                                 required />
-                        <div class="text-center">
-                            <img id="imagePreview" src="" alt="Image Preview"
-                                class="mx-auto align-items-center imagePreview">
-                        </div>
+                            <div class="text-center">
+                                <img id="imagePreview" src="" alt="Image Preview"
+                                    class="mx-auto align-items-center imagePreview">
+                            </div>
                         </div>
                         <div>
                             <label for="Description" class="form-label">คำอธิบาย : </label>
@@ -418,7 +430,8 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h3 class="modal-title font-bold">แก้ไขเมนู</h3>
-                    <button type="button" class="btn-close flex justify-center items-center font-bold" data-bs-dismiss="modal" aria-label="Close">X</button>
+                    <button type="button" class="btn-close flex justify-center items-center font-bold"
+                        data-bs-dismiss="modal" aria-label="Close">X</button>
                 </div>
 
                 <!-- Modal Body -->
@@ -450,10 +463,10 @@
                         <div>
                             <label for="Image-edit" class="form-label">รูปภาพ (URL) : </label>
                             <input type="text" class="form-control" id="Image-edit" name="Image" value="" />
-                        <div class="text-center">
-                            <img id="imagePreview-edit" src="" alt="Image Preview"
-                                class="mx-auto align-items-center imagePreview">
-                        </div>
+                            <div class="text-center">
+                                <img id="imagePreview-edit" src="" alt="Image Preview"
+                                    class="mx-auto align-items-center imagePreview">
+                            </div>
                         </div>
                         <div>
                             <label for="Description-edit" class="form-label">คำอธิบาย : </label>
