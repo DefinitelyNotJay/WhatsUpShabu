@@ -344,3 +344,26 @@ body {
   width: 500px;
   height: 500px;
 }
+.modal-header{
+  background-color: #FA5D2A;
+  color: #fff;
+}
+
+.cn_btn{
+  width: 80px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 25px;
+  border:2px ridge #FA5D2A;
+  margin-right: 10px;
+  color: #6A311D;
+}
+.sm_btn{
+  width: 80px;
+  height: 40px;
+  background-color: #FA5D2A;
+  border-radius: 25px;
+  border:2px ridge #6A311D;
+  margin-left:10px;
+  color: #fff;
+}

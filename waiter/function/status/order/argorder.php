@@ -165,23 +165,23 @@ $row_count = mysqli_num_rows($result1);
                 <!-- Modal Header -->
                 <div class="modal-header">
                   <h4 class="modal-title" id="editHeader">ต้องการยืนยันการเสิร์ฟหรือไม่?</h4>
-                  <button type="button" class="cancel_btn" data-dismiss="modal">X</button>
+                  <button type="button" class="cancel_btn btn btn-danger" data-dismiss="modal">X</button>
                 </div>
 
                 <!-- Modal Body -->
-                <div class="modal-body">
-                  <div>
-                    <p>หากยืนยันแล้วจะไม่สามารถแก้ไขรายการได้อีก ต้องการยืนยันการเสิร์ฟ กด "ยืนยัน"</p>
-                    <hr>
-                  </div>
-                  <!-- Add your form or content for adding a menu here -->
-                  <form>
-                    <div class="model_button">
-                      <button type="button" class="cancel_btn" data-dismiss="modal">ยกเลิก</button>
-                      <button type="submit" class="confirm_btn">ยืนยัน</button>
-                    </div>
-                  </form>
-                </div>
+                <div class="modal-body d-flex flex-column align-items-center">
+    <div>
+        <p>หากยืนยันแล้วจะไม่สามารถแก้ไขรายการได้อีก ต้องการยืนยันการเสิร์ฟ กด "ยืนยัน"</p>
+        <hr>
+    </div>
+    <!-- Add your form or content for adding a menu here -->
+    <form class="submit_form" id="submitForm" action="" method="post">
+        <div class="model_button">
+            <button type="button" class="cancel_btn cn_btn" data-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="confirm_btn sm_btn">ยืนยัน</button>
+        </div>
+    </form>
+</div>
               </div>
             </div>
           </div>
