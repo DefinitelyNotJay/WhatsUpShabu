@@ -105,7 +105,7 @@
         while($row = mysqli_fetch_assoc($result2)) {
 ?>
           <!-- สร้าง Orderlist_item -->
-          <button class="Orderlist_item" onclick="window.location.href = 'order/argorder.php'">
+          <button class="Orderlist_item" onclick="window.location.href = 'order/argorder.php?order_id=<?php echo $row['id']; ?>'">
             <div class="line l1 s2">
               <h4>รายการที่ <?php echo $row["id"]; ?></h4>
               <a class="date_time">03/03/2024 20:10:44 น.</a>
