@@ -15,10 +15,6 @@
 <body>
     <?php
     session_start();
-    $_SESSION["table_id"] = $_GET["table_id"];
-    $_SESSION["table_session_id"] = $_GET["session_id"];
-    $id = $_GET["session_id"];
-    echo $id;
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -27,25 +23,27 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-    // query check ว่ามีในฐานข้อมูลมั้ย
-    $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id'";
-    $query_check_result = mysqli_query($conn, $sql_check_query);
-    if(mysqli_num_rows($query_check_result) <= 0){
-        header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-        exit();
-    };
+    
+    if (!isset($_SESSION["session_id"])) {
+        $id = $_GET["session_id"];
+        $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id'";
+        $query_check_result = mysqli_query($conn, $sql_check_query);
+        if (mysqli_num_rows($query_check_result) <= 0) {
+            header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+            exit();
+        } else {
+            $_SESSION["table_id"] = $_GET["table_id"];
+            $_SESSION["session_id"] = $_GET["session_id"];
+            echo $_SESSION["session_id"] . "first time man!";
+        }
+        ;
+    } else {
+        echo $_SESSION["session_id"] . "already got one";
+    }
 
-    // if (!isset($_SERVER['HTTP_REFERER'])) {
-    //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-    //     exit();
-    // }
 
-    // if(!isset($_GET["table_id"])  OR !isset($_SESSION["table_id"])){
-    //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-    //     exit();
-    // }
 
-   
+
     ?>
 
     <header class="header">
@@ -144,13 +142,16 @@
                                 <label id="Name-label" class="label-content"></label>
                             </div>
                             <div class="form-group text-center">
-                                <img id="imagePreview-edit" src="" alt="Image Preview" class="mx-auto align-items-center imagePreview" style="border: 2px solid #FA5D2A; max-width: 100%; max-height: 100%;">
+                                <img id="imagePreview-edit" src="" alt="Image Preview"
+                                    class="mx-auto align-items-center imagePreview"
+                                    style="border: 2px solid #FA5D2A; max-width: 100%; max-height: 100%;">
                             </div>
                             <div class="form-group text-center">
                                 <label id="Description-label" class="label-content"></label>
                                 <div class="input-group input-group-sm mb-3">
                                     <button class="btn btn-decrease" type="button" onclick="decrementValue()">-</button>
-                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity" value="0" min="0" max="10">
+                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity"
+                                        value="0" min="0" max="10">
                                     <button class="btn btn-add" type="button" onclick="incrementValue()">+</button>
                                 </div>
                             </div>
@@ -188,9 +189,9 @@
 
         // Call the function to update the order count on page load
         updateOrderCount();
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var searchInput = document.getElementById('search');
-            searchInput.addEventListener('keypress', function(event) {
+            searchInput.addEventListener('keypress', function (event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
 
@@ -216,19 +217,19 @@
             var pigelement = document.getElementById('หมู');
 
 
-            meatbutton.addEventListener('click', function() {
+            meatbutton.addEventListener('click', function () {
                 meatelement.scrollIntoView({
                     behavior: 'smooth'
                 });
             });
 
-            chichkenbutton.addEventListener('click', function() {
+            chichkenbutton.addEventListener('click', function () {
                 chickenelement.scrollIntoView({
                     behavior: 'smooth'
                 });
             });
 
-            pigbutton.addEventListener('click', function() {
+            pigbutton.addEventListener('click', function () {
                 pigelement.scrollIntoView({
                     behavior: 'smooth'
                 });
@@ -236,8 +237,8 @@
 
             // Attach event listener to all items
             var items = document.querySelectorAll('.item');
-            items.forEach(function(item) {
-                item.addEventListener('click', function() {
+            items.forEach(function (item) {
+                item.addEventListener('click', function () {
                     // Get the menu ID from the data attribute
                     var menuId = item.getAttribute('data-menu-id');
 
