@@ -91,7 +91,7 @@ $row_count = mysqli_num_rows($result1);
         <div class="head_tab">
           
           <div style="display:flex; height:100%; border-radius:10px 10px 0 0;">
-            <button class="back_page">
+            <button class="back_page" onclick="window.location.href = '../Receive.php'">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left">
               <path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
             </button>

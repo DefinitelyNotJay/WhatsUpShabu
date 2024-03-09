@@ -113,7 +113,6 @@
             <a class="key">เวลาที่อัพเดท :</a>
               <a class="update_time value"><?php echo " "; ?></a>
             </div>
-            </div>
             <div style="width: 99%; height: 0.5px; background-color: #aaa; margin-left: 0.5%;"></div>
             <div class="line l4">
               <div class="amount_list">

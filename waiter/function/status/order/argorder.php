@@ -6,11 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>พนักงานเสิร์ฟ</title>
   <link rel="stylesheet" href="../../../css&js/alomastyles.css">
-  <script src="script.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -92,7 +91,7 @@ $row_count = mysqli_num_rows($result1);
       <div class="head_tab">
 
         <div style="display:flex; height:100%; border-radius:10px 10px 0 0;">
-          <button class="back_page">
+          <button class="back_page" onclick="window.location.href = '../Receive.php'">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" class="lucide lucide-move-left">
@@ -139,12 +138,11 @@ $row_count = mysqli_num_rows($result1);
           </div>
           <div class="name_menu_frame">
             <div>
-
               <h5 class="name_menu"><?php echo $row2['name'];?></h5>
               <a class="oneset"><?php echo $row2['description'];?></a>
             </div>
             <a class="quantity"><?php echo $row["quantity"]." "; ?> ชุด</a>
-            <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div>
+            <div style="margin:5px 1px 1px 10px;"><input type="checkbox" id="<?php $menu_id ?>"></div>
           </div>
         </div>
         <?php
@@ -158,24 +156,37 @@ $row_count = mysqli_num_rows($result1);
       <div class="submit_bar">
       <form id="serveForm" action="" method="post">
         <input type="hidden" id="orderID" name="orderID" value="">
-        <button type="button" id="serveButton" class="arranging_button">เสิร์ฟ</button>
-        
-        <!-- Modal -->
-        <div id="serveConfirmationModal" class="modal">
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>คุณต้องการยืนยันการเสิร์ฟรายการนี้หรือไม่?</p>
-            <div class="modal-buttons">
-              <button id="confirmServe" class="confirm-button">ยืนยัน</button>
-              <button id="cancelServe" class="cancel-button">ยกเลิก</button>
+        <button type="button" id="serveButton" class="arranging_button" data-toggle='modal' data-target='#Serve_Modal'>เสิร์ฟ</button>
+
+        <!-- Modal Edit Menu -->
+        <div class="modal" id="Serve_Modal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title" id="editHeader">ต้องการยืนยันการเสิร์ฟหรือไม่?</h4>
+                  <button type="button" class="cancel_btn" data-dismiss="modal">X</button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                  <div>
+                    <p>หากยืนยันแล้วจะไม่สามารถแก้ไขรายการได้อีก ต้องการยืนยันการเสิร์ฟ กด "ยืนยัน"</p>
+                    <hr>
+                  </div>
+                  <!-- Add your form or content for adding a menu here -->
+                  <form>
+                    <div class="model_button">
+                      <button type="button" class="cancel_btn" data-dismiss="modal">ยกเลิก</button>
+                      <button type="submit" class="confirm_btn">ยืนยัน</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </form>
-
-          
-        </form>
-      </div>
     </div>
   </div>
 </div>
@@ -185,22 +196,24 @@ $row_count = mysqli_num_rows($result1);
 
   
 
-//   if(isset($_POST['orderID'])){
-//     $order_id = $_POST['orderID'];
-//     $sql = "UPDATE orders SET status = 'done' WHERE id = $order_id";
+  if(isset($_POST['orderID'])){
+    $order_id = $_POST['orderID'];
+    $sql = "UPDATE orders SET status = 'done' WHERE id = $order_id";
     
-//     if (mysqli_query($conn, $sql)) {
-//       echo "Record updated successfully";
-//       echo "<script>window.location.href = '../Arranging.php';</script>";
-//     } else {
-//         echo "Error updating record: " . mysqli_error($conn);
-//     }
-// }
+    if (mysqli_query($conn, $sql)) {
+      echo "Record updated successfully";
+      echo "<script>window.location.href = '../Arranging.php';</script>";
+    } else {
+        echo "Error updating record: " . mysqli_error($conn);
+    }
+}
 
 
   // ปิดการเชื่อมต่อ
   mysqli_close($conn);
 ?>
+
+
 
 </body>
 
