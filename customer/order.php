@@ -148,8 +148,7 @@
         $table_id = $_SESSION["table_id"];
         date_default_timezone_set('Asia/Bangkok');
         $start_time = date('Y-m-d H:i:s');
-        // แก้ start_time
-        // $currentDateTime = date('Y-m-d H:i:s');
+
         $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
 
         if (mysqli_query($conn, $sql)) {
