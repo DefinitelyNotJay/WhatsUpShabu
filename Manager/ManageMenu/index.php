@@ -215,7 +215,7 @@
                 <form action="ManageTable.php" method="post" class="w-full">
                     <button type="submit" name="logout"
                         class="w-full logout bg-[#EEE8C8] hover:bg-[#f3efd9] duration-500">
-                        <p class="text-lg flex gap-2  px-4 py-6 font-semibold">
+                        <p class="text-normal flex gap-2  px-4 py-6 font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-log-out">
