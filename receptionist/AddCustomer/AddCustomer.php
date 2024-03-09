@@ -24,16 +24,13 @@
     </style>
     <?php
     session_start();
-    require_once("../utils/config.php");
+    require_once("../../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $id = isset($_GET["id"]) ? $_GET["id"] : null;
     $sql = "SELECT * FROM tables WHERE id = '$id';";
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
     while ($row = mysqli_fetch_assoc($result)) {
         $table_id = $row["id"];
-    }
-    if (isset($_GET["cancel"])) {
-        header("Location: ManageTable.php");
     }
     ?>
 
@@ -45,7 +42,7 @@
             </div>
 
             <div class="pt-4">
-                <form action="action.php" id="addCustomerForm" method="get"
+                <form action="../action.php" id="addCustomerForm" method="get"
                     class="max-w-sm mx-auto flex flex-col justify-between text-lg gap-2">
                     <div class="flex justify-between">
                         <p>โต๊ะ</p>
@@ -82,7 +79,7 @@
                         </select>
                     </div>
                     <div class="flex w-full justify-center gap-2">
-                        <a href="ManageTable.php"><button type="button" id="cancel"
+                        <a href="../ManageTable"><button type="button" id="cancel"
                                 class="flex items-center gap-1 text-white bg-[#FA5D2A] hover:bg-[#fa5e2abe] px-2 py-2 rounded"
                                 name="cancel">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

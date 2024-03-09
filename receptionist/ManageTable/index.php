@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Manage Tables</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../utils/main.css">
+    <!-- <link rel="stylesheet" href="../utils/main.css"> -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <style>
@@ -21,7 +21,7 @@
 <body>
     <?php
     session_start();
-    require_once('../utils/config.php');
+    require_once('../../utils/config.php');
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
     if (!$conn) {
@@ -46,11 +46,11 @@
 
     <div class="flex h-screen w-screen m-0 p-0">
         <!-- Leftbar -->
-        <div class="flex flex-col h-full w-2/12 bg-egg pt-3">
+        <div class="flex flex-col h-full w-2/12 bg-[#EEE8C8] pt-3">
             <div class="flex flex-col h-full w-full text-black justify-between">
                 <div>
                     <!-- Logo -->
-                    <img src="../images/icon.png" alt="WhatsUpShabuIcon" class="px-2 py-2">
+                    <img src="./img/icon.png" alt="WhatsUpShabuIcon" class="px-2 py-2">
                     <!-- Navbar -->
                     <div class="w-full pt-4">
                         <div class="nav flex-col px-3">
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="w-full flex justify-center">
-                    <form action="ManageTable.php" method="post" class="w-full">
+                    <form action="" method="post" class="w-full">
                         <button type="submit" name="logout"
                             class="w-full logout bg-[#EEE8C8] hover:bg-[#f3efd9] duration-500">
                             <p class="text-lg flex gap-2  px-4 py-6 font-semibold">
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <!-- tables -->
-            <div class="bg-gray w-full h-[90%] p-3">
+            <div class="bg-[#D9D9D9] w-full h-[90%] p-3">
                 <div class="rounded-lg bg-white h-full grid grid-cols-4 grid-rows-3 py-6 px-4 gap-x-4 gap-y-6">
                     <?php
                     $select_tables = "SELECT * FROM tables;";
@@ -116,7 +116,6 @@
                         $customer_amount = $row["customer_amount"];
                         $status = $row["status"];
                         $start_time = $row["start_time"];
-
                         $table_status = $status == "free" ? "โต๊ะว่าง" : "โต๊ะกำลังใช้งาน";
                         $end_time_hs = date('H:i', strtotime($start_time));
 
@@ -164,7 +163,7 @@
                             <div class="flex flex-col gap-2">
                                 <hr>
                                 <div class="bottom flex flex-col items-end w-full">
-                                    <form action="AddCustomer.php" method="get">
+                                    <form action="../AddCustomer/AddCustomer.php" method="get">
                                     <input type="text" value = $id class="hidden" name=id>
                                     <button
                                         type="submit" name="addCustomer"
@@ -237,7 +236,7 @@
                                                 </svg>
                                                 <p class="text-lg font-semibold text-white">$end_time_hs</p>
                                             </div>
-                                            <form action="Payment.php" method="get">
+                                            <form action="../Payment/index.php" method="get">
                                             <button
                                                 class="hover:bg-[#a5b3aa] hover:text-white flex gap-2 font-semibold px-3 py-1 bg-[#EBFFF3] rounded-xl duration-500 add-pay">
                                                 <svg

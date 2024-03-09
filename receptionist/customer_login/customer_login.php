@@ -47,12 +47,12 @@
         if(!isset($_SESSION["username"])){
             header("Location: /WhatsUpShabu/staff/login");
         } else {
-            header("Location: /WhatsUpShabu/receptionist/ManageTable.php");
+            header("Location: /WhatsUpShabu/receptionist/ManageTable");
         }
     }
 
     if(isset($_GET["back"])){
-        header("Location: /WhatsUpShabu/receptionist/ManageTable.php");
+        header("Location: /WhatsUpShabu/receptionist/ManageTable");
     }
 ?>
     <form action="customer_login.php">
