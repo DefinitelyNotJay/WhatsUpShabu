@@ -11,6 +11,48 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+  <style>
+    /* Popup container */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+/* Popup content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* Close button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+  </style>
 </head>
 
 <body>
@@ -33,135 +75,190 @@ $order_id = $_GET['order_id'];
 ?>
 
 
-  <div class="back">
+<div class="back">
 
-    <div class="function">
-      <img src="../../../pic/logo.png" alt="Company Logo" class="logo">
-      <button class="func_menu" id="ordermanage" style="background-color: #fff; color: #6A311D;" onclick="window.location.href = '../../ordermanage.php'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="lucide lucide-clipboard-list">
-          <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-          <path d="M12 11h4" />
-          <path d="M12 16h4" />
-          <path d="M8 11h.01" />
-          <path d="M8 16h.01" />
-        </svg>
-        จัดการรายการ
-      </button>
-      <button class="func_menu" id="menumanage" onclick="window.location.href = '../../menumanage.php'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="lucide lucide-file-sliders">
-          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-          <path d="M8 12h8" />
-          <path d="M10 11v2" />
-          <path d="M8 17h8" />
-          <path d="M14 16v2" />
-        </svg>
-        จัดการเมนู
-      </button>
-    </div>
+  <div class="function">
+    <img src="../../../pic/logo.png" alt="Company Logo" class="logo">
+    <button class="func_menu" id="ordermanage" style="background-color: #fff; color: #6A311D;"
+      onclick="window.location.href = '../../ordermanage.php'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-clipboard-list">
+        <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+        <path d="M12 11h4" />
+        <path d="M12 16h4" />
+        <path d="M8 11h.01" />
+        <path d="M8 16h.01" />
+      </svg>
+      จัดการรายการ
+    </button>
+    <button class="func_menu" id="menumanage" onclick="window.location.href = '../../menumanage.php'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-file-sliders">
+        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+        <path d="M8 12h8" />
+        <path d="M10 11v2" />
+        <path d="M8 17h8" />
+        <path d="M14 16v2" />
+      </svg>
+      จัดการเมนู
+    </button>
+  </div>
 
-    <div class="main">
+  <div class="main">
 
-      <div class="header">
-        <div class="empName">
-          <div class="dropdown">
-            <img src="../../../pic/emp.jpg" class="emp_img">
-            <button class="btn btn-secondary " type="button" id="dropdownMenuButton">
-              นายสมปอง สมปราถนา
-            </button>
-          </div>
+    <div class="header">
+      <div class="empName">
+        <div class="dropdown">
+          <img src="../../../pic/emp.jpg" class="emp_img">
+          <button class="btn btn-secondary " type="button" id="dropdownMenuButton">
+            นายสมปอง สมปราถนา
+          </button>
         </div>
       </div>
-      <div class="outline innerorder">
-        <div class="head_tab">
-          
-          <div style="display:flex; height:100%; border-radius:10px 10px 0 0;">
-            <button class="back_page">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left">
-              <path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
-            </button>
-            <h4 style="color:#fff; margin-left:10px; height:100%;"> รายการที่ <?php echo " ".$order_id; ?> </h4>
-          </div>
+    </div>
+    <div class="outline innerorder">
+      <div class="head_tab">
+
+        <div style="display:flex; height:100%; border-radius:10px 10px 0 0;">
+          <button class="back_page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" class="lucide lucide-move-left">
+              <path d="M6 8L2 12L6 16" /><path d="M2 12H22" /></svg>
+          </button>
+          <h4 style="color:#fff; margin-left:10px; height:100%;"> รายการที่ <?php echo " " . $order_id; ?> </h4>
         </div>
-        
-        <div class="head_order">
-    
-        </div>
-        
-        <div class="menu_bar">
+      </div>
+
+      <div class="head_order">
+          <a class="status_order" id="rec" style="color:Red;">ยังไม่ได้รับ</a>
+      </div>
+
+      <div class="menu_bar">
         <?php 
         $sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
         $result1 = mysqli_query($conn, $sql1);
 
         if (mysqli_num_rows($result1) > 0) {
-        // วนลูปแสดงผลข้อมูล
-        while($row = mysqli_fetch_assoc($result1)) {
+          // วนลูปแสดงผลข้อมูล
+          while($row = mysqli_fetch_assoc($result1)) {
         ?>
-          <div class="menu_item">
+        <div class="menu_item">
           <?php
           $menu_id = $row['menu_id'];
-                $sql2 = "SELECT * FROM menu WHERE ID='$menu_id';";
-                $result2 = mysqli_query($conn, $sql2);
-                $row2 = mysqli_fetch_assoc($result2);
-                ?>
-            <div class="pic_frame">
-              <img src="<?php echo $row2['image'];?>" class="menu_img">
-            </div>
-            <div class="name_menu_frame">
-              <div>
-                
-                <h5 class="name_menu"><?php echo $row2['name'];?></h5>
-                <a class="oneset"><?php echo $row2['description'];?></a>
-              </div>
-              <a class="quantity"><?php echo $row["quantity"]." "; ?> ชุด</a>
-              <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div>
-            </div>
+          $sql2 = "SELECT * FROM menu WHERE ID='$menu_id';";
+          $result2 = mysqli_query($conn, $sql2);
+          $row2 = mysqli_fetch_assoc($result2);
+          ?>
+          <div class="pic_frame">
+            <img src="<?php echo $row2['image'];?>" class="menu_img">
           </div>
-          <?php
-            }
-        } else {
-            echo "ไม่พบข้อมูล";
-        }
-    ?>
+          <div class="name_menu_frame">
+            <div>
+
+              <h5 class="name_menu"><?php echo $row2['name'];?></h5>
+              <a class="oneset"><?php echo $row2['description'];?></a>
+            </div>
+            <a class="quantity"><?php echo $row["quantity"]." "; ?> ชุด</a>
+            <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div>
+          </div>
         </div>
-        
-        <div class="submit_bar">
+        <?php
+          }
+        } else {
+          echo "ไม่พบข้อมูล";
+        }
+        ?>
+      </div>
+
+      <div class="submit_bar">
         <form action="" method="post">
           <input type="hidden" id="orderID" name="orderID" value="">
-          <button type="submit" class="receive_button">รับ</button>
+          <button type="button" class="arranging_button"  data-toggle='modal' data-target='#myModal'>เสิร์ฟ</button>
+
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <p>คุณยังไม่ได้ติ๊กเลือกทุกรายการ คุณต้องการที่จะยืนยันหรือไม่?</p>
+              <button id="confirmBtn">ยืนยัน</button>
+            </div>
+          </div>
         </form>
-        </div>
       </div>
     </div>
   </div>
-
+</div>
 <?php
   // รับค่า ID ของรายการที่ต้องการเปลี่ยนสถานะจาก URL parameter
-  $order_id = $_GET['order_id'];
   echo "<script>document.getElementById('orderID').value = ". $order_id ."</script>";
 
+  
 
-  if(isset($_POST['orderID'])){
-    $order_id = $_POST['orderID'];
-    $sql = "UPDATE orders SET status = 'process' WHERE id = $order_id";
+//   if(isset($_POST['orderID'])){
+//     $order_id = $_POST['orderID'];
+//     $sql = "UPDATE orders SET status = 'done' WHERE id = $order_id";
     
-    if (mysqli_query($conn, $sql)) {
-      echo "Record updated successfully";
-      echo "<script>window.location.href = '../Receive.php';</script>";
-    } else {
-        echo "Error added record: " . mysqli_error($conn);
-    }
-  }
+//     if (mysqli_query($conn, $sql)) {
+//       echo "Record updated successfully";
+//       echo "<script>window.location.href = '../Arranging.php';</script>";
+//     } else {
+//         echo "Error updating record: " . mysqli_error($conn);
+//     }
+// }
 
 
   // ปิดการเชื่อมต่อ
   mysqli_close($conn);
 ?>
+
+<script>
+  var form = document.querySelector('form');
+  var checkboxes = document.querySelectorAll('input[name="menu_checkbox[]"]');
+  var modal = document.getElementById("myModal");
+  var confirmBtn = document.getElementById("confirmBtn");
+  
+  form.addEventListener('submit', function(event) {
+    var checkedCheckboxes = [];
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked) {
+        checkedCheckboxes.push(checkbox.value);
+      }
+    });
+
+    if (checkedCheckboxes.length < <?php echo mysqli_num_rows($result1); ?>) {
+      event.preventDefault(); // หยุดการส่งแบบฟอร์ม
+      modal.style.display = "block"; // แสดง popup
+    } else {
+      // ทำการอัพเดทฐานข้อมูลตามที่ต้องการ
+      // จากนั้นส่งไปยังหน้าที่กำหนด
+      // ในที่นี้คือ Arranging.php
+      window.location.href = 'Arranging.php';
+    }
+  });
+
+  // เพิ่มการปิด popup เมื่อคลิกที่ปุ่มปิดหรือพื้นหลังภายนอก
+  var closeBtn = document.getElementsByClassName("close")[0];
+  closeBtn.onclick = function() {
+    modal.style.display = "none";
+  }
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // เพิ่มการทำงานเมื่อผู้ใช้กดปุ่มยืนยัน
+  confirmBtn.onclick = function() {
+    // ทำการอัพเดทฐานข้อมูล หรือกระทำตามที่ต้องการต่อไป
+    // และส่งไปยังหน้าที่กำหนด
+    // ในที่นี้คือ Arranging.php
+    window.location.href = 'Arranging.php';
+  }
+</script>
 
 </body>
 

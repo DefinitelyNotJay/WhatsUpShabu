@@ -64,23 +64,17 @@
 
     <div class="main">
 
-      <div class="header">
+    <div class="header">
         <div class="empName">
           <div class="dropdown">
             <img src="../../pic/emp.jpg" class="emp_img">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="btn btn-secondary" id="dropdownMenuButton">
               นายสมปอง สมปราถนา
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">โปรไฟล์</a>
-              <a class="dropdown-item" href="#">ตั้งค่า</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">ออกจากระบบ</a>
             </div>
           </div>
         </div>
       </div>
+
       <div class="outline">
         <div class="Orderlist_bar">
 
@@ -101,6 +95,7 @@
     if (mysqli_num_rows($result3) > 0) {
         // วนลูปแสดงผลข้อมูล
         while($row = mysqli_fetch_assoc($result3)) {
+          $order_id = $row["id"];
 ?>
           <!-- สร้าง Orderlist_item -->
           <button class="Orderlist_item" onclick="window.location.href = 'order/finorder.php?order_id=<?php echo $row['id']; ?>'">
@@ -130,7 +125,13 @@
                   <path d="m5 11 4-7" />
                   <path d="m9 11 1 9" />
                 </svg>
-                <a>99</a>
+                <?php
+                $sql4 = "SELECT * FROM order_item WHERE order_id ='$order_id' ";
+                $result4 = mysqli_query($conn, $sql4);
+                $row_count = mysqli_num_rows($result4);
+
+                ?>
+                <a><?php echo $row_count; ?></a>
               </div>
             </div>
           </button>

@@ -119,7 +119,7 @@ $order_id = $_GET['order_id'];
                 <a class="oneset"><?php echo $row2['description'];?></a>
               </div>
               <a class="quantity"><?php echo $row["quantity"]." "; ?> ชุด</a>
-              <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div>
+              <!-- <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div> -->
             </div>
           </div>
           <?php
@@ -133,7 +133,7 @@ $order_id = $_GET['order_id'];
         <div class="submit_bar">
         <form action="" method="post">
           <input type="hidden" id="orderID" name="orderID" value="">
-          <button type="submit" class="receive_button">รับ</button>
+          <!-- <button type="submit" class="receive_button">รับ</button> -->
         </form>
         </div>
       </div>
@@ -141,23 +141,6 @@ $order_id = $_GET['order_id'];
   </div>
 
 <?php
-  // รับค่า ID ของรายการที่ต้องการเปลี่ยนสถานะจาก URL parameter
-  $order_id = $_GET['order_id'];
-  echo "<script>document.getElementById('orderID').value = ". $order_id ."</script>";
-
-
-  if(isset($_POST['orderID'])){
-    $order_id = $_POST['orderID'];
-    $sql = "UPDATE orders SET status = 'process' WHERE id = $order_id";
-    
-    if (mysqli_query($conn, $sql)) {
-      echo "Record updated successfully";
-      echo "<script>window.location.href = '../Receive.php';</script>";
-    } else {
-        echo "Error added record: " . mysqli_error($conn);
-    }
-  }
-
 
   // ปิดการเชื่อมต่อ
   mysqli_close($conn);
