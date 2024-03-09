@@ -64,13 +64,15 @@
             }
         }
         ?>
+
+        <form action="" method="post" style="width: 100%;">
         <div id="orderList" class="order-items-container container-menu d-flex flex-wrap p-3"></div>
+        <input type="hidden" id="OrderItems" name="OrderItems" value="">
     </section>
 
     <section class="bottom_section">
-        <form class="bottom_section" action="" method="post" style="width: 100%;">
-            <button class="btn btn-accept" name="accept">ยืนยัน</button>
-            <button class="btn btn-cancel" name="cancel">ยกเลิก</button>
+            <button type="submit" class="btn btn-accept" name="accept">ยืนยัน</button>
+            <button type="submit" class="btn btn-cancel" name="cancel">ยกเลิก</button>
         </form>
     </section>
 
@@ -83,13 +85,23 @@
         function showOrders() {
             let orderItems = localStorage.getItem('orderItems');
             let orderList = document.getElementById('orderList');
+            let itemList = [];
 
             if (orderItems) {
                 orderItems = JSON.parse(orderItems);
+                console.log(orderItems);
 
                 orderItems.forEach((orderItem, index) => {
                     let menuID = orderItem.menuID;
                     let quantity = orderItem.quantity;
+
+                    let processedOrderItem = {
+                        id: menuID,
+                        qty: quantity
+                    };
+
+                    itemList.push(processedOrderItem);
+                    
 
                     if (menuID in <?php echo json_encode($menuDetails); ?>) {
                         let menuDetails = <?php echo json_encode($menuDetails); ?>[menuID];
@@ -107,6 +119,11 @@
                         orderList.appendChild(document.createElement('br'));
                     }
                 });
+                // Convert the itemList array to a JSON string
+                let itemListJSON = JSON.stringify(itemList);
+                console.log(itemListJSON);
+                // Set the JSON string as the value of the hidden input field
+                document.getElementById('OrderItems').value = itemListJSON;
             } else {
                 let emptyDiv = document.createElement('div');
                 emptyDiv.innerHTML = '';
@@ -134,6 +151,27 @@
         $table_id = 'A-01';
         date_default_timezone_set('Asia/Bangkok');
         $start_time = date('H:i:s');
+        
+        //Test
+        // Retrieve the order items JSON string from the form
+        $orderItemsJSON = $_POST['OrderItems'];
+
+        // Decode the JSON string into an array
+        $orderItems = json_decode($orderItemsJSON, true);
+        if ($orderItems !== null) {
+            // Process each order item
+            foreach ($orderItems as $orderItem) {
+                $menuID = $orderItem['id'];
+                $quantity = $orderItem['qty'];
+                echo $menuID;
+                echo $quantity;
+            }
+            echo 'Order processed successfully';
+        } else {
+            // Handle JSON decoding error
+            echo 'Error decoding order items JSON';
+        }
+
 
         $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
 
