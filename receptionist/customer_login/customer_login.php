@@ -38,8 +38,7 @@
 
     $sql_update = "UPDATE tables SET `start_time` = '$end_time_db', `status` = 'busy', customer_amount = '$customer_amount' WHERE id = '$table_id'";
         $result2 = mysqli_query($conn, $sql_update);
-        echo "<a href='/WhatsUpShabu/customer/menu.php?table_id=$table_id'><img class='h-[200px]' src='./qr/$table_id.png'></a><br>";
-
+        echo "<a href='/WhatsUpShabu/customer/menu.php?table_id=$table_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=/WhatsUpShabu/customer/menu.php?table_id=$table_id'></a><br>";
     
     if($status === "free"){
         
