@@ -266,7 +266,6 @@
                     </div>
                 </div>
                 <!-- Content -->
-                <!-- custom-div2 -->
                 <div class="flex hp-90 w-full bg-gray-200 px-3 py-3">
                     <div
                         class="flex flex-col w-full bg-white shadow-sm  rounded-xl overflow-y-auto overflow-x-hidden pl-4 py-3 pr-1">
@@ -327,7 +326,7 @@
                                     echo '<div class="menu flex items-center px-3 py-3 shadow-sm rounded-lg duration-500' . $inactive . '">';
                                     echo '<div class="flex flex-col justify-between items-center h-full w-full">';
                                     echo '<h1 class="font-bold text-center text-lg">' . $promotion["name"] . '</h1>';
-                                    echo '<div class="menu-edit flex justify-between w-9/12 px-2">';
+                                    echo '<div class="menu-edit flex justify-center gap-3 w-full px-2">';
                                     echo '<div class="duration-500 menu-option flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-edit data-toggle="modal" data-target="#editProModal" data-pro-id="' . $promotion["ID"] . '">';
                                     echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-2 mr-1"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                                         <h6 class="font-semibold">แก้ไข</h6></div>';
