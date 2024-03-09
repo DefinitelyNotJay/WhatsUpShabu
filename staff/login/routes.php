@@ -24,7 +24,7 @@
         if(!($result -> num_rows > 0)){
             $username = $_POST['username'];
             $password = $_POST['passwd'];
-            // header("Location: index.php");
+            header("Location: index.php");
         } else {
             $_SESSION["username"] = $username;
             $_SESSION["password"] = $password;
@@ -36,7 +36,8 @@
             } elseif($role === "waiter"){
                 
             } elseif($role === "manager"){
-                header("Location: /WhatsUpShabu/Manager/ManageMenu");
+                header("Location: /WhatsUpShabu/Manager/ViewStatistics");
+                
             }
         }
 

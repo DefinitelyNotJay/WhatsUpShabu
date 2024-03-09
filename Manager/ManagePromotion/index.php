@@ -168,7 +168,7 @@
                     </a>
                 </div>
                 <div class="w-full flex justify-center">
-                    <form action="ManageTable.php" method="post" class="w-full">
+                    <form action="" method="post" class="w-full">
                         <button type="submit" name="logout"
                             class="w-full logout bg-[#EEE8C8] hover:bg-[#f3efd9] duration-500">
                             <p class="text-normal flex gap-2  px-4 py-6 font-semibold">
