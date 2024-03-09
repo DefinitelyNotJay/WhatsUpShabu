@@ -173,17 +173,17 @@
         }
 
 
-        $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
+        // $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
 
-        if (mysqli_query($conn, $sql)) {
-            $sql = "SELECT * FROM order_item";
-            if (mysqli_query($conn, $sql)) {
-                echo "<script>localStorage.removeItem('orderItems');
-                    document.getElementById('orderList').innerHTML = '';window.location.href = 'menu.php';</script>";
-            }
-        } else {
-            echo "Error adding record: " . mysqli_error($conn);
-        }
+        // if (mysqli_query($conn, $sql)) {
+        //     $sql = "SELECT * FROM order_item";
+        //     if (mysqli_query($conn, $sql)) {
+        //         echo "<script>localStorage.removeItem('orderItems');
+        //             document.getElementById('orderList').innerHTML = '';window.location.href = 'menu.php';</script>";
+        //     }
+        // } else {
+        //     echo "Error adding record: " . mysqli_error($conn);
+        // }
     }
 
     if (isset($_POST['cancel'])) {
