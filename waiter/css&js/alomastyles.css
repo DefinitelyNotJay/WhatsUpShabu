@@ -367,3 +367,154 @@ body {
   margin-left:10px;
   color: #fff;
 }
+
+
+
+
+
+
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Noto Sans Thai';
+}
+
+.outside-content {
+  height: 90%;
+  width: 100%;
+  padding: 2% 2.5%;
+
+}
+
+.main-content {
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 2.5% 3.5%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 10%;
+}
+
+.items-type {
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+}
+
+.cards-area {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  column-gap: 1.5%;
+  row-gap: 4.5%;
+
+}
+
+.cards {
+  display: flex;
+  background-color: #EEE8C8;
+  width: 100%;
+  height: 100%;
+  padding: 2%;
+  border-radius: 8px;
+
+}
+
+.card-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3% 0%;
+}
+
+.cards img {
+  width: 45%;
+}
+
+.edit-btn {
+  display: flex;
+}
+
+.menu-option {
+  width: 7rem;
+  height: 2.5rem;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 15px;
+  padding: 10px;
+  border-radius: 1cap;
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+}
+
+.button-edit {
+  background-color: #FFF59B;
+  border-color: transparent;
+}
+
+.button-edit:hover {
+  background-color: #f8e852;
+}
+
+#form2 {
+  font-size: 18px;
+}
+
+.type-text {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+}
+
+.modal-radio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16%;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 7%;
+  /* align-items: center; */
+}
+
+.confirm-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  padding: 8px 8px;
+  border-radius: 4px;
+  background-color: #009179;
+  border: none;
+}
+
+.confirm-btn:hover {
+  background-color: #009179c2;
+}
+
+.cancel-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  padding: 8px 8px;
+  border-radius: 4px;
+  background-color: #FA5D2A;
+  border: none;
+}
+
+.cancel-btn:hover {
+  background-color: #fa5e2abe;
+}
