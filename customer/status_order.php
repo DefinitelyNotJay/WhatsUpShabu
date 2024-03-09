@@ -35,9 +35,14 @@
 
     <section class="status_section" id="status_section">
         <?php
-        $sql = "SELECT * FROM orders;";
-        $result = mysqli_query($conn, $sql);
 
+        $table_id = 'A-01';
+
+        $sql = "SELECT orders.*
+        FROM orders
+        INNER JOIN tables ON orders.table_id = tables.id
+        WHERE orders.table_id = '$table_id' AND orders.start_time > tables.start_time;";
+        $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
             $orders = array();
 

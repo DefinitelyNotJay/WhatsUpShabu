@@ -119,10 +119,8 @@
                         orderList.appendChild(document.createElement('br'));
                     }
                 });
-                // Convert the itemList array to a JSON string
                 let itemListJSON = JSON.stringify(itemList);
                 console.log(itemListJSON);
-                // Set the JSON string as the value of the hidden input field
                 document.getElementById('OrderItems').value = itemListJSON;
             } else {
                 let emptyDiv = document.createElement('div');
@@ -136,10 +134,8 @@
             let acceptButton = document.querySelector('.btn-accept');
 
             if (!orderItems || JSON.parse(orderItems).length === 0) {
-                // Disable the Accept button if orderItems is empty
                 acceptButton.disabled = true;
             } else {
-                // Enable the Accept button if orderItems is not empty
                 acceptButton.disabled = false;
             }
         }
@@ -148,7 +144,7 @@
     <?php
 
     if (isset($_POST['accept'])) {
-        $table_id = 'A-01';
+        $table_id = 'A-02';
         date_default_timezone_set('Asia/Bangkok');
         $start_time = date('H:i:s');
 
@@ -156,19 +152,14 @@
 
         if (mysqli_query($conn, $sql)) {
             $order_id = mysqli_insert_id($conn);
-            //Test
-            // Retrieve the order items JSON string from the form
             $orderItemsJSON = $_POST['OrderItems'];
-            // Decode the JSON string into an array
             $orderItems = json_decode($orderItemsJSON, true);
             if ($orderItems !== null) {
-                // Process each order item
                 foreach ($orderItems as $orderItem) {
                     $menuID = $orderItem['id'];
                     $quantity = $orderItem['qty'];
                     $sql = "INSERT INTO order_item (order_id, menu_id, quantity) VALUES ('$order_id', '$menuID', '$quantity');";
                     if (mysqli_query($conn, $sql)) {
-
                         echo "<script>localStorage.removeItem('orderItems');
                     document.getElementById('orderList').innerHTML = '';window.location.href = 'menu.php';</script>";
                     } else {
@@ -176,7 +167,6 @@
                     }
                 }
             } else {
-                // Handle JSON decoding error
                 echo 'Error decoding order items JSON';
             }
         }
@@ -185,7 +175,6 @@
     if (isset($_POST['cancel'])) {
         echo "<script>window.location.href = 'menu.php';</script>";
     }
-    // close connection
     mysqli_close($conn);
     ?>
 </body>

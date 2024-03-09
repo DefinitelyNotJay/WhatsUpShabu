@@ -125,8 +125,10 @@
             <div class="btn-button-num statuscount">0</div>
         </button>
         <?php
-        // SQL query เพื่อดึงข้อมูลจำนวนแถวทั้งหมดในตาราง order_item
-        $sql = "SELECT COUNT(*) as total_rows FROM order_item";
+
+        $sql = "SELECT COUNT(*) as total_rows FROM orders
+        INNER JOIN tables ON orders.table_id = tables.id
+        WHERE orders.table_id = 'A-01' AND orders.start_time > tables.start_time;";
         $result = mysqli_query($conn, $sql);
 
         if ($result) {
