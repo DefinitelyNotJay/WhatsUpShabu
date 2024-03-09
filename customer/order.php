@@ -100,7 +100,7 @@
             }
         }
 
-        function clearLocalStorage() {
+        function accept() {
             localStorage.removeItem('orderItems');
             document.getElementById('orderList').innerHTML = '';
             window.location.href = 'menu.php';
@@ -110,7 +110,7 @@
 
 
     <section class="bottom_section">
-        <button class="btn btn-accept" onclick="clearLocalStorage()">
+        <button class="btn btn-accept" onclick="accept()">
             <label>ยืนยัน</label>
         </button>
         <button class="btn btn-cancel" onclick="window.location.href='menu.php'">

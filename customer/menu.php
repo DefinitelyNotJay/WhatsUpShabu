@@ -118,7 +118,7 @@
     </section>
 
     <section class="bottom_section">
-        <button class="btn btn-button ordercount" onclick="window.location.href='order.php'">
+        <button class="btn btn-button" onclick="window.location.href='order.php'">
             <label>รายการอาหาร</label>
             <div class="btn-button-num ordercount">0</div>
         </button>
@@ -149,9 +149,9 @@
                             <div class="form-group text-center">
                                 <label id="Description-label" class="label-content"></label>
                                 <div class="input-group input-group-sm mb-3">
-                                    <button class="btn btn-add" type="button" onclick="incrementValue()">+</button>
-                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity" value="0" min="0" max="10">
                                     <button class="btn btn-decrease" type="button" onclick="decrementValue()">-</button>
+                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity" value="0" min="0" max="10">
+                                    <button class="btn btn-add" type="button" onclick="incrementValue()">+</button>
                                 </div>
                             </div>
                             <div class="form-group text-center">
@@ -166,6 +166,28 @@
     </section>
 
     <script>
+        // Assume you have a variable to store the order count
+        let orderCount = 0;
+
+        // You might have a function to update the order count
+        function updateOrderCount() {
+            // Fetch the order items from your storage (localStorage or elsewhere)
+            let orderItems = localStorage.getItem('orderItems');
+
+            // If there are order items, update the order count
+            if (orderItems) {
+                orderItems = JSON.parse(orderItems);
+                orderCount = orderItems.length;
+            } else {
+                orderCount = 0;
+            }
+
+            // Update the innerHTML of the ordercount element
+            document.querySelector('.ordercount').innerHTML = orderCount;
+        }
+
+        // Call the function to update the order count on page load
+        updateOrderCount();
         document.addEventListener('DOMContentLoaded', function() {
             var searchInput = document.getElementById('search');
             searchInput.addEventListener('keypress', function(event) {
@@ -192,7 +214,7 @@
             var chickenelement = document.getElementById('ไก่');
             var pigbutton = document.getElementById('pig');
             var pigelement = document.getElementById('หมู');
-            
+
 
             meatbutton.addEventListener('click', function() {
                 meatelement.scrollIntoView({
@@ -242,7 +264,7 @@
 
                 });
             });
-            
+
         });
 
         function incrementValue() {
