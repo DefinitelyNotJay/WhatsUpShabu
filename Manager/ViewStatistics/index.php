@@ -40,19 +40,27 @@
 </head>
 
 <body>
-    <!-- Connect Database -->
     <?php
+    session_start();
     $servername = "localhost";
-    $username = "root"; //ตามที่กำหนดให้
-    $password = ""; //ตามที่กำหนดให้
-    $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
-    // Create connection
+    $username = "root";
+    $password = "";
+    $dbname = "WhatsUpShabu";
     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-    echo "";
+
+    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
+
+    if (isset($_POST["logout"])) {
+        session_destroy();
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
     ?>
     <div class="flex w-screen h-screen">
         <!-- Sidebar -->
@@ -106,7 +114,7 @@
                 </a>
             </div>
             <div class="w-full flex justify-center">
-                <form action="ManageTable.php" method="post" class="w-full">
+                <form action="" method="post" class="w-full">
                     <button type="submit" name="logout"
                         class="w-full logout bg-[#EEE8C8] hover:bg-[#f3efd9] duration-500">
                         <p class="text-normal flex gap-2  px-4 py-6 font-semibold">
