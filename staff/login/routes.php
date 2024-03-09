@@ -34,7 +34,7 @@
             } elseif($role === "waiter"){
                 
             } elseif($role === "manager"){
-                header("Location: /WhatsUpShabu/Manager/ManageMenu/index.php");
+                header("Location: /WhatsUpShabu/Manager/ViewStatistics/index.php");
             }
         }
 
