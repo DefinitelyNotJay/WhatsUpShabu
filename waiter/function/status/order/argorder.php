@@ -91,7 +91,7 @@ $row_count = mysqli_num_rows($result1);
       <div class="head_tab">
 
         <div style="display:flex; height:100%; border-radius:10px 10px 0 0;">
-          <button class="back_page" onclick="window.location.href = '../Receive.php'">
+          <button class="back_page" onclick="window.location.href = '../Arranging.php'">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" class="lucide lucide-move-left">
@@ -165,23 +165,23 @@ $row_count = mysqli_num_rows($result1);
                 <!-- Modal Header -->
                 <div class="modal-header">
                   <h4 class="modal-title" id="editHeader">ต้องการยืนยันการเสิร์ฟหรือไม่?</h4>
-                  <button type="button" class="cancel_btn" data-dismiss="modal">X</button>
+                  <button type="button" class="cancel_btn btn btn-danger" data-dismiss="modal">X</button>
                 </div>
 
                 <!-- Modal Body -->
-                <div class="modal-body">
-                  <div>
-                    <p>หากยืนยันแล้วจะไม่สามารถแก้ไขรายการได้อีก ต้องการยืนยันการเสิร์ฟ กด "ยืนยัน"</p>
-                    <hr>
-                  </div>
-                  <!-- Add your form or content for adding a menu here -->
-                  <form>
-                    <div class="model_button">
-                      <button type="button" class="cancel_btn" data-dismiss="modal">ยกเลิก</button>
-                      <button type="submit" class="confirm_btn">ยืนยัน</button>
-                    </div>
-                  </form>
-                </div>
+                <div class="modal-body d-flex flex-column align-items-center">
+    <div>
+        <p>หากยืนยันแล้วจะไม่สามารถแก้ไขรายการได้อีก ต้องการยืนยันการเสิร์ฟ กด "ยืนยัน"</p>
+        <hr>
+    </div>
+    <!-- Add your form or content for adding a menu here -->
+    <form class="submit_form" id="submitForm" action="" method="post">
+        <div class="model_button">
+            <button type="button" class="cancel_btn cn_btn" data-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="confirm_btn sm_btn">ยืนยัน</button>
+        </div>
+    </form>
+</div>
               </div>
             </div>
           </div>
