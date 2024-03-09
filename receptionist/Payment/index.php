@@ -23,7 +23,7 @@
 
     <?php
     session_start();
-    require_once("../utils/config.php");
+    require_once("../../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $id = $_GET["table_id"];
     $sql = "SELECT * FROM bill JOIN tables JOIN promotion ON bill.table_id = tables.id AND bill.promotion_id = promotion.id  WHERE tables.status = 'busy' AND tables.id = '$id'";
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="flex w-full justify-center gap-2">
-                    <a href="ManageTable.php">
+                    <a href="../ManageTable">
                         <button type="button" id="cancel"
                             class="flex items-center gap-1 text-white bg-[#FA5D2A] hover:bg-[#fa5e2abe] px-2 py-2 rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -110,7 +110,7 @@
                         </button>
                     </a>
 
-                    <a href="action.php?paymentId=<?php echo $table_id ?>">
+                    <a href="../action.php?paymentId=<?php echo $table_id ?>">
                         <button type="submit" id="confirm"
                             class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded"
                             tableId=<?php echo $table_id ?>>

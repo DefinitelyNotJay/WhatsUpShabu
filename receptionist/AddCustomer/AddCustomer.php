@@ -8,9 +8,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
-    
+
 </head>
 
 <body>
@@ -24,16 +26,13 @@
     </style>
     <?php
     session_start();
-    require_once("../utils/config.php");
+    require_once("../../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $id = isset($_GET["id"]) ? $_GET["id"] : null;
     $sql = "SELECT * FROM tables WHERE id = '$id';";
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
     while ($row = mysqli_fetch_assoc($result)) {
         $table_id = $row["id"];
-    }
-    if (isset($_GET["cancel"])) {
-        header("Location: ManageTable.php");
     }
     ?>
 
@@ -45,7 +44,7 @@
             </div>
 
             <div class="pt-4">
-                <form action="action.php" id="addCustomerForm" method="get"
+                <form action="../action.php" id="addCustomerForm" method="get"
                     class="max-w-sm mx-auto flex flex-col justify-between text-lg gap-2">
                     <div class="flex justify-between">
                         <p>โต๊ะ</p>
@@ -68,7 +67,6 @@
                         <label for="promotion">โปรโมชั่น</label>
                         <select id="promotion" name="promotion"
                             class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-1.5">
-                            <option selected value='0'>ไม่มี</option>;
                             <?php
                             $sql = "SELECT id, `name` FROM promotion";
                             $result = mysqli_query($conn, $sql);
@@ -77,12 +75,13 @@
                                 $name = $row["name"];
                                 $percent_discount = $row["discount"];
                                 echo "<option value='$id'>$name</option>";
+
                             }
                             ?>
                         </select>
                     </div>
                     <div class="flex w-full justify-center gap-2">
-                        <a href="ManageTable.php"><button type="button" id="cancel"
+                        <a href="../ManageTable"><button type="button" id="cancel"
                                 class="flex items-center gap-1 text-white bg-[#FA5D2A] hover:bg-[#fa5e2abe] px-2 py-2 rounded"
                                 name="cancel">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -92,7 +91,7 @@
                                     <path d="m4.9 4.9 14.2 14.2" />
                                 </svg>ยกเลิก</button>
                         </a>
-                        <button type="submit" id="submit" tableId=<?php echo $table_id?>
+                        <button type="submit" id="submit" tableId=<?php echo $table_id ?>
                             class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -108,4 +107,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-
         @keyframes fill {
             0% {
                 background-position: 0px 140px;
@@ -75,7 +74,7 @@
             border: 6px solid #FA5D2A;
             position: absolute;
             border-radius: 0px 0px 50px 50px;
-            background-image: url(img/coffee-2.png);
+            background-image: url(img/shabu.png);
             box-shadow: 0px 0px 0px 6px white;
             background-repeat: repeat-x;
             background-position: 0px 140px;

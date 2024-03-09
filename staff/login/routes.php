@@ -30,7 +30,7 @@
             $_SESSION["name"] = $name;
 
             if($role === "receptionist"){
-                header("Location: /WhatsUpShabu/receptionist/ManageTable.php");
+                header("Location: /WhatsUpShabu/receptionist/ManageTable");
             } elseif($role === "waiter"){
                 
             } elseif($role === "manager"){

@@ -35,7 +35,7 @@
         $result3 = mysqli_query($conn, $sql_update2);
         unset($_GET["paymentId"]);
 
-        header("Location: ManageTable.php");
+        header("Location: ManageTable");
         exit();
     }
 

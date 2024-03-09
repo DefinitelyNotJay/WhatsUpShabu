@@ -19,7 +19,7 @@
         }
 
         .bg-login {
-            background-image: url('Jane-Chang.jpg');
+            background-image: url('./img/Jane-Chang.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
