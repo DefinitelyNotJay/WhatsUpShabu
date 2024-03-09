@@ -31,8 +31,30 @@
     }
     if(isset($_GET["paymentId"])){
         $table_id = $_GET["paymentId"];
-        $sql_update2 = "UPDATE tables SET `start_time` = NULL, `status` = 'free', `customer_amount` = 0 WHERE id = '$table_id'";
-        $result3 = mysqli_query($conn, $sql_update2);
+        $id;
+        $sql_quert = "SELECT * FROM bill WHERE table_id = '$table_id' AND `status` = 'unpaid'";
+        $result = mysqli_query($conn, $sql_quert);
+
+        
+        while($row = mysqli_fetch_assoc($result)){
+            $id = $row["id"];
+        };
+        echo $id;
+
+        $sql_bill_check = "UPDATE bill SET `status` = 'paid' WHERE id = $id";
+
+        // update bill to paid
+        if (mysqli_query($conn, $sql_bill_check)) {
+            echo "Record updated successfully";
+        } else {
+            echo "Error updating record: " . mysqli_error($conn);
+        }
+
+        // set table to free state
+        $sql_update_table = "UPDATE tables SET `start_time` = NULL, `status` = 'free', `customer_amount` = 0 WHERE id = '$table_id'";
+        $result3 = mysqli_query($conn, $sql_update_table);
+
+       
         unset($_GET["paymentId"]);
 
         header("Location: ManageTable");
