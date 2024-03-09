@@ -49,15 +49,13 @@
                 );
 
                 // Display order details
-                echo "<div class='container-menu d-flex flex-wrap'>";
-                echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item' data-toggle='modal' data-target='#addordermodal' data-menu-id='" . $row["id"] . "'>";
-                echo "<div>";
+                echo "<div class='container-menu d-flex flex-wrap mgin-10px'>";
+                echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item'>";
                 echo "Order ID: " . $row['id'] . "<br>";
                 echo "Table ID: " . $row['table_id'] . "<br>";
                 echo "Status: " . $row['status'] . "<br>";
                 echo "Start Time: " . $row['start_time'] . "<br>";
                 // Add more details as needed
-                echo "</div>";
                 echo "</div>";
                 echo "<br>";
                 echo "</div>";
@@ -69,9 +67,7 @@
     </section>
 
     <section class="bottom_section">
-        <button class="btn btn-cancel" onclick="window.location.href='menu.php'">
-            <label>กลับสู่หน้าหลัก</label>
-        </button>
+        <button class="btn btn-accept" onclick="window.location.href='menu.php'">กลับสู่หน้าหลัก</button>
     </section>
 
     <?php

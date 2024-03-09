@@ -30,13 +30,16 @@
         }
 
         @keyframes fadeIn {
-    from {
-        opacity: 0;  /* Start with opacity 0 */
-    }
-    to {
-        opacity: 1;  /* End with opacity 1 */
-    }
-}
+            from {
+                opacity: 0;
+                /* Start with opacity 0 */
+            }
+
+            to {
+                opacity: 1;
+                /* End with opacity 1 */
+            }
+        }
 
         body,
         html {
@@ -52,19 +55,20 @@
             justify-content: center;
             padding: 0;
             margin: 0;
-            animation: fadeIn 1s ease-in-out forwards; /* Animation name, duration, timing function, and fill-mode */
+            animation: fadeIn 1s ease-in-out forwards;
+            /* Animation name, duration, timing function, and fill-mode */
         }
 
         .smoke {
             width: 120px;
             height: 120px;
             position: relative;
-           top: -10%;
+            top: -10%;
         }
 
         .cls-1 {
             fill: #fff;
-    
+
         }
 
         .cup {
@@ -118,9 +122,9 @@
 
     <script>
         // Wait for the DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Set a timeout to redirect after 5 seconds
-            setTimeout(function () {
+            setTimeout(function() {
                 window.location.href = 'menu.php'; // Redirect to menu.php
             }, 4000); // 5000 milliseconds = 5 seconds
         });

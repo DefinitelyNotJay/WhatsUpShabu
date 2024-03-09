@@ -66,13 +66,13 @@
         ?>
 
         <form action="" method="post" style="width: 100%;">
-        <div id="orderList" class="order-items-container container-menu d-flex flex-wrap p-3"></div>
-        <input type="hidden" id="OrderItems" name="OrderItems" value="">
+            <div id="orderList" class="order-items-container container-menu d-flex flex-wrap p-3"></div>
+            <input type="hidden" id="OrderItems" name="OrderItems" value="">
     </section>
 
     <section class="bottom_section">
-            <button type="submit" class="btn btn-accept" name="accept">ยืนยัน</button>
-            <button type="submit" class="btn btn-cancel" name="cancel">ยกเลิก</button>
+        <button type="submit" class="btn btn-accept" name="accept">ยืนยัน</button>
+        <button type="submit" class="btn btn-cancel" name="cancel">ยกเลิก</button>
         </form>
     </section>
 
@@ -101,7 +101,7 @@
                     };
 
                     itemList.push(processedOrderItem);
-                    
+
 
                     if (menuID in <?php echo json_encode($menuDetails); ?>) {
                         let menuDetails = <?php echo json_encode($menuDetails); ?>[menuID];
@@ -151,39 +151,35 @@
         $table_id = 'A-01';
         date_default_timezone_set('Asia/Bangkok');
         $start_time = date('H:i:s');
-        
-        //Test
-        // Retrieve the order items JSON string from the form
-        $orderItemsJSON = $_POST['OrderItems'];
 
-        // Decode the JSON string into an array
-        $orderItems = json_decode($orderItemsJSON, true);
-        if ($orderItems !== null) {
-            // Process each order item
-            foreach ($orderItems as $orderItem) {
-                $menuID = $orderItem['id'];
-                $quantity = $orderItem['qty'];
-                echo $menuID;
-                echo $quantity;
+        $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
+
+        if (mysqli_query($conn, $sql)) {
+            $order_id = mysqli_insert_id($conn);
+            //Test
+            // Retrieve the order items JSON string from the form
+            $orderItemsJSON = $_POST['OrderItems'];
+            // Decode the JSON string into an array
+            $orderItems = json_decode($orderItemsJSON, true);
+            if ($orderItems !== null) {
+                // Process each order item
+                foreach ($orderItems as $orderItem) {
+                    $menuID = $orderItem['id'];
+                    $quantity = $orderItem['qty'];
+                    $sql = "INSERT INTO order_item (order_id, menu_id, quantity) VALUES ('$order_id', '$menuID', '$quantity');";
+                    if (mysqli_query($conn, $sql)) {
+
+                        echo "<script>localStorage.removeItem('orderItems');
+                    document.getElementById('orderList').innerHTML = '';window.location.href = 'menu.php';</script>";
+                    } else {
+                        echo "Error adding record: " . mysqli_error($conn);
+                    }
+                }
+            } else {
+                // Handle JSON decoding error
+                echo 'Error decoding order items JSON';
             }
-            echo 'Order processed successfully';
-        } else {
-            // Handle JSON decoding error
-            echo 'Error decoding order items JSON';
         }
-
-
-        // $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
-
-        // if (mysqli_query($conn, $sql)) {
-        //     $sql = "SELECT * FROM order_item";
-        //     if (mysqli_query($conn, $sql)) {
-        //         echo "<script>localStorage.removeItem('orderItems');
-        //             document.getElementById('orderList').innerHTML = '';window.location.href = 'menu.php';</script>";
-        //     }
-        // } else {
-        //     echo "Error adding record: " . mysqli_error($conn);
-        // }
     }
 
     if (isset($_POST['cancel'])) {

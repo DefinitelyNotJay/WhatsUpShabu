@@ -23,7 +23,7 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-    
+
     // if (!isset($_SESSION["session_id"])) {
     //     $id = $_GET["session_id"];
     //     $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id'";
@@ -107,7 +107,7 @@
                     echo "</div></div></div>";
                     echo "<br>";
                 }
-                echo "</div></div>";
+                echo "</div>";
             }
         } else {
             echo "0 results";
@@ -117,13 +117,28 @@
 
     <section class="bottom_section">
         <button class="btn btn-button" onclick="window.location.href='order.php'">
-            <label>รายการอาหาร</label>
+            รายการอาหาร
             <div class="btn-button-num ordercount">0</div>
         </button>
         <button class="btn btn-button" onclick="window.location.href='status_order.php'">
-            <label>สถานะอาหาร</label>
-            <div class="btn-button-num">0</div>
+            สถานะอาหาร
+            <div class="btn-button-num statuscount">0</div>
         </button>
+        <?php
+        // SQL query เพื่อดึงข้อมูลจำนวนแถวทั้งหมดในตาราง order_item
+        $sql = "SELECT COUNT(*) as total_rows FROM order_item";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $totalRows = $row['total_rows'];
+
+            // แสดงผลใน HTML
+            echo "<script>document.querySelector('.statuscount').innerHTML = $totalRows;</script>";
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
+        ?>
     </section>
 
     <section class="modal_section">
@@ -142,16 +157,13 @@
                                 <label id="Name-label" class="label-content"></label>
                             </div>
                             <div class="form-group text-center">
-                                <img id="imagePreview-edit" src="" alt="Image Preview"
-                                    class="mx-auto align-items-center imagePreview"
-                                    style="border: 2px solid #FA5D2A; max-width: 100%; max-height: 100%;">
+                                <img id="imagePreview-edit" src="" alt="Image Preview" class="mx-auto align-items-center imagePreview" style="border: 2px solid #FA5D2A; max-width: 100%; max-height: 100%;">
                             </div>
                             <div class="form-group text-center">
                                 <label id="Description-label" class="label-content"></label>
                                 <div class="input-group input-group-sm mb-3">
                                     <button class="btn btn-decrease" type="button" onclick="decrementValue()">-</button>
-                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity"
-                                        value="1" min="0" max="10">
+                                    <input type="number" class="form-control" aria-label="Quantity" id="quantity" value="1" min="0" max="10">
                                     <button class="btn btn-add" type="button" onclick="incrementValue()">+</button>
                                 </div>
                             </div>
@@ -167,7 +179,6 @@
     </section>
 
     <script>
-
         // Assume you have a variable to store the order count
         let orderCount = 0;
 
@@ -190,9 +201,9 @@
 
         // Call the function to update the order count on page load
         updateOrderCount();
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var searchInput = document.getElementById('search');
-            searchInput.addEventListener('keypress', function (event) {
+            searchInput.addEventListener('keypress', function(event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
 
@@ -218,19 +229,19 @@
             var pigelement = document.getElementById('หมู');
 
 
-            meatbutton.addEventListener('click', function () {
+            meatbutton.addEventListener('click', function() {
                 meatelement.scrollIntoView({
                     behavior: 'smooth'
                 });
             });
 
-            chichkenbutton.addEventListener('click', function () {
+            chichkenbutton.addEventListener('click', function() {
                 chickenelement.scrollIntoView({
                     behavior: 'smooth'
                 });
             });
 
-            pigbutton.addEventListener('click', function () {
+            pigbutton.addEventListener('click', function() {
                 pigelement.scrollIntoView({
                     behavior: 'smooth'
                 });
@@ -238,8 +249,8 @@
 
             // Attach event listener to all items
             var items = document.querySelectorAll('.item');
-            items.forEach(function (item) {
-                item.addEventListener('click', function () {
+            items.forEach(function(item) {
+                item.addEventListener('click', function() {
                     // Get the menu ID from the data attribute
                     var menuId = item.getAttribute('data-menu-id');
 
@@ -311,7 +322,6 @@
 
             localStorage.setItem('orderItems', JSON.stringify(existingOrderItems));
         }
-
     </script>
     <?php
     // close connection
