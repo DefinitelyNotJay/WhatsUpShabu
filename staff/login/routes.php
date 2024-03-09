@@ -15,13 +15,15 @@
         
         $errors = array();
 
-        $login_sql = "SELECT * FROM personnel WHERE `username` = '$username' AND `password` = '$password' ";
+        $login_sql = "SELECT * FROM personnel WHERE `username` = '$username' AND `password` = '$password'";
         $result = mysqli_query($conn, $login_sql);
         while ($row = mysqli_fetch_assoc($result)){
             $role = $row['role'];
             $name = $row['name'];
         }
         if(!($result -> num_rows > 0)){
+            $username = $_POST['username'];
+            $password = $_POST['passwd'];
             header("Location: index.php");
         } else {
             $_SESSION["username"] = $username;
@@ -34,7 +36,8 @@
             } elseif($role === "waiter"){
                 
             } elseif($role === "manager"){
-                header("Location: /WhatsUpShabu/Manager/ManageMenu/index.php");
+                header("Location: /WhatsUpShabu/Manager/ViewStatistics");
+                
             }
         }
 

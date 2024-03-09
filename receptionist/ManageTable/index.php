@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Manage Tables</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="../utils/main.css"> -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <style>
@@ -38,14 +37,11 @@
         header("Location: /WhatsUpShabu/staff/login/index.php");
         exit();
     }
-
-
-
     ?>
 
 
     <div class="flex h-screen w-screen m-0 p-0">
-        <!-- Leftbar -->
+        <!-- Left Bar -->
         <div class="flex flex-col h-full w-2/12 bg-[#EEE8C8] pt-3">
             <div class="flex flex-col h-full w-full text-black justify-between">
                 <div>
@@ -53,7 +49,7 @@
                     <img src="./img/icon.png" alt="WhatsUpShabuIcon" class="px-2 py-2">
                     <!-- Navbar -->
                     <div class="w-full pt-4">
-                        <div class="nav flex-col px-3">
+                        <div class="nav flex-col px-3 cursor-default">
                             <a
                                 class="flex text-black items-center gap-2 text-lg bg-white px-4 py-6 rounded-lg font-semibold justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -186,7 +182,7 @@
                     HTML;
                         } else {
                             echo <<<HTML
-                            <div>
+                            <div class="cursor-default">
                                 <div
                                     class="w-full h-1/6 text-center text-xl bg-[#EEE8C8] rounded-t-xl flex items-center justify-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
