@@ -101,7 +101,6 @@
           <button class="Orderlist_item" onclick="window.location.href = 'order/finorder.php?order_id=<?php echo $row['id']; ?>'">
             <div class="line l1 s3">
               <h4>รายการที่ <?php echo $row["id"]; ?></h4>
-              <a class="date_time">03/03/2024 20:10:44 น.</a>
             </div>
             <div class="line l2">
               <a class="status_order" id="fin">เสิร์ฟแล้ว</a>
@@ -110,7 +109,11 @@
               <a class="key">โต๊ะที่:</a>
               <a class="Table_Number value"><?php echo $row["table_id"]; ?></a>
             </div>
-            <div class="line"></div>
+            <div class="line">
+            <a class="key">เวลาที่อัพเดท :</a>
+              <a class="update_time value"><?php echo " "; ?></a>
+            </div>
+            </div>
             <div style="width: 99%; height: 0.5px; background-color: #aaa; margin-left: 0.5%;"></div>
             <div class="line l4">
               <div class="amount_list">

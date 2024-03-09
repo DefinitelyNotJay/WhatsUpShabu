@@ -11,48 +11,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
-  <style>
-    /* Popup container */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-}
-
-/* Popup content */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-/* Close button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-  </style>
 </head>
 
 <body>
@@ -72,6 +30,16 @@ if (!$conn) {
 }
 
 $order_id = $_GET['order_id'];
+$order_id = intval($order_id); // Ensure $order_id is an integer to prevent SQL injection
+
+$order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
+$result = mysqli_query($conn, $order_sql);
+$order = mysqli_fetch_assoc($result);
+
+$sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
+        
+$result1 = mysqli_query($conn, $sql1);
+$row_count = mysqli_num_rows($result1);
 ?>
 
 
@@ -135,13 +103,25 @@ $order_id = $_GET['order_id'];
       </div>
 
       <div class="head_order">
-          <a class="status_order" id="rec" style="color:Red;">ยังไม่ได้รับ</a>
+      <div class="line ">
+      <a class="status_order" id="arg">กำลังจัดรายการ</a>
+            </div>
+            <div class="line">
+              <a class="key">โต๊ะที่:</a>
+              <a class="Table_Number value"><?php echo $order["table_id"]; ?></a>
+            </div>
+            <div class="line">
+              <a class="key">เวลาที่อัพเดท :</a>
+              <a class="update_time value"><?php echo " "; ?></a>
+            </div>
+            <div class="line">
+              <a class="key">รายการทั้งหมด :</a>
+              <a class="update_time value"><?php echo "".$row_count." "; ?>รายการ</a>
+            </div>
       </div>
 
       <div class="menu_bar">
         <?php 
-        $sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
-        $result1 = mysqli_query($conn, $sql1);
 
         if (mysqli_num_rows($result1) > 0) {
           // วนลูปแสดงผลข้อมูล
@@ -176,17 +156,24 @@ $order_id = $_GET['order_id'];
       </div>
 
       <div class="submit_bar">
-        <form action="" method="post">
-          <input type="hidden" id="orderID" name="orderID" value="">
-          <button type="button" class="arranging_button"  data-toggle='modal' data-target='#myModal'>เสิร์ฟ</button>
-
-          <div id="myModal" class="modal">
-            <div class="modal-content">
-              <span class="close">&times;</span>
-              <p>คุณยังไม่ได้ติ๊กเลือกทุกรายการ คุณต้องการที่จะยืนยันหรือไม่?</p>
-              <button id="confirmBtn">ยืนยัน</button>
+      <form id="serveForm" action="" method="post">
+        <input type="hidden" id="orderID" name="orderID" value="">
+        <button type="button" id="serveButton" class="arranging_button">เสิร์ฟ</button>
+        
+        <!-- Modal -->
+        <div id="serveConfirmationModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>คุณต้องการยืนยันการเสิร์ฟรายการนี้หรือไม่?</p>
+            <div class="modal-buttons">
+              <button id="confirmServe" class="confirm-button">ยืนยัน</button>
+              <button id="cancelServe" class="cancel-button">ยกเลิก</button>
             </div>
           </div>
+        </div>
+      </form>
+
+          
         </form>
       </div>
     </div>
@@ -214,51 +201,6 @@ $order_id = $_GET['order_id'];
   // ปิดการเชื่อมต่อ
   mysqli_close($conn);
 ?>
-
-<script>
-  var form = document.querySelector('form');
-  var checkboxes = document.querySelectorAll('input[name="menu_checkbox[]"]');
-  var modal = document.getElementById("myModal");
-  var confirmBtn = document.getElementById("confirmBtn");
-  
-  form.addEventListener('submit', function(event) {
-    var checkedCheckboxes = [];
-    checkboxes.forEach(function(checkbox) {
-      if (checkbox.checked) {
-        checkedCheckboxes.push(checkbox.value);
-      }
-    });
-
-    if (checkedCheckboxes.length < <?php echo mysqli_num_rows($result1); ?>) {
-      event.preventDefault(); // หยุดการส่งแบบฟอร์ม
-      modal.style.display = "block"; // แสดง popup
-    } else {
-      // ทำการอัพเดทฐานข้อมูลตามที่ต้องการ
-      // จากนั้นส่งไปยังหน้าที่กำหนด
-      // ในที่นี้คือ Arranging.php
-      window.location.href = 'Arranging.php';
-    }
-  });
-
-  // เพิ่มการปิด popup เมื่อคลิกที่ปุ่มปิดหรือพื้นหลังภายนอก
-  var closeBtn = document.getElementsByClassName("close")[0];
-  closeBtn.onclick = function() {
-    modal.style.display = "none";
-  }
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-
-  // เพิ่มการทำงานเมื่อผู้ใช้กดปุ่มยืนยัน
-  confirmBtn.onclick = function() {
-    // ทำการอัพเดทฐานข้อมูล หรือกระทำตามที่ต้องการต่อไป
-    // และส่งไปยังหน้าที่กำหนด
-    // ในที่นี้คือ Arranging.php
-    window.location.href = 'Arranging.php';
-  }
-</script>
 
 </body>
 
