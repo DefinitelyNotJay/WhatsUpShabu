@@ -29,6 +29,18 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+$order_id = $_GET['order_id'];
+$order_id = intval($order_id); // Ensure $order_id is an integer to prevent SQL injection
+
+$order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
+$result = mysqli_query($conn, $order_sql);
+$order = mysqli_fetch_assoc($result);
+
+$sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
+        
+$result1 = mysqli_query($conn, $sql1);
+$row_count = mysqli_num_rows($result1);
+
 ?>
 
 
@@ -70,44 +82,78 @@ if (!$conn) {
         <div class="empName">
           <div class="dropdown">
             <img src="../../../pic/emp.jpg" class="emp_img">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary " type="button" id="dropdownMenuButton">
               นายสมปอง สมปราถนา
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">โปรไฟล์</a>
-              <a class="dropdown-item" href="#">ตั้งค่า</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">ออกจากระบบ</a>
-            </div>
           </div>
         </div>
       </div>
       <div class="outline innerorder">
         <div class="head_tab">
-          <button class="back_page">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left">
-            <path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
-          </button>
+          
+          <div style="display:flex; height:100%; border-radius:10px 10px 0 0;">
+            <button class="back_page" onclick="window.location.href = '../Receive.php'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left">
+              <path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
+            </button>
+            <h4 style="color:#fff; margin-left:10px; height:100%;"> รายการที่ <?php echo " ".$order_id; ?> </h4>
+          </div>
         </div>
+        
         <div class="head_order">
-    
+            <div class="line ">
+                <a class="status_order" id="rec">ยังไม่ได้รับ</a>
+            </div>
+            <div class="line">
+              <a class="key">โต๊ะที่:</a>
+              <a class="Table_Number value"><?php echo $order["table_id"]; ?></a>
+            </div>
+            <div class="line">
+              <a class="key">เวลาที่อัพเดท :</a>
+              <a class="update_time value"><?php echo " "; ?></a>
+            </div>
+            <div class="line">
+              <a class="key">รายการทั้งหมด :</a>
+              <a class="update_time value"><?php echo "".$row_count." "; ?>รายการ</a>
+            </div>
         </div>
+        
         <div class="menu_bar">
+        <?php 
+        
+
+        if (mysqli_num_rows($result1) > 0) {
+        // วนลูปแสดงผลข้อมูล
+        while($row = mysqli_fetch_assoc($result1)) {
+        ?>
           <div class="menu_item">
+          <?php
+          $menu_id = $row['menu_id'];
+                $sql2 = "SELECT * FROM menu WHERE ID='$menu_id';";
+                $result2 = mysqli_query($conn, $sql2);
+                $row2 = mysqli_fetch_assoc($result2);
+                ?>
             <div class="pic_frame">
-              <img src="../../../pic/logo.png" class="menu_img">
+              <img src="<?php echo $row2['image'];?>" class="menu_img">
             </div>
             <div class="name_menu_frame">
               <div>
-                <h5 class="name_menu">name</h5>
-                <a class="oneset">1 ชุด มี x ชิ้น</a>
+                
+                <h5 class="name_menu"><?php echo $row2['name'];?></h5>
+                <a class="oneset"><?php echo $row2['description'];?></a>
               </div>
-              <a class="quantity">x ชุด</a>
-              <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div>
+              <a class="quantity"><?php echo $row["quantity"]." "; ?> ชุด</a>
+              <!-- <div style="margin:5px 1px 1px 10px;"><input type="checkbox"></div> -->
             </div>
           </div>
+          <?php
+            }
+        } else {
+            echo "ไม่พบข้อมูล";
+        }
+    ?>
         </div>
+        
         <div class="submit_bar">
         <form action="" method="post">
           <input type="hidden" id="orderID" name="orderID" value="">
@@ -120,7 +166,6 @@ if (!$conn) {
 
 <?php
   // รับค่า ID ของรายการที่ต้องการเปลี่ยนสถานะจาก URL parameter
-  $order_id = $_GET['order_id'];
   echo "<script>document.getElementById('orderID').value = ". $order_id ."</script>";
 
 
