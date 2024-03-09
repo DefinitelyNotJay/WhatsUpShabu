@@ -88,7 +88,7 @@
         <div class="flex flex-col w-6/12 bg-[#f5f1de] h-full justify-center items-center">
             <div class=" w-full flex flex-col justify-center items-center gap-y-4">
                 <div>
-                    <img src="icon.png" alt="WhatsUpShabuIcon">
+                    <img src="./img/icon.png" alt="WhatsUpShabuIcon">
                 </div>
                 <div class="w-full flex flex-col justify-center items-center">
                     <form id="loginForm" action="routes.php" method="post" class="w-4/12">
