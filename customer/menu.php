@@ -13,15 +13,12 @@
 </head>
 
 <body>
-
     <?php
-    // session_start();
-    // $_SESSION["table_id"] = $_GET["table_id"];
-
-    // if (!isset($_SERVER['HTTP_REFERER'])) {
-    //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-    //     exit();
-    // }
+    session_start();
+    $_SESSION["table_id"] = $_GET["table_id"];
+    $_SESSION["table_session_id"] = $_GET["session_id"];
+    $id = $_GET["session_id"];
+    echo $id;
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -30,6 +27,25 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
+    // query check ว่ามีในฐานข้อมูลมั้ย
+    $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id'";
+    $query_check_result = mysqli_query($conn, $sql_check_query);
+    if(mysqli_num_rows($query_check_result) <= 0){
+        header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+        exit();
+    };
+
+    // if (!isset($_SERVER['HTTP_REFERER'])) {
+    //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+    //     exit();
+    // }
+
+    // if(!isset($_GET["table_id"])  OR !isset($_SESSION["table_id"])){
+    //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+    //     exit();
+    // }
+
+   
     ?>
 
     <header class="header">

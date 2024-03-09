@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-
         @keyframes fill {
             0% {
                 background-position: 0px 140px;
