@@ -99,6 +99,17 @@ body {
             display: flex;
             flex-direction: column;
           }
+
+          .outline-100{
+            background-color: #fff;
+            align-items: center;
+            width: 100%;
+            height: 90%;
+            border-radius: 10px;
+            padding: 0.75%;
+            display: flex;
+            flex-direction: column;
+          }
               /* แถวรายการออเดอร์ */
               .Orderlist_bar {
                 background-color: #fff;
