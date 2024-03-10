@@ -48,8 +48,11 @@
             echo "Error updating record: " . mysqli_error($conn);
         }
 
+        $sql_update_orders = "UPDATE orders SET `status` = 'done' WHERE table_id = '$table_id' AND `status` != 'done'";
+        $result = mysqli_query($conn, $sql_update_orders);
+
         $sql_update_table = "UPDATE tables SET `start_time` = NULL, `status` = 'free', `customer_amount` = 0, session_id = NULL WHERE id = '$table_id'";
-        $result3 = mysqli_query($conn, $sql_update_table);
+        $result = mysqli_query($conn, $sql_update_table);
     
         unset($_GET["paymentId"]);
         header("Location: ManageTable");
