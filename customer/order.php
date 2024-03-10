@@ -20,12 +20,8 @@
         header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
         exit();
     }
-    echo $_SESSION["session_id"];
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "WhatsUpShabu";
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    require_once("../utils/config.php");
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }

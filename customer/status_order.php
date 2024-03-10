@@ -17,16 +17,13 @@
 
     <?php
     session_start();
+    echo session_id();
     if(!isset($_SESSION["session_id"])){
         header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
         exit();
     }
-    echo $_SESSION["session_id"];
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "WhatsUpShabu";
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    require_once("../utils/config.php");
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -48,11 +45,9 @@
         FROM orders
         INNER JOIN tables ON orders.table_id = tables.id
         WHERE orders.table_id = '$table_id' AND orders.start_time > tables.start_time;";
-        // แก้ AND orders.start_time > tables.start_time
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
             $orders = array();
-
             while ($row = mysqli_fetch_assoc($result)) {
                 $orders[$row['id']] = array(
                     'table_id' => $row['table_id'],

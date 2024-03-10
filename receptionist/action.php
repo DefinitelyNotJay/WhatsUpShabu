@@ -31,11 +31,12 @@
         header("Location: customer_login/customer_login.php?table_id=$table_id&customer_amount=$customer_amount");        
     }
     if(isset($_GET["paymentId"])){
+        // payment
         $table_id = $_GET["paymentId"];
         $id;
         $sql_quert = "SELECT * FROM bill WHERE table_id = '$table_id' AND `status` = 'unpaid'";
+    
         $result = mysqli_query($conn, $sql_quert);
-
 
         while($row = mysqli_fetch_assoc($result)){
             $id = $row["id"];
@@ -52,7 +53,7 @@
         }
 
         // set table to free state
-        $sql_update_table = "UPDATE tables SET `start_time` = NULL, `status` = 'free', `customer_amount` = 0 WHERE id = '$table_id'";
+        $sql_update_table = "UPDATE tables SET `start_time` = NULL, `status` = 'free', `customer_amount` = 0, session_id = NULL WHERE id = '$table_id'";
         $result3 = mysqli_query($conn, $sql_update_table);
 
        

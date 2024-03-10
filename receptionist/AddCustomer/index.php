@@ -38,9 +38,10 @@
     $table_id = $_GET["id"];
 
     ?>
-
+    
+    <div class="w-sreen h-screen flex justify-center flex-col">
     <div
-        class="fixed flex items-center justify-center top-0 right-0 left-0 z-50 inset-0 overflow-y-auto bg-[#ffffff6f]">
+        class="flex w-full items-center justify-center bg-[#ffffff6f]">
         <div class="w-[30%] h-fit bg-white  rounded-lg shadow-lg p-6">
             <div class="w-full flex justify-center border-b-2 border-gray-200 pb-4">
                 <h1 class="text-xl font-bold justify-self-center">เพิ่มลูกค้า</h1>
@@ -106,6 +107,8 @@
                 </form>
             </div>
         </div>
+    </div>
+            
     </div>
 </body>
 </html>
