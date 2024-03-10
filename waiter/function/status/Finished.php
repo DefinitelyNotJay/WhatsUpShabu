@@ -80,14 +80,8 @@
 
     <?php
     // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
-    $sql1 = "SELECT orders.*
-    FROM orders
-    INNER JOIN tables ON orders.table_id = tables.id
-    WHERE orders.status='sent' AND orders.start_time > tables.start_time;";
-    $sql2 = "SELECT orders.*
-    FROM orders
-    INNER JOIN tables ON orders.table_id = tables.id
-    WHERE orders.status='process' AND orders.start_time > tables.start_time;";
+    $sql1 = "SELECT * FROM orders";
+    $sql2 = "SELECT * FROM orders";
     $sql3 = "SELECT orders.*
     FROM orders
     INNER JOIN tables ON orders.table_id = tables.id
