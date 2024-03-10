@@ -30,22 +30,22 @@
 
     require_once("../../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $id = $_GET["table_id"];
+    $table_id = $_GET["table_id"];
     
-    $sql_bill_query = "SELECT * FROM bill WHERE table_id = '$id' AND `status` = 'unpaid'";
+    $sql_bill_query = "SELECT * FROM bill WHERE table_id = '$table_id' AND `status` = 'unpaid'";
     $result_bill = mysqli_query($conn, $sql_bill_query);
     $row = mysqli_fetch_assoc($result_bill);
     $total = $row["total"];
     
 
-    $sql_promotion_query = "SELECT * FROM bill INNER JOIN promotion ON bill.promotion_id = promotion.ID WHERE bill.table_id = '$id' AND bill.status = 'unpaid'";
+    $sql_promotion_query = "SELECT * FROM bill INNER JOIN promotion ON bill.promotion_id = promotion.ID WHERE bill.table_id = '$table_id' AND bill.status = 'unpaid'";
     $result_promotion = mysqli_query($conn, $sql_promotion_query);
     $row = mysqli_fetch_assoc($result_promotion);
     $promotion_name = $row["name"];
     $discount_percent = $row["discount"];
     
 
-    $sql_tables_query = "SELECT * FROM bill INNER JOIN tables ON bill.table_id = tables.id WHERE tables.id = '$id' AND bill.status = 'unpaid'";
+    $sql_tables_query = "SELECT * FROM bill INNER JOIN tables ON bill.table_id = tables.id WHERE tables.id = '$table_id' AND bill.status = 'unpaid'";
     $result_tables = mysqli_query($conn, $sql_tables_query);
     $row = mysqli_fetch_assoc($result_tables);
 
@@ -72,7 +72,7 @@
                     <div class="flex justify-between">
                         <p>โต๊ะ</p>
                         <p id="table-id" name="table-id">
-                            <?php echo $id ?>
+                            <?php echo $table_id ?>
                         </p>
                         <input value=<?php echo $table_id ?> name="table_id" class="hidden">
                     </div>
@@ -129,7 +129,7 @@
                         </button>
                     </a>
 
-                    <a href="../action.php?paymentId=<?php echo $id ?>">
+                    <a href="../action.php?paymentId=<?php echo $table_id ?>">
                         <button type="submit" id="confirm"
                             class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded"
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
