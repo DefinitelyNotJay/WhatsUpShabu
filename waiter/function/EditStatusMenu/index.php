@@ -144,29 +144,32 @@
                 <!-- MenuBar -->
                 <a href="../ordermanage.php" class="unstyled-link">
                     <div
-                        class="flex items-center cursor-pointer px-4 py-4 hover:bg-[#6A311D] hover:text-white rounded-lg duration-500">
+                        class="flex items-center cursor-pointer px-4 py-4 hover:bg-[#6A311D] hover:text-white rounded-lg duration-500 gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-bar-chart-3 mr-2">
-                            <path d="M3 3v18h18" />
-                            <path d="M18 17V9" />
-                            <path d="M13 17V5" />
-                            <path d="M8 17v-3" />
+                            class="lucide lucide-clipboard-list">
+                            <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                            <path d="M12 11h4" />
+                            <path d="M12 16h4" />
+                            <path d="M8 11h.01" />
+                            <path d="M8 16h.01" />
                         </svg>
                         <p class="font-semibold">จัดการรายการ</p>
                     </div>
                 </a>
                 <a href="index.php" class="unstyled-link">
                     <div
-                        class="flex items-center cursor-pointer px-4 py-4 bg-[#FEFCF4] text-[#6A311D] rounded-lg font-semibold">
-                        <svg width="24" height="24" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg"
-                            stroke="currentColor" stroke-width="3" class="mr-2">
-                            <path
-                                d="M31.2176 6.66699H6.83668C5.15353 6.66699 3.78906 8.15938 3.78906 10.0003V30.0003C3.78906 31.8413 5.15353 33.3337 6.83668 33.3337H31.2176C32.9008 33.3337 34.2653 31.8413 34.2653 30.0003V10.0003C34.2653 8.15938 32.9008 6.66699 31.2176 6.66699Z"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M15.9805 6.66699V13.3337" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M3.78906 13.333H34.2653" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M9.88477 6.66699V13.3337" stroke-linecap="round" stroke-linejoin="round" />
+                        class="flex items-center cursor-pointer px-4 py-4 bg-[#FEFCF4] text-[#6A311D] rounded-lg font-semibold gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-file-sliders">
+                            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                            <path d="M8 12h8" />
+                            <path d="M10 11v2" />
+                            <path d="M8 17h8" />
+                            <path d="M14 16v2" />
                         </svg>
                         <p class="font-semibold">จัดการสถานะเมนู</p>
                     </div>
