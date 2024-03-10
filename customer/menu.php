@@ -50,11 +50,11 @@
             exit();
         }
     }
-
-
-
-
     ?>
+
+<div class="table">
+    <?php echo $_SESSION['table_id']; ?>
+</div>
 
     <header class="header">
         <a href="menu.php">

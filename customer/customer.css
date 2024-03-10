@@ -69,8 +69,17 @@ input[type="text"] {
     color: #FFFFFF;
 }
 
+.table{
+    position: fixed;
+    color: #FFFFFF;
+    background-color: rgba(250, 93, 42, 0.8);
+    display: flex;
+    justify-content:center;
+    text-align: center;
+}
+
 .restockitem {
-    background-color: #f5b9a7;
+    background-color: #ffb39c;
     color: #FFFFFF;
     width: 100%;
 }
