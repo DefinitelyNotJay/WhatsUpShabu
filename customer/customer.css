@@ -9,6 +9,7 @@ body {
     background: #FFF6F1;
     margin: 0;
     overflow-y: scroll;
+    min-width: 350px;
 }
 
 .logo {
@@ -68,6 +69,21 @@ input[type="text"] {
     color: #FFFFFF;
 }
 
+.restockitem {
+    background-color: #f5b9a7;
+    color: #FFFFFF;
+    width: 100%;
+}
+
+.restock {
+    opacity: 0.5;
+}
+
+.restockstatus{
+    color: rgb(255, 51, 0);
+    left: 75%;
+    position:Absolute;
+}
 .bottom_section {
     position: fixed;
     bottom: 10px;
@@ -106,7 +122,8 @@ input[type="text"] {
     border-radius: 30px;
 }
 
-.btn-cancel,.btn-accept{
+.btn-cancel,
+.btn-accept {
     border-radius: 25px;
     width: 40%;
 }
@@ -122,10 +139,12 @@ input[type="text"] {
     align-items: center;
     justify-content: center;
 }
-.item{
+
+.item {
     width: 100%;
     height: 100%;
 }
+
 .btn-cancel,
 .btn-decrease {
     color: #FA5D2A;
