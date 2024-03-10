@@ -33,6 +33,7 @@
     if(isset($_GET["paymentId"])){
         // payment
         $table_id = $_GET["paymentId"];
+        $promotion_id = $_GET["promotion"];
         $id;
         $sql_quert = "SELECT * FROM bill WHERE table_id = '$table_id' AND `status` = 'unpaid'";
     

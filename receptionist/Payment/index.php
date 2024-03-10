@@ -23,20 +23,28 @@
 
     <?php
     session_start();
+    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
+
     require_once("../../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $id = $_GET["table_id"];
+    
     $sql = "SELECT * FROM bill JOIN tables JOIN promotion ON bill.table_id = tables.id AND bill.promotion_id = promotion.id  WHERE tables.status = 'busy' AND tables.id = '$id'";
     $result = mysqli_query($conn, $sql);
-    while ($row = mysqli_fetch_assoc($result)) {
-        $table_id = $row["id"];
-        $customer_amount = $row["customer_amount"];
-        $promotion_name = $row["name"];
-        $total = $row["total"];
-        $discount_percent = $row["discount"];
-    }
-    $all_cost = 299 * $customer_amount;
-    $promotion_discount = abs($total - $all_cost);
+    $row = mysqli_fetch_assoc($result);
+    $table_id = $row["id"];
+    $customer_amount = $row["customer_amount"];
+    $promotion_name = $row["name"];
+    $total = $row["total"];
+    $discount_percent = $row["discount"];
+
+    $each_person_cost = 299;
+    $all_cost = $each_person_cost* $customer_amount;
+    $cost_discount = ceil((100 - (int)$discount_percent) / 100 * $all_cost);
+    $promotion_discount = abs($cost_discount - $all_cost);
     ?>
 
     <div
@@ -90,7 +98,7 @@
                     <div class="flex justify-between">
                         <p>ยอดรวมสุทธิ</p>
                         <p>
-                            <?php echo $total ?> บาท
+                            <?php echo $cost_discount ?> บาท
                         </p>
                     </div>
                     <hr>

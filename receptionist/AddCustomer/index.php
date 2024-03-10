@@ -23,6 +23,12 @@
 
     <?php
     session_start();
+
+    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
+
     require_once('../../utils/config.php');
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
@@ -30,15 +36,10 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
-        header("Location: /WhatsUpShabu/staff/login/index.php");
-        exit();
-    }
-
     $table_id = $_GET["id"];
 
     ?>
-    
+
     <div class="w-sreen h-screen flex justify-center flex-col">
     <div
         class="flex w-full items-center justify-center bg-[#ffffff6f]">
@@ -71,12 +72,11 @@
                         <select id="promotion" name="promotion"
                             class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-1.5">
                             <?php
-                            $sql = "SELECT id, `name` FROM promotion";
+                            $sql = "SELECT * FROM promotion";
                             $result = mysqli_query($conn, $sql);
                             while ($row = mysqli_fetch_assoc($result)) {
-                                $id = $row["id"];
+                                $id = $row["ID"];
                                 $name = $row["name"];
-                                $percent_discount = $row["discount"];
                                 echo "<option value='$id'>$name</option>";
                             }
                             ?>
@@ -93,7 +93,7 @@
                                     <path d="m4.9 4.9 14.2 14.2" />
                                 </svg>ยกเลิก</button>
                         </a>
-                        <button type="submit" id="submit" tableId=<?php echo $table_id ?>
+                        <button type="submit" id="submit"
                             class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

@@ -20,12 +20,6 @@
 <body>
     <?php
     session_start();
-    require_once('../../utils/config.php');
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
 
     if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
         header("Location: /WhatsUpShabu/staff/login/index.php");
@@ -37,8 +31,13 @@
         header("Location: /WhatsUpShabu/staff/login/index.php");
         exit();
     }
+    
+    require_once('../../utils/config.php');
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     ?>
 
 
