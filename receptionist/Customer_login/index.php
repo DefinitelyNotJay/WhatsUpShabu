@@ -53,13 +53,9 @@ if (!isset($_SESSION["username"]) or $_SESSION["role"] !== "receptionist") {
         $url = 'http://localhost/WhatsUpShabu/customer/menu.php?table_id=' . $table_id . '&session_id=' . $session_id . '';
         echo "<p class='text-xl'>โต๊ะ $table_id</p>";
         echo "<a href='/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=http://localhost/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'></a><br>";
-
-        if (isset($_GET["back"])) {
-            header("Location: /WhatsUpShabu/receptionist/ManageTable");
-        }
         ?>
 
-        <form action="index.php">
+        <a href="/WhatsUpShabu/receptionist/ManageTable/">
             <button name="back" class="flex gap-1 text-xl hover:text-[#fa993e] hover:underline" type="submit"><svg
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -67,7 +63,7 @@ if (!isset($_SESSION["username"]) or $_SESSION["role"] !== "receptionist") {
                     <path d="m12 19-7-7 7-7" />
                     <path d="M19 12H5" />
                 </svg> กลับไปหน้าหลัก</button>
-        </form>
+        </a>
     </div>
 </body>
 
