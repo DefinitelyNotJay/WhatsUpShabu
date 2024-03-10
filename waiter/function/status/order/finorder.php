@@ -35,6 +35,7 @@ $order_id = intval($order_id); // Ensure $order_id is an integer to prevent SQL 
 $order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
 $result = mysqli_query($conn, $order_sql);
 $order = mysqli_fetch_assoc($result);
+$time_only = date("H:i:s", strtotime($order["start_time"]));
 
 $sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
         
@@ -109,7 +110,7 @@ $row_count = mysqli_num_rows($result1);
             </div>
             <div class="line">
               <a class="key">เวลาที่อัพเดท :</a>
-              <a class="update_time value"><?php echo " "; ?></a>
+              <a class="update_time value"><?php echo $time_only; ?></a>
             </div>
             <div class="line">
               <a class="key">รายการทั้งหมด :</a>

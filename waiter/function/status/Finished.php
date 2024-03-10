@@ -78,11 +78,20 @@
       <div class="outline">
         <div class="Orderlist_bar">
 
-        <?php
+    <?php
     // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
-    $sql1 = "SELECT id, table_id FROM orders WHERE status='sent';";
-    $sql2 = "SELECT id, table_id FROM orders WHERE status='process';";
-    $sql3 = "SELECT id, table_id FROM orders WHERE status='done';";
+    $sql1 = "SELECT orders.*
+    FROM orders
+    INNER JOIN tables ON orders.table_id = tables.id
+    WHERE orders.status='sent' AND orders.start_time > tables.start_time;";
+    $sql2 = "SELECT orders.*
+    FROM orders
+    INNER JOIN tables ON orders.table_id = tables.id
+    WHERE orders.status='process' AND orders.start_time > tables.start_time;";
+    $sql3 = "SELECT orders.*
+    FROM orders
+    INNER JOIN tables ON orders.table_id = tables.id
+    WHERE orders.status='done' AND orders.start_time > tables.start_time;";
 
     $result1 = mysqli_query($conn, $sql1);
     $result2 = mysqli_query($conn, $sql2);
@@ -96,7 +105,8 @@
         // วนลูปแสดงผลข้อมูล
         while($row = mysqli_fetch_assoc($result3)) {
           $order_id = $row["id"];
-?>
+          $time_only = date("H:i:s", strtotime($row["start_time"]));
+    ?>
           <!-- สร้าง Orderlist_item -->
           <button class="Orderlist_item" onclick="window.location.href = 'order/finorder.php?order_id=<?php echo $row['id']; ?>'">
             <div class="line l1 s3">
@@ -110,8 +120,8 @@
               <a class="Table_Number value"><?php echo $row["table_id"]; ?></a>
             </div>
             <div class="line">
-            <a class="key">เวลาที่อัพเดท :</a>
-              <a class="update_time value"><?php echo " "; ?></a>
+            <a class="key">เวลาสั่งรายการ :</a>
+              <a class="update_time value"><?php echo $time_only; ?></a>
             </div>
             <div style="width: 99%; height: 0.5px; background-color: #aaa; margin-left: 0.5%;"></div>
             <div class="line l4">
