@@ -42,7 +42,7 @@
         $sql_check_table_status = "SELECT * FROM tables WHERE id = '$table_id' AND `status` = 'free'";
         $result = mysqli_query($conn, $sql_check_table_status);
         $row = mysqli_fetch_assoc($result);
-        echo $row["id"];
+        // echo $row["id"];
         if(mysqli_num_rows($result) > 0){
             session_unset();
             session_destroy();
