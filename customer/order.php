@@ -144,7 +144,7 @@
     <?php
 
     if (isset($_POST['accept'])) {
-        $table_id = 'A-02';
+        $table_id = $_SESSION["table_id"];
         date_default_timezone_set('Asia/Bangkok');
         $start_time = date('Y-m-d H:i:s');
 
