@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="customer.css">
 </head>
 
@@ -16,12 +17,15 @@
 
     <?php
     session_start();
-    if(!isset($_SESSION["session_id"])){
+    if (!isset($_SESSION["session_id"])) {
         header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
         exit();
     }
-    require_once("../utils/config.php");
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "WhatsUpShabu";
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -30,7 +34,7 @@
 
     <header class="header">
         <a href="menu.php">
-            <img class="logo" src="img/Whatsup.png" alt="logo" width="50%" height="50%">
+        <img class="logo" src="img/Whatsup.png" alt="logo" width="60%" height="50%">
         </a>
     </header>
 
@@ -138,9 +142,8 @@
     </script>
 
     <?php
-    
+
     if (isset($_POST['accept'])) {
-        // แก้ table_id
         $table_id = $_SESSION["table_id"];
         date_default_timezone_set('Asia/Bangkok');
         $start_time = date('Y-m-d H:i:s');

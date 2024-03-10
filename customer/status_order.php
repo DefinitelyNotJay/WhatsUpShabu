@@ -32,7 +32,7 @@
 
     <header class="header">
         <a href="menu.php">
-            <img class="logo" src="img/Whatsup.png" alt="logo" width="50%" height="50%">
+            <img class="logo" src="img/Whatsup.png" alt="logo" width="60%" height="50%">
         </a>
     </header>
 

@@ -40,10 +40,9 @@ if (!isset($_SESSION["username"]) or $_SESSION["role"] !== "receptionist") {
         $check_status_query = "SELECT * FROM tables WHERE id = '$table_id'";
         $result = mysqli_query($conn, $check_status_query);
         $customer_amount = $_GET["customer_amount"];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $status = $row['status'];
-            $start_time = $row["start_time"];
-        }
+        $row = mysqli_fetch_assoc($result);
+        $status = $row['status'];
+        $start_time = $row["start_time"];
 
         date_default_timezone_set('Asia/Bangkok');
         $currentDateTime = date('Y-m-d H:i:s');

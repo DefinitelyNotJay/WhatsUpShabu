@@ -58,7 +58,7 @@
 
     <header class="header">
         <a href="menu.php">
-            <img class="logo" src="img/Whatsup.png" alt="logo" width="50%" height="50%">
+            <img class="logo" src="img/Whatsup.png" alt="logo" width="60%" height="50%">
         </a>
     </header>
 
@@ -82,7 +82,7 @@
 
     <section class="menu_section" id="menu_section">
         <?php
-        $sql = "SELECT * FROM menu;";
+        $sql = "SELECT * FROM menu WHERE status='restocking'OR status='instock';";
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
