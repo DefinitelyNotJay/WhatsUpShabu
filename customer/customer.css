@@ -9,11 +9,14 @@ body {
     background: #FFF6F1;
     margin: 0;
     overflow-y: scroll;
+    max-width: 1000px;
 }
 
 .logo {
     display: block;
     margin: auto;
+    max-width: 400px;
+    max-height: 200px;
 }
 
 .header {
@@ -29,6 +32,7 @@ body {
 .select_section,
 .search_section,
 .pig_section,
+.status_section,
 .menu_section {
     padding: 10px 5%;
 }
@@ -67,7 +71,7 @@ input[type="text"] {
 
 .bottom_section {
     position: fixed;
-    bottom: 0;
+    bottom: 10px;
     width: 100%;
     background-color: rgba(0 0, 0, 0.0);
     padding: 10px;
