@@ -72,7 +72,7 @@
                         <select id="promotion" name="promotion"
                             class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-1.5">
                             <?php
-                            $sql = "SELECT * FROM promotion";
+                            $sql = "SELECT * FROM promotion WHERE `status`";
                             $result = mysqli_query($conn, $sql);
                             while ($row = mysqli_fetch_assoc($result)) {
                                 $id = $row["ID"];
