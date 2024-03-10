@@ -17,7 +17,7 @@
 
     <?php
     session_start();
-    if(!isset($_SESSION["session_id"])){
+    if (!isset($_SESSION["session_id"])) {
         header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
         exit();
     }
@@ -29,9 +29,9 @@
 
     ?>
 
-<div class="table">
-    <?php echo $_SESSION['table_id']; ?>
-</div>
+    <div class="table">
+        <?php echo $_SESSION['table_id']; ?>
+    </div>
 
     <header class="header">
         <a href="menu.php">
@@ -61,15 +61,32 @@
 
                 // Display order details
                 echo "<div class='container-menu d-flex flex-wrap mgin-10px'>";
-                echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item'>";
-                echo "Order ID: " . $row['id'] . "<br>";
-                echo "Table ID: " . $row['table_id'] . "<br>";
-                echo "Status: " . $row['status'] . "<br>";
-                echo "Start Time: " . $row['start_time'] . "<br>";
-                // Add more details as needed
-                echo "</div>";
-                echo "<br>";
-                echo "</div>";
+                echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 statusitem'>";
+                if ($row['status'] == 'sent') {
+                    echo "<div class='statussent'></div>";
+                    echo "<div> โต๊ะ: " . $row['table_id'] . "";
+                    echo "<div> ออเดอร์: " . $row['id'] . "</div></div>";
+                     // Add more details as needed
+                     echo "<div class='ml-auto mr-5'>ยังไม่ได้รับออเดอร์</div></div>";
+                     echo "<br>";
+                     echo "</div>";
+                } elseif ($row['status'] == 'process') {
+                    echo "<div class='statusprocess'></div>";
+                    echo "<div> โต๊ะ: " . $row['table_id'] . "";
+                    echo "<div> ออเดอร์: " . $row['id'] . "</div></div>";
+                     // Add more details as needed
+                     echo "<div class='ml-auto mr-5'>กำลังจัดเตรียม</div></div>";
+                     echo "<br>";
+                     echo "</div>";
+                } elseif ($row['status'] == 'done') {
+                    echo "<div class='statusdone'></div>";
+                    echo "<div> โต๊ะ: " . $row['table_id'] . "";
+                    echo "<div> ออเดอร์: " . $row['id'] . "</div></div>";
+                    // Add more details as needed
+                    echo "<div class='ml-auto mr-5'>เสิร์ฟแล้ว</div></div>";
+                    echo "<br>";
+                    echo "</div>";
+                }
             }
         } else {
             echo "";
@@ -80,6 +97,7 @@
     <section class="bottom_section">
         <button class="btn btn-accept" onclick="window.location.href='menu.php'">กลับสู่หน้าหลัก</button>
     </section>
+    
 
     <?php
     // close connection

@@ -34,8 +34,7 @@
             $_SESSION["table_id"] = $_GET["table_id"];
             $_SESSION["session_id"] = $_GET["session_id"];
             // echo $_SESSION["session_id"] . "first time man!";
-        }
-        ;
+        };
     } else {
         // check 2 states -> if table_status = paid || session_id != latest table session_id
         $table_id = $_SESSION["table_id"];
@@ -43,7 +42,7 @@
         $result = mysqli_query($conn, $sql_check_table_status);
         $row = mysqli_fetch_assoc($result);
         // echo $row["id"];
-        if(mysqli_num_rows($result) > 0){
+        if (mysqli_num_rows($result) > 0) {
             session_unset();
             session_destroy();
             header("Location: https://www.google.com/");
@@ -52,9 +51,9 @@
     }
     ?>
 
-<div class="table">
-    <?php echo $_SESSION['table_id']; ?>
-</div>
+    <div class="table">
+        <?php echo $_SESSION['table_id']; ?>
+    </div>
 
     <header class="header">
         <a href="menu.php">
@@ -70,13 +69,13 @@
         <p>เมนู</p>
         <div class="btn-container">
             <button class="btn btn_select meat" id="meat">เนื้อ</button>
-            <button class="btn btn_select pig" id="pig">หมู</button>
+            <button class="btn btn_select pork" id="pork">หมู</button>
             <button class="btn btn_select chicken" id="chicken">ไก่</button>
-            <button class="btn btn_select seafood" id="chicken">ทะเล</button>
-            <button class="btn btn_select meatball" id="chicken">ลูกชิ้น</button>
-            <button class="btn btn_select other" id="chicken">ของกินเล่น</button>
-            <button class="btn btn_select desert" id="chicken">ของหวาน</button>
-            <button class="btn btn_select fruit" id="chicken">ผลไม้</button>
+            <button class="btn btn_select seafood" id="seafood">ทะเล</button>
+            <button class="btn btn_select meatball" id="meatball">ลูกชิ้น</button>
+            <button class="btn btn_select other" id="other">ของกินเล่น</button>
+            <button class="btn btn_select desert" id="desert">ของหวาน</button>
+            <button class="btn btn_select fruit" id="fruit">ผลไม้</button>
         </div>
     </section>
 
@@ -110,20 +109,20 @@
                 echo '<p id="' . $type . '">' . $type . '</p>';
                 echo "<div class='container-menu d-flex flex-wrap mgin-10px'>";
                 foreach ($menus as $menu) {
-                    if ($menu["status"] == "restocking"){
-                    echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 restockitem color'>";
-                    echo "<img src='" . $menu["image"] . "' width='110px' height='80px' class='mr-2 restock'>";
-                    echo "<div class='restock'id='" . $menu["name"] . "'>" . $menu["name"] . "";
-                    echo "<div class='item_description'>" . $menu["description"] . "";
-                    echo "</div></div><div class='restockstatus'>กำลังเติม</div></div>";
-                    echo "<br>";
-                    }else{
+                    if ($menu["status"] == "restocking") {
+                        echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 restockitem color'>";
+                        echo "<img src='" . $menu["image"] . "' width='110px' height='80px' class='mr-2 restock'>";
+                        echo "<div class='restock'id='" . $menu["name"] . "'>" . $menu["name"] . "";
+                        echo "<div class='item_description'>" . $menu["description"] . "";
+                        echo "</div></div><div class='restockstatus'>กำลังเติม</div></div>";
+                        echo "<br>";
+                    } else {
                         echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item' data-toggle='modal' data-target='#addordermodal' data-menu-id='" . $menu["ID"] . "'>";
-                    echo "<img src='" . $menu["image"] . "' width='110px' height='80px' class='mr-2'>";
-                    echo "<div id='" . $menu["name"] . "'>" . $menu["name"] . "";
-                    echo "<div class='item_description'>" . $menu["description"] . "";
-                    echo "</div></div></div>";
-                    echo "<br>";
+                        echo "<img src='" . $menu["image"] . "' width='110px' height='80px' class='mr-2'>";
+                        echo "<div id='" . $menu["name"] . "'>" . $menu["name"] . "";
+                        echo "<div class='item_description'>" . $menu["description"] . "";
+                        echo "</div></div></div>";
+                        echo "<br>";
                     }
                 }
                 echo "</div>";
@@ -242,30 +241,53 @@
                     }
                 }
             });
-            var meatbutton = document.getElementById('meat');
-            var meatelement = document.getElementById('เนื้อ');
-            var chichkenbutton = document.getElementById('chicken');
-            var chickenelement = document.getElementById('ไก่');
-            var pigbutton = document.getElementById('pig');
-            var pigelement = document.getElementById('หมู');
+            
+            var menuItems = [{
+                    buttonId: 'meat',
+                    elementId: 'เนื้อ'
+                },
+                {
+                    buttonId: 'chicken',
+                    elementId: 'ไก่'
+                },
+                {
+                    buttonId: 'pork',
+                    elementId: 'หมู'
+                },
+                {
+                    buttonId: 'seafood',
+                    elementId: 'ทะเล'
+                },
+                {
+                    buttonId: 'meatball',
+                    elementId: 'ลูกชิ้น'
+                },
+                {
+                    buttonId: 'other',
+                    elementId: 'ของกินเล่น'
+                },
+                {
+                    buttonId: 'desert',
+                    elementId: 'ของหวาน'
+                },
+                {
+                    buttonId: 'fruit',
+                    elementId: 'ผลไม้'
+                }
+            ];
 
+            // Loop through the menuItems array to create event listeners
+            menuItems.forEach(function(menuItem) {
+                var button = document.getElementById(menuItem.buttonId);
+                var element = document.getElementById(menuItem.elementId);
 
-            meatbutton.addEventListener('click', function() {
-                meatelement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-
-            chichkenbutton.addEventListener('click', function() {
-                chickenelement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-
-            pigbutton.addEventListener('click', function() {
-                pigelement.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                if (button && element) {
+                    button.addEventListener('click', function() {
+                        element.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                }
             });
 
             // Attach event listener to all items
