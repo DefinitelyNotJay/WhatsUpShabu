@@ -34,7 +34,7 @@
             if($role === "receptionist"){
                 header("Location: /WhatsUpShabu/receptionist/ManageTable");
             } elseif($role === "waiter"){
-                
+                header("Location: /WhatsUpShabu/waiter/function/ordermanage.php");
             } elseif($role === "manager"){
                 header("Location: /WhatsUpShabu/Manager/ViewStatistics");
                 

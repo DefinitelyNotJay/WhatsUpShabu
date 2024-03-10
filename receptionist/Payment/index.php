@@ -32,19 +32,30 @@
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $id = $_GET["table_id"];
     
-    $sql = "SELECT * FROM bill JOIN tables JOIN promotion ON bill.table_id = tables.id AND bill.promotion_id = promotion.id  WHERE tables.status = 'busy' AND tables.id = '$id'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $table_id = $row["id"];
-    $customer_amount = $row["customer_amount"];
-    $promotion_name = $row["name"];
+    $sql_bill_query = "SELECT * FROM bill WHERE table_id = '$id' AND `status` = 'unpaid'";
+    $result_bill = mysqli_query($conn, $sql_bill_query);
+    $row = mysqli_fetch_assoc($result_bill);
     $total = $row["total"];
-    $discount_percent = $row["discount"];
+    
 
+    $sql_promotion_query = "SELECT * FROM bill INNER JOIN promotion ON bill.promotion_id = promotion.ID WHERE bill.table_id = '$id' AND bill.status = 'unpaid'";
+    $result_promotion = mysqli_query($conn, $sql_promotion_query);
+    $row = mysqli_fetch_assoc($result_promotion);
+    $promotion_name = $row["name"];
+    $discount_percent = $row["discount"];
+    
+
+    $sql_tables_query = "SELECT * FROM bill INNER JOIN tables ON bill.table_id = tables.id WHERE tables.id = '$id' AND bill.status = 'unpaid'";
+    $result_tables = mysqli_query($conn, $sql_tables_query);
+    $row = mysqli_fetch_assoc($result_tables);
+
+    $customer_amount = $row["customer_amount"];
+    
+    
     $each_person_cost = 299;
-    $all_cost = $each_person_cost* $customer_amount;
-    $cost_discount = ceil((100 - (int)$discount_percent) / 100 * $all_cost);
-    $promotion_discount = abs($cost_discount - $all_cost);
+    $cost_discount = ceil((100 - $discount_percent) / 100 * $total);
+    $promotion_discount = abs($cost_discount - $total);
+    
     ?>
 
     <div
@@ -61,7 +72,7 @@
                     <div class="flex justify-between">
                         <p>โต๊ะ</p>
                         <p id="table-id" name="table-id">
-                            <?php echo $table_id ?>
+                            <?php echo $id ?>
                         </p>
                         <input value=<?php echo $table_id ?> name="table_id" class="hidden">
                     </div>
@@ -78,7 +89,7 @@
                     <div class="flex justify-between items-center">
                         <p>ราคารวม</p>
                         <p>
-                            <?php echo $all_cost ?> บาท
+                            <?php echo $total ?> บาท
                         </p>
                     </div>
                     <div class="flex justify-between text-black items-center text-center">
@@ -118,10 +129,9 @@
                         </button>
                     </a>
 
-                    <a href="../action.php?paymentId=<?php echo $table_id ?>">
+                    <a href="../action.php?paymentId=<?php echo $id ?>">
                         <button type="submit" id="confirm"
                             class="flex items-center gap-1 bg-[#009179] hover:bg-[#009179c2] text-white py-2 px-2 rounded"
-                            tableId=<?php echo $table_id ?>>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-check-circle mr-1">
