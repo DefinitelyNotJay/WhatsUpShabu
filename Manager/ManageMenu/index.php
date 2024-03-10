@@ -203,7 +203,8 @@
             <!-- Content -->
             <div class="flex hp-90 w-full bg-gray-200 px-3 py-3">
                 <div
-                    class="flex flex-col w-full bg-white shadow-sm  rounded-xl overflow-y-auto overflow-x-hidden pl-4 py-3 pr-1">
+                    class="flex flex-col w-full bg-white shadow-sm  rounded-xl overflow-y-auto overflow-x-hidden pl-4 py-3 pr-1"
+                    >
                     <?php
                     // --- SQL SELECT statement  
                     $sql = "SELECT * FROM menu;";
@@ -234,7 +235,6 @@
                         }
 
                         // Output menus by type
-                    
                         foreach ($menusByType as $type => $menus) {
                             // catagoly
                             echo "<div class='flex flex-col mb-5 w-full'>";
@@ -245,7 +245,7 @@
                             foreach ($menus as $menu) {
                                 echo "<div class='menu flex items-center shadow-sm rounded-lg gap-3'>";
                                 echo "<div class='flex w-2/5 h-full rounded-lg bg-white'><img src='" . $menu["image"] . "' height='100%' class='rounded-lg'></div>";
-                                echo "<div class='flex flex-col justify-between h-full w-3/5 py-2'><h5 class='fw-bold'>" . $menu["name"] . "</h5>";
+                                echo "<div class='flex flex-col justify-between h-full w-3/5 py-2'><h5 class='font-bold'>" . $menu["name"] . "</h5>";
                                 // menu-edit
                                 echo "<div class='flex justify-center gap-3 w-full'>";
                                 // menu-option
