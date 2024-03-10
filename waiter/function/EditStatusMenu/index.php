@@ -186,22 +186,16 @@
                     <!-- Loco -->
                     <img src="./image/icon.png" width="100%">
                     <!-- MenuBar -->
-                    <a href="../ViewStatistics/index.php" class="unstyled-link">
+                    <a href="../ordermanage.php" class="unstyled-link">
                         <div class="menu-bar d-flex align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3 mr-2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-                            <h5 class="fw-bold mt-2">สถิติ</h5>
+                            <h5 class="fw-bold mt-2">จัดการรายการ</h5>
                         </div>
                     </a>
-                    <a href="../ManageMenu/index.php" class="unstyled-link">
+                    <a href="index.php" class="unstyled-link">
                         <div class="menu-bar d-flex align-items-center selectbar">
                             <svg width="40" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="3" class="mr-2"><path d="M31.2176 6.66699H6.83668C5.15353 6.66699 3.78906 8.15938 3.78906 10.0003V30.0003C3.78906 31.8413 5.15353 33.3337 6.83668 33.3337H31.2176C32.9008 33.3337 34.2653 31.8413 34.2653 30.0003V10.0003C34.2653 8.15938 32.9008 6.66699 31.2176 6.66699Z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.9805 6.66699V13.3337"  stroke-linecap="round" stroke-linejoin="round"/><path d="M3.78906 13.333H34.2653"  stroke-linecap="round" stroke-linejoin="round"/><path d="M9.88477 6.66699V13.3337"  stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            <h5 class="fw-bold mt-2">จัดการเมนูอาหาร</h5>
-                        </div>
-                    </a>
-                    <a href="../ManagePromotion/index.php" class="unstyled-link">
-                        <div class="menu-bar d-flex align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ticket-plus mr-2"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
-                            <h5 class="fw-bold mt-2">จัดการโปรโมชั่น</h5>
+                            <h5 class="fw-bold mt-2">จัดการสถานะเมนู</h5>
                         </div>
                     </a>
                     <div class="menu-bar d-flex align-items-center log-out">
@@ -282,25 +276,6 @@
                         echo "0 results";
                     }
                 ?>
-                    <!-- 1 Category -->
-                    <div class="container-fuild category mb-4">
-                        <h2>เนื้อ</h2>
-                        <div class="container-menu d-flex flex-wrap">
-                            <!-- 1 menu -->
-                            <div class="menu d-flex align-items-center shadow  rounded">
-                                <img src="./image/เสื้อร้องไห้.jpg" width="35%" height="100%" class="mr-2 rounded">
-                                <div>
-                                    <h5 class="fw-bold">เสื้อร้องไห้</h5>
-                                    <div class="menu-edit d-flex">
-                                        <button class="menu-option d-flex align-items-center shadow  rounded mr-1 button-edit btn" data-toggle="modal" data-target="#editMenuModal">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-2 mr-1"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
-                                            <h6 class="fw-bold mt-2">แก้ไข</h6>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </main>
         </div>

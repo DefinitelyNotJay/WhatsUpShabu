@@ -82,16 +82,16 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
-        header("Location: /WhatsUpShabu/staff/login/index.php");
-        exit();
-    }
+    // if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
+    //     header("Location: /WhatsUpShabu/staff/login/index.php");
+    //     exit();
+    // }
 
-    if (isset($_POST["logout"])) {
-        session_destroy();
-        header("Location: /WhatsUpShabu/staff/login/index.php");
-        exit();
-    }
+    // if (isset($_POST["logout"])) {
+    //     session_destroy();
+    //     header("Location: /WhatsUpShabu/staff/login/index.php");
+    //     exit();
+    // }
     ?>
 
 
