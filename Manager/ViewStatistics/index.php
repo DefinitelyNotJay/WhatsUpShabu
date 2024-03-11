@@ -253,10 +253,12 @@
             } else {
                 $selectedYear = 2024;
             }
-            $sql = "SELECT substr(date, 6, 2) AS month, SUM(total) AS total_income FROM bill WHERE substr(date, 1, 4) = '$selectedYear' AND status != 'unpaid' GROUP BY substr(date, 6, 2)";
+            $monthlyIncomeData = array_fill(1, 12, null);
+            $sql = "SELECT CAST(substr(date, 6, 2) AS INTEGER) AS month, SUM(total) AS total_income FROM bill WHERE substr(date, 1, 4) = '$selectedYear' AND status != 'unpaid' GROUP BY substr(date, 6, 2)";
             $result = $db->query($sql);
-            while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
-                $monthlyIncomeData[$row['month']] = $row['total_income'];
+
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                $monthlyIncomeData[(int)$row['month']] = $row['total_income'];
             }
 
             $jsMonthlyIncomeData = json_encode(array_values($monthlyIncomeData));

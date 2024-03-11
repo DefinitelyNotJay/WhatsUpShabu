@@ -505,8 +505,6 @@
                     // Get the menu ID from the data attribute
                     var menuId = button.getAttribute('data-menu-id');
 
-                    // Fetch menu details using AJAX or use the data already available on the page
-                    // For simplicity, assuming the menu details are already available in PHP
                     var menuDetails = <?php echo json_encode($menuDetails); ?>;
 
                     // Populate the modal content with the selected menu information
@@ -539,8 +537,6 @@
                     // Get the menu ID from the data attribute
                     var menuId = button.getAttribute('data-menu-id');
 
-                    // Fetch menu details using AJAX or use the data already available on the page
-                    // For simplicity, assuming the menu details are already available in PHP
                     var menuDetails = <?php echo json_encode($menuDetails); ?>;
 
                     // Populate the modal content with the selected menu information
