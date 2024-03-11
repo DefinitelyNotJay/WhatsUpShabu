@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../utils/main.css">
     <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+</script>
     <style>
         * {
             font-family: "Noto Sans Thai", sans-serif;
@@ -23,62 +24,8 @@
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
-
-            /* -webkit-filter: blur(1px); */
-        }
-
-        body {
-            width: 100vw;
-            height: 100vh;
-            /* display: flex;
-            align-items: center;
-            justify-content: center; */
-            margin: 0;
-        }
-
-        .container {
-            width: 40%;
-        }
-
-        .flex-cen {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 75px;
-        }
-
-        .button {
-            background-color: #F6851F;
-            color: white;
-        }
-
-        .button:hover {
-            background-color: #fa993e;
-        }
-
-        .flex-right {
-            display: flex;
-            align-items: center;
-            justify-content: right;
-        }
-
-        .w-half {
-            width: 50%;
-        }
-
-        .flex {
-            display: flex;
-        }
-
-        .bg-main {
-            background: #EEE8C8;
-        }
-
-        .anim-dr {
-            transition-duration: 0.75s;
         }
     </style>
-</head>
 
 <body>
     <div class="flex w-screen h-screen">
@@ -127,10 +74,6 @@
             } else {
                 passwordInput.type = "password";
             }
-        }
-
-        const checkValidation = () => {
-
         }
     </script>
 </body>
