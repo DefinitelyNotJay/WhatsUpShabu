@@ -254,12 +254,15 @@
             } else {
                 $selectedYear = 2024;
             }
+
+            $monthlyIncomeData = array_fill(1, 12, null);
             $sql = "SELECT MONTH(date) AS month, SUM(total) AS total_income FROM bill WHERE YEAR(date) = $selectedYear and status != 'unpaid' GROUP BY MONTH(date)";
             $result = mysqli_query($conn, $sql);
 
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $monthlyIncomeData[$row['month']] = $row['total_income'];
+                    $month = $row['month'];
+                    $monthlyIncomeData[$month] = $row['total_income'];
                 }
             }
             $jsMonthlyIncomeData = json_encode(array_values($monthlyIncomeData));
