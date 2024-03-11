@@ -28,26 +28,38 @@
         exit();
     }
 
-    require_once("../../utils/config.php");
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    // require_once("../../utils/config.php");
+    // $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+
+    class MyDB extends SQLite3
+    {
+        function __construct()
+        {
+            $this->open('../../utils/WhatsUpShabu.db');
+        }
+    }
+    $db = new MyDB();
+
+        
+
     $table_id = $_GET["table_id"];
     
     $sql_bill_query = "SELECT * FROM bill WHERE table_id = '$table_id' AND `status` = 'unpaid'";
-    $result_bill = mysqli_query($conn, $sql_bill_query);
-    $row = mysqli_fetch_assoc($result_bill);
+    $result = $db->query($sql_bill_query);
+    $row = $result -> fetchArray(SQLITE3_ASSOC);
     $total = $row["total"];
     
 
     $sql_promotion_query = "SELECT * FROM bill INNER JOIN promotion ON bill.promotion_id = promotion.ID WHERE bill.table_id = '$table_id' AND bill.status = 'unpaid'";
-    $result_promotion = mysqli_query($conn, $sql_promotion_query);
-    $row = mysqli_fetch_assoc($result_promotion);
+    $result = $db->query($sql_promotion_query);
+    $row = $result -> fetchArray(SQLITE3_ASSOC);
     $promotion_name = $row["name"];
     $discount_percent = $row["discount"];
     
 
     $sql_tables_query = "SELECT * FROM bill INNER JOIN tables ON bill.table_id = tables.id WHERE tables.id = '$table_id' AND bill.status = 'unpaid'";
-    $result_tables = mysqli_query($conn, $sql_tables_query);
-    $row = mysqli_fetch_assoc($result_tables);
+    $result = $db->query($sql_tables_query);
+    $row = $result -> fetchArray(SQLITE3_ASSOC);
 
     $customer_amount = $row["customer_amount"];
     

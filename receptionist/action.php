@@ -47,24 +47,20 @@
         $promotion_id = $_GET["promotion"];
         $sql_query = "SELECT * FROM bill WHERE table_id = '$table_id' AND `status` = 'unpaid'";
 
-        $result = mysqli_query($conn, $sql_query);
+        $result = $db->query($sql_query);
 
-        $row = mysqli_fetch_assoc($result);
+        $row = $result -> fetchArray(SQLITE3_ASSOC);
         $id = $row["id"];
 
         $sql_bill_check = "UPDATE bill SET `status` = 'paid' WHERE id = $id";
 
-        if (mysqli_query($conn, $sql_bill_check)) {
-            echo "Record updated successfully";
-        } else {
-            echo "Error updating record: " . mysqli_error($conn);
-        }
+        $result = $db->exec($sql_bill_check);
 
         $sql_update_orders = "UPDATE orders SET `status` = 'done' WHERE table_id = '$table_id' AND `status` != 'done'";
-        $result = mysqli_query($conn, $sql_update_orders);
+        $result = $db->exec($sql_update_orders);
 
         $sql_update_table = "UPDATE tables SET `start_time` = NULL, `status` = 'free', `customer_amount` = 0, session_id = NULL WHERE id = '$table_id'";
-        $result = mysqli_query($conn, $sql_update_table);
+        $result = $db->exec($sql_update_table);
 
         unset($_GET["paymentId"]);
         header("Location: ManageTable");
