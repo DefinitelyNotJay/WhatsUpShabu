@@ -117,7 +117,7 @@
                         echo "</div></div><div class='restockstatus'>กำลังเติม</div></div>";
                         echo "<br>";
                     } else {
-                        echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item' data-toggle='modal' data-target='#addordermodal' data-menu-id='" . $menu["ID"] . "'>";
+                        echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item' data-toggle='modal' data-target='#menumodal' data-menu-id='" . $menu["ID"] . "'>";
                         echo "<img src='" . $menu["image"] . "' width='110px' height='80px' class='mr-2'>";
                         echo "<div id='" . $menu["name"] . "'>" . $menu["name"] . "";
                         echo "<div class='item_description'>" . $menu["description"] . "";
@@ -163,7 +163,7 @@
 
     <section class="modal_section">
         <!-- Modal Edit Menu -->
-        <div class="modal" id="addordermodal">
+        <div class="modal" id="menumodal">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <!-- Modal Body -->
@@ -315,7 +315,7 @@
                     }
 
                     // Show the modal
-                    var editModal = new bootstrap.Modal(document.getElementById('addordermodal'));
+                    var editModal = new bootstrap.Modal(document.getElementById('menumodal'));
                     editModal.show();
 
                 });

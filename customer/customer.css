@@ -12,12 +12,21 @@ body {
     min-width: 350px;
 }
 
+.modal-header{
+    background-color: #FFF6F1;
+}
+
 .statusdone,.statussent,.statusprocess{
     border-radius: 50%;
     width: 20px;
     height: 20px;
     margin: 10px;
     border: 2px solid rgb(255, 180, 146);
+}
+
+.modal-buttom{
+    width: 100%;;
+    background-color:#FFF6F1;
 }
 
 .statussent{
