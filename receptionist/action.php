@@ -39,7 +39,7 @@
             echo $db->lastErrorMsg();
         }
 
-        // header("Location: Customer_login/index.php?table_id=$table_id&customer_amount=$customer_amount");
+        header("Location: Customer_login/index.php?table_id=$table_id&customer_amount=$customer_amount");
     }
     // payment
     if (isset($_GET["paymentId"])) {
