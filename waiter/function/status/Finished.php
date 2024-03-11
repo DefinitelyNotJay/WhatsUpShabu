@@ -169,7 +169,7 @@
               ?>
               <!-- สร้าง Orderlist_item -->
               <button class="flex flex-col h-fit w-full bg-[#fff6f1] hover:bg-[#F2EAE5] duration-500 rounded-lg shadow-sm"
-                onclick="window.location.href = 'order/argorder.php?order_id=<?php echo $row['id']; ?>'">
+                onclick="window.location.href = 'order/finorder.php?order_id=<?php echo $row['id']; ?>'">
                 <h4
                   class="flex font-bold text-xl w-full h-1/5 bg-green-600 text-white px-2 py-1 justify-center items-center rounded-t-lg">
                   รายการที่
@@ -177,7 +177,7 @@
                 </h4>
                 <div class="flex flex-col w-full px-3 py-3  gap-2">
                   <div class="flex w-full h-fit text-lg font-semibold text-emerald-600">
-                    กำลังจัดรายการ
+                    เสร็จสิ้น
                   </div>
                   <div class="flex w-full h-fit">
                     โต๊ะที่ :
@@ -225,8 +225,11 @@
         </div>
         <!-- navbar -->
         <div class="flex items-center justify-between px-4 py-2 rounded-lg bg-[#EEE8C8] shadow-md">
-          <div class="status" id="receive">
+          <div class="status font-bold" id="receive">
             <button class="status_button" onclick="window.location.href = 'Receive.php'">
+              <div flex>
+
+              </div>
               <div class="notification b1">
                 <?php echo $sent_orders_count1 ?>
               </div>
@@ -238,11 +241,13 @@
                 <path d="M12 4v4" />
                 <path d="M10 4h4" />
               </svg>
-
+              ยังไม่เสิร์ฟ
+              <div class="h-1 w-full bg-[#EEE8C8]"></div>
             </button>
           </div>
           <div class="status" id="arranging">
-            <button class="status_button" onclick="window.location.href = 'Arranging.php'">
+            <button class="status_button font-bold"
+              onclick="window.location.href = 'Arranging.php'">
               <div class="notification b2">
                 <?php echo $sent_orders_count2 ?>
               </div>
@@ -254,11 +259,12 @@
                 <circle cx="8" cy="16" r="6" />
                 <path d="M9.5 17.5 8 16.25V14" />
               </svg>
-
+              กำลังเสิร์ฟ
+              <div class="h-1 w-full bg-[#EEE8C8]"></div>
             </button>
           </div>
           <div class="status" id="finished">
-            <button class="status_button" style="color: #6A311D;" onclick="window.location.href = 'Finished.php'">
+            <button class="status_button font-bold" style="color: #6A311D;" onclick="window.location.href = 'Finished.php'">
               <div class="notification b3">
                 <?php echo $sent_orders_count3 ?>
               </div>
@@ -269,7 +275,8 @@
                 <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                 <path d="m9 14 2 2 4-4" />
               </svg>
-              <div style="width: 100%; height: 5px; background-color: #FA5D2A;"></div>
+              เสร็จสิ้น
+              <div class="h-1 w-full bg-red-500 rouded-full"></div>
             </button>
           </div>
         </div>
