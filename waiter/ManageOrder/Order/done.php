@@ -45,31 +45,32 @@
 <body>
 
   <?php
-  // เชื่อมต่อกับฐานข้อมูล
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "WhatsUpShabu";
-
-  $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-  // ตรวจสอบการเชื่อมต่อ
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+session_start();
+class MyDB extends SQLite3
+{
+  function __construct()
+  {
+    $this->open('../../../utils/WhatsUpShabu.db');
   }
+}
+$db = new MyDB();
 
   $order_id = $_GET['order_id'];
   $order_id = intval($order_id); // Ensure $order_id is an integer to prevent SQL injection
   
-  $order_sql = "SELECT * FROM orders WHERE id ='$order_id'";
-  $result = mysqli_query($conn, $order_sql);
-  $order = mysqli_fetch_assoc($result);
+  $order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
+  $result = $db->query($order_sql);
+  $order = $result -> fetchArray(SQLITE3_ASSOC);
   $time_only = date("H:i:s", strtotime($order["start_time"]));
 
   $sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
 
-  $result1 = mysqli_query($conn, $sql1);
-  $row_count = mysqli_num_rows($result1);
+  $result = $db->query($sql1);
+  $row_count = 0;
+
+  while($row = $result->fetchArray(SQLITE3_ASSOC)){
+    $row_count++;
+  }
   ?>
 
 
@@ -156,7 +157,7 @@
       <div class="flex flex-col hp-90 w-full bg-gray-200">
         <div class="flex items-center bg-green-800 w-full px-2 py-2 font-bold text-white text-lg">
           <div class="flex items-center gap-2">
-            <button class="back_page" onclick="window.location.href = '../Finished.php'">
+            <button class="back_page" onclick="window.location.href = '../Done'">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="lucide lucide-move-left">
@@ -192,19 +193,16 @@
           <!-- order items -->
           <div
             class="grid grid-cols-2 w-full h-full overflow-y-auto overflow-x-hidden bg-white gap-2 px-2 py-2 rounded-lg">
-            <?php
+            
 
-            if (mysqli_num_rows($result1) > 0) {
-              // วนลูปแสดงผลข้อมูล
-              while ($row = mysqli_fetch_assoc($result1)) {
-                ?>
-                <!-- menu item -->
+<?php if ($row_count > 0):?>
+  <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)):?>
                 <div class="flex justify-start items-center h-40 w-full bg-green-200 gap-3 rounded-lg shadow-sm">
-                  <?php
+                <?php
                   $menu_id = $row['menu_id'];
                   $sql2 = "SELECT * FROM menu WHERE ID='$menu_id';";
-                  $result2 = mysqli_query($conn, $sql2);
-                  $row2 = mysqli_fetch_assoc($result2);
+                  $result2 = $db->query($sql2);
+                  $row2 = $result2->fetchArray(SQLITE3_ASSOC);
                   ?>
                   <div class="flex w-4/12 h-full rounded-lg bg-white">
                     <img src="<?php echo $row2['image']; ?>" width="100%" class="rounded-lg">
@@ -224,17 +222,13 @@
                     </a>
                   </div>
                 </div>
-                <?php
-              }
-            } else {
-              echo "ไม่พบข้อมูล";
-            }
-            ?>
+                <?php endwhile?>
+            <?php endif?>
           </div>
         </div>
         <!-- button -->
         <div class="flex h-full w-full items-center justify-center">
-          <button type="Submit" id="serveButton" onclick="window.location.href = '../Finished.php'"
+          <button type="Submit" id="serveButton" onclick="window.location.href = '../Done'"
             class="arranging_button w-6/12 bg-green-300 hover:bg-green-500 hover:text-white p-3 rounded-lg text-xl font-semibold duration-500">กลับ</button>
         </div>
       </div>

@@ -49,24 +49,25 @@
   {
     function __construct()
     {
-      $this->open('../../../../utils/WhatsUpShabu.db');
+      $this->open('../../../utils/WhatsUpShabu.db');
     }
   }
   $db = new MyDB();
 
   $order_id = $_GET['order_id'];
   $order_id = intval($order_id); // Ensure $order_id is an integer to prevent SQL injection
-
+  
   $order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
   $result = $db->query($order_sql);
-  $order = $result->fetchArray(SQLITE3_ASSOC);
+  $order = $result -> fetchArray(SQLITE3_ASSOC);
   $time_only = date("H:i:s", strtotime($order["start_time"]));
 
   $sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
 
-  $result1 = $db->query($sql1);
+  $result = $db->query($sql1);
   $row_count = 0;
-  while($result1->fetchArray(SQLITE3_ASSOC)){
+
+  while($row = $result->fetchArray(SQLITE3_ASSOC)){
     $row_count++;
   }
   ?>
@@ -157,7 +158,7 @@
         <!-- header order -->
         <div class="flex items-center bg-yellow-700 w-full px-2 py-2 font-bold text-white text-lg">
           <div class="flex items-center gap-2">
-            <button class="back_page" onclick="window.location.href = '../Arranging.php'">
+            <button class="back_page" onclick="window.location.href = '../Process'">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="lucide lucide-move-left">
@@ -197,7 +198,7 @@
 
             if ($row_count > 0) {
               // วนลูปแสดงผลข้อมูล
-              while ($row = $result1->fetchArray(SQLITE3_ASSOC)) {
+              while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                 ?>
                 <!-- menu item -->
                 <div class="flex justify-start items-center h-40 w-full bg-amber-200 gap-3 rounded-lg shadow-sm">
@@ -302,9 +303,10 @@
   if (isset($_POST['orderID'])) {
     $order_id = $_POST['orderID'];
     $sql = "UPDATE orders SET status = 'done' WHERE id = $order_id";
-    if (mysqli_query($conn, $sql)) {
+    $db->exec($sql);
+    if ($db) {
       echo "Record updated successfully";
-      echo "<script>window.location.href = '../Arranging.php';</script>";
+      echo "<script>window.location.href = '../Process';</script>";
     } else {
       echo "Error updating record: " . mysqli_error($conn);
     }

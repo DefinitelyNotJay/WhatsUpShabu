@@ -45,8 +45,6 @@
 <body>
 
   <?php
-  // เชื่อมต่อกับฐานข้อมูล
-
   session_start();
   class MyDB extends SQLite3
   {
@@ -250,7 +248,6 @@
   if (isset($_POST['orderID'])) {
     $order_id = $_POST['orderID'];
     $sql = "UPDATE orders SET status = 'process' WHERE id = '$order_id'";
-    // echo "<script>alert('$order_id')</script>";
     $db->exec($sql);
     if ($db) {
       echo "Record updated successfully";

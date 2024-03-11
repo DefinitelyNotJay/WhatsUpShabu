@@ -193,7 +193,7 @@
               ?>
               <!-- สร้าง Orderlist_item -->
               <button class="flex flex-col h-fit w-full bg-[#fff6f1] hover:bg-[#F2EAE5] duration-500 rounded-lg shadow-sm"
-                onclick="window.location.href = 'order/finorder.php?order_id=<?php echo $row['id']; ?>'">
+                onclick="window.location.href = '../Order/done.php?order_id=<?php echo $row['id']; ?>'">
                 <h4
                   class="flex font-bold text-xl w-full h-1/5 bg-green-600 text-white px-2 py-1 justify-center items-center rounded-t-lg">
                   รายการที่
