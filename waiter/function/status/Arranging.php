@@ -46,17 +46,16 @@
 
 
   <?php
-  $servername = "localhost";
-  $username = "root"; //ตามที่กำหนดให้
-  $password = ""; //ตามที่กำหนดให้
-  $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
-  // Create connection
-  $conn = mysqli_connect($servername, $username, $password, $dbname);
-  // Check connection
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+  session_start();
+  class MyDB extends SQLite3
+  {
+    function __construct()
+    {
+      $this->open('../../../utils/WhatsUpShabu.db');
+    }
   }
-  echo "";
+  $db = new MyDB();
+
   ?>
 
   <div class="flex w-screen h-screen">
@@ -146,23 +145,34 @@
           <?php
           // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
           $sql1 = "SELECT * FROM orders WHERE `status` = 'sent'";
-          $sql2 = "SELECT orders.*
-          FROM orders
-          INNER JOIN tables ON orders.table_id = tables.id
-          WHERE orders.status='process' AND orders.start_time > tables.start_time;";
+          // $sql2 = "SELECT orders.*
+          // FROM orders
+          // INNER JOIN tables ON orders.table_id = tables.id
+          // WHERE orders.status='process' AND orders.start_time > tables.start_time;";
+          $sql2 = "SELECT * FROM orders";
           $sql3 = "SELECT * FROM orders WHERE `status` = 'done'";
 
-          $result1 = mysqli_query($conn, $sql1);
-          $result2 = mysqli_query($conn, $sql2);
-          $result3 = mysqli_query($conn, $sql3);
-          $sent_orders_count1 = mysqli_num_rows($result1);
-          $sent_orders_count2 = mysqli_num_rows($result2);
-          $sent_orders_count3 = mysqli_num_rows($result3);
+          $result1 = $db->query($sql1);
+          $result2 = $db->query($sql2);
+          $result3 = $db->query($sql3);
+          $sent_orders_count1 = 0;
+          $sent_orders_count2 = 0;
+          $sent_orders_count3 = 0;
 
-          // ตรวจสอบว่ามีข้อมูลในตารางหรือไม่
-          if (mysqli_num_rows($result2) > 0) {
-            // วนลูปแสดงผลข้อมูล
-            while ($row = mysqli_fetch_assoc($result2)) {
+          while ($row = $result1->fetchArray(SQLITE3_ASSOC)) {
+            $sent_orders_count1++;
+          }
+          while ($row = $result2->fetchArray(SQLITE3_ASSOC)) {
+            $sent_orders_count2++;
+          }
+          while ($row = $result3->fetchArray(SQLITE3_ASSOC)) {
+            $sent_orders_count3++;
+          }
+          ?>
+
+          <?php if ($sent_orders_count2 > 0): ?>
+            <?php while ($row = $result2->fetchArray(SQLITE3_ASSOC)): ?>
+              <?php
               $order_id = $row["id"];
               $time_only = date("H:i:s", strtotime($row["start_time"]));
               ?>
@@ -201,22 +211,19 @@
                       <path d="m9 11 1 9" />
                     </svg>
                     <?php
-                    $sql4 = "SELECT * FROM order_item WHERE order_id ='$order_id' ";
-                    $result4 = mysqli_query($conn, $sql4);
-                    $row_count = mysqli_num_rows($result4);
+                    $sql4 = "SELECT COUNT(*) FROM order_item WHERE order_id ='$order_id'";
+                    $result4 = $db->querySingle($sql4);
                     ?>
                     <p>
-                      <?php echo $row_count; ?> รายการ
+                      <?php echo $result4; ?> รายการ
                     </p>
                   </div>
                 </div>
               </button>
-              <?php
-            }
-          }
-          // ปิดการเชื่อมต่อ
-          
-          ?>
+            <?php endwhile ?>
+          <?php endif ?>
+
+
         </div>
         <!-- navbar -->
         <div class="flex items-center justify-between px-4 py-2 rounded-lg bg-[#EEE8C8] shadow-md">

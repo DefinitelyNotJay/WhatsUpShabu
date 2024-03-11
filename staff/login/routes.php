@@ -39,12 +39,11 @@
         $_SESSION["name"] = $name;
 
         if ($role === "receptionist") {
-            header("Location: /WhatsUpShabu/receptionist/ManageTable");
+            header("Location: ../../receptionist/ManageTable/index.php");
         } elseif ($role === "waiter") {
-            header("Location: /WhatsUpShabu/waiter/function/ordermanage.php");
+            header("Location: ../../waiter/function/ordermanage.php");
         } elseif ($role === "manager") {
-            header("Location: /WhatsUpShabu/Manager/ViewStatistics");
-
+            header("Location: ../../Manager/ViewStatistics");
         }
     }
     ?>

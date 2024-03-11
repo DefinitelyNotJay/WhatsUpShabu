@@ -43,7 +43,6 @@
 <body>
     <?php
     session_start();
-    // 1. Connect to Database 
     class MyDB extends SQLite3 {
     function __construct() {
        $this->open('../../utils/WhatsUpShabu.db');
