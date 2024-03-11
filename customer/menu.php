@@ -50,11 +50,11 @@
             exit();
         }
     }
-
-
-
-
     ?>
+
+<div class="table">
+    <?php echo $_SESSION['table_id']; ?>
+</div>
 
     <header class="header">
         <a href="menu.php">
@@ -110,12 +110,21 @@
                 echo '<p id="' . $type . '">' . $type . '</p>';
                 echo "<div class='container-menu d-flex flex-wrap mgin-10px'>";
                 foreach ($menus as $menu) {
-                    echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item' data-toggle='modal' data-target='#addordermodal' data-menu-id='" . $menu["ID"] . "'>";
+                    if ($menu["status"] == "restocking"){
+                    echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 restockitem color'>";
+                    echo "<img src='" . $menu["image"] . "' width='110px' height='80px' class='mr-2 restock'>";
+                    echo "<div class='restock'id='" . $menu["name"] . "'>" . $menu["name"] . "";
+                    echo "<div class='item_description'>" . $menu["description"] . "";
+                    echo "</div></div><div class='restockstatus'>กำลังเติม</div></div>";
+                    echo "<br>";
+                    }else{
+                        echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item' data-toggle='modal' data-target='#addordermodal' data-menu-id='" . $menu["ID"] . "'>";
                     echo "<img src='" . $menu["image"] . "' width='110px' height='80px' class='mr-2'>";
                     echo "<div id='" . $menu["name"] . "'>" . $menu["name"] . "";
                     echo "<div class='item_description'>" . $menu["description"] . "";
                     echo "</div></div></div>";
                     echo "<br>";
+                    }
                 }
                 echo "</div>";
             }
