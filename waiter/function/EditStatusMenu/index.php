@@ -123,18 +123,17 @@
 <body>
     <!-- Connect Database -->
     <?php
-    // 1. Connect to Database 
-    class MyDB extends SQLite3 {
-        function __construct() {
-           $this->open('../../../utils/WhatsUpShabu.db');
-        }
+    $servername = "localhost";
+    $username = "root"; //ตามที่กำหนดให้
+    $password = ""; //ตามที่กำหนดให้
+    $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
     }
-    
-    // 2. Open Database 
-    $db = new MyDB();
-    if(!$db) {
-        echo $db->lastErrorMsg();
-    } 
+    echo "";
     ?>
     <div class="flex w-screen h-screen">
         <!-- Sidebar -->
@@ -237,14 +236,15 @@
                     <?php
                     // --- SQL SELECT statement  
                     $sql = "SELECT * FROM menu;";
-                    $result = $db->query($sql);
+                    $result = mysqli_query($conn, $sql);
 
+                    if (mysqli_num_rows($result) > 0) {
                         // Initialize an associative array to organize menus by type
                         $menusByType = array();
                         $menuDetails = array();
 
                         // Organize menus by type
-                        while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
+                        while ($row = mysqli_fetch_assoc($result)) {
                             //detail
                             $menuDetails[$row['ID']] = array(
                                 'name' => $row['name'],
@@ -279,6 +279,9 @@
                             }
                             echo "</div></div>";
                         }
+                    } else {
+                        echo "0 results";
+                    }
                     ?>
                 </div>
             </div>
@@ -438,7 +441,7 @@
     if (isset($_POST['default-status'])) {
 
         $sql = "UPDATE menu SET status = 'instock'";
-        if ($db->exec($sql)) {
+        if (mysqli_query($conn, $sql)) {
             echo "<script>window.location.href = 'index.php';</script>";
         } else {
             echo "Error added record: " . mysqli_error($conn);
@@ -450,7 +453,7 @@
         $stausMenu = $_POST['showStatus'];
 
         $sql = "UPDATE menu SET status = '$stausMenu' WHERE ID = $menuId";
-        if ($db->exec($sql)) {
+        if (mysqli_query($conn, $sql)) {
             echo "Record updated successfully";
             echo "<script>window.location.href = 'index.php';</script>";
         } else {
@@ -461,7 +464,7 @@
 
     <?php
     // close connection
-    $db->close();
+    mysqli_close($conn);
     ?>
 </body>
 
