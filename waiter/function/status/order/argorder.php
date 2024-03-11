@@ -122,7 +122,6 @@ $row_count = mysqli_num_rows($result1);
 
       <div class="menu_bar">
         <?php 
-
         if (mysqli_num_rows($result1) > 0) {
           // วนลูปแสดงผลข้อมูล
           while($row = mysqli_fetch_assoc($result1)) {
