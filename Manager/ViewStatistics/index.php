@@ -165,12 +165,11 @@
                 <!-- button and display chart -->
                     <form id="form1" action="" method="post" class="flex hp-10 w-full items-center px-4 gap-2">
                             <?php
-                            // --- SQL SELECT statement 
-                            $sql = "SELECT DISTINCT strftime('%Y', date) AS year FROM bill ORDER BY year DESC;";
+                            // --- SQL SELECT statement
+                            $sql = "SELECT DISTINCT substr(date, 1, 4) AS year FROM bill ORDER BY year DESC;";
                             $result = $db->query($sql);
                             while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
                                 $year = $row['year'];
-                                echo $year;
                                 echo '<button type="submit" class="flex bg-[#fa5d2a80] hover:bg-[#fa5d2a] text-white items-center px-3 py-2 duration-500 shadow-sm rounded-lg" id="' . $year . '" name="showChart" value="' . $year . '">' . $year . '</button>';
                             }
                             ?>
@@ -254,10 +253,12 @@
             } else {
                 $selectedYear = 2024;
             }
-            $sql = "SELECT strftime('%m', date) AS month, SUM(total) AS total_income FROM bill WHERE strftime('%Y', date) = $selectedYear AND status != 'unpaid' GROUP BY strftime('%m', date)";
+            $monthlyIncomeData = array_fill(1, 12, null);
+            $sql = "SELECT CAST(substr(date, 6, 2) AS INTEGER) AS month, SUM(total) AS total_income FROM bill WHERE substr(date, 1, 4) = '$selectedYear' AND status != 'unpaid' GROUP BY substr(date, 6, 2)";
             $result = $db->query($sql);
-            while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
-                $monthlyIncomeData[$row['month']] = $row['total_income'];
+
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                $monthlyIncomeData[(int)$row['month']] = $row['total_income'];
             }
 
             $jsMonthlyIncomeData = json_encode(array_values($monthlyIncomeData));
