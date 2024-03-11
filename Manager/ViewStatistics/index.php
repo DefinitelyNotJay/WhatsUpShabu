@@ -144,18 +144,7 @@
                 <h1 class="font-bold text-xl">สถิติภายในร้าน</h1>
                 <div class="flex items-center font-semibold">
                     <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        class="mr-1">
-                        <path
-                            d="M20.0006 36.6663C29.2054 36.6663 36.6673 29.2044 36.6673 19.9997C36.6673 10.7949 29.2054 3.33301 20.0006 3.33301C10.7959 3.33301 3.33398 10.7949 3.33398 19.9997C3.33398 29.2044 10.7959 36.6663 20.0006 36.6663Z"
-                            fill="#F6851F" stroke="white" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                        <path
-                            d="M30 33.333C30 30.6808 28.9464 28.1373 27.0711 26.2619C25.1957 24.3866 22.6522 23.333 20 23.333C17.3478 23.333 14.8043 24.3866 12.9289 26.2619C11.0536 28.1373 10 30.6808 10 33.333"
-                            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path
-                            d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z"
-                            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                        class="mr-1"> <path d="M20.0006 36.6663C29.2054 36.6663 36.6673 29.2044 36.6673 19.9997C36.6673 10.7949 29.2054 3.33301 20.0006 3.33301C10.7959 3.33301 3.33398 10.7949 3.33398 19.9997C3.33398 29.2044 10.7959 36.6663 20.0006 36.6663Z" fill="#F6851F" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M30 33.333C30 30.6808 28.9464 28.1373 27.0711 26.2619C25.1957 24.3866 22.6522 23.333 20 23.333C17.3478 23.333 14.8043 24.3866 12.9289 26.2619C11.0536 28.1373 10 30.6808 10 33.333" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
                     ผู้จัดการ
                 </div>
             </div>
@@ -170,7 +159,8 @@
                             $result = $db->query($sql);
                             while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
                                 $year = $row['year'];
-                                echo '<button type="submit" class="flex bg-[#fa5d2a80] hover:bg-[#fa5d2a] text-white items-center px-3 py-2 duration-500 shadow-sm rounded-lg" id="' . $year . '" name="showChart" value="' . $year . '">' . $year . '</button>';
+                                echo '<button type="submit" class="flex bg-[#fa5d2a80] hover:bg-[#fa5d2a] text-white items-center px-3 py-2 duration-500 shadow-sm rounded-lg" 
+                                id="' . $year . '" name="showChart" value="' . $year . '">' . $year . '</button>';
                             }
                             ?>
                     </form>
@@ -254,7 +244,8 @@
                 $selectedYear = 2024;
             }
             $monthlyIncomeData = array_fill(1, 12, null);
-            $sql = "SELECT CAST(substr(date, 6, 2) AS INTEGER) AS month, SUM(total) AS total_income FROM bill WHERE substr(date, 1, 4) = '$selectedYear' AND status != 'unpaid' GROUP BY substr(date, 6, 2)";
+            $sql = "SELECT CAST(substr(date, 6, 2) AS INTEGER) AS month, SUM(total) AS total_income FROM bill WHERE substr(date, 1, 4) = '$selectedYear' 
+            AND status != 'unpaid' GROUP BY substr(date, 6, 2)";
             $result = $db->query($sql);
 
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -269,8 +260,6 @@
         });
 
     </script>
-
-
 
     <?php
     // close connection
