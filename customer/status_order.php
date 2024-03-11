@@ -50,21 +50,23 @@
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 // Display order details
+                echo "<form id='statusform' action='' method='post'>";
                 echo "<div class='container-menu d-flex flex-wrap mgin-10px'>";
-                echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 statusitem' id='{$row['id']}' data-toggle='modal' data-target='#statusModal'>";
+                echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 statusitem'>";
+                echo "<input type='hidden' id='orderID' name='orderID' value='" . $row['id'] ."'>";
                 if ($row['status'] == 'sent') {
                     echo "<div class='statussent'></div>";
-                    echo "<div>ยังไม่ได้รับออเดอร์</div>";
+                    echo "<div>" . $row['id'] . " : ยังไม่ได้รับออเดอร์</div>";
                 } elseif ($row['status'] == 'process') {
                     echo "<div class='statusprocess'></div>";
-                    echo "<div>กำลังจัดเตรียม</div>";
+                    echo "<div>" . $row['id'] . " : กำลังจัดเตรียม</div>";
                 } elseif ($row['status'] == 'done') {
                     echo "<div class='statusdone'></div>";
-                    echo "<div>เสิร์ฟแล้ว</div>";
+                    echo "<div>" . $row['id'] . " : เสิร์ฟแล้ว</div>";
                 }
-                echo "<div class='ml-auto mr-2'>ออเดอร์ : " . $row['id'] . " >></div></div>";
+                echo "<div class='ml-auto mr-2'></div><button type='submit' class=' mr-2 btn statusitem2'>แสดงรายการ</button></div>";
                 echo "<br>";
-                echo "</div>";
+                echo "</div></form>";
             }
         } else {
             echo "";
@@ -84,44 +86,39 @@
                     <div class="modal-body">
                         <div class="container-menu d-flex flex-wrap mgin-10px">
                             <div class="menu d-flex align-items-center bg-body-tertiary rounded mr-1 item">
-                                <div class="menu-id-display idorder"><span id="order_id_display"></span></div>
                             </div>
                         </div>
-
-                        <!-- เพิ่มส่วนนี้เพื่อแสดง ID -->
-                        <script>
-                                $(document).ready(function() {
-                                    $('.statusitem').on('click', function() {
-                                        var order_id = $(this).attr('id');
-                                        $('#statusModal').modal('show');
-                                        $('#order_id_display').text(order_id);
-                                    });
-                                });
-                            </script>
-
                         <?php
-                        // get_order_details.php
-                        $order_id = '182';
-                        // Perform your SQL query to fetch order details and menu information based on $order_id
-                        $sql = "SELECT oi.*, m.image, m.name
-                    FROM order_item oi
-                    JOIN menu m ON oi.menu_id = m.ID
-                    WHERE oi.order_id = '$order_id'";
-                        $result = mysqli_query($conn, $sql);
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                // Output order details and menu information
-                                echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item'>";
-                                echo "<div class='menu-image'><img src='" . $row['image'] . "' alt='Menu Image' width='80px'></div>";
-                                echo "<div class='menu-details'>";
-                                echo "<div class='menu-name'>" . $row['name'] . "</div>";
-                                echo "<div class='menu-id'>จำนวน : " . $row['quantity'] . "</div>";
-                                echo "</div>";
-                                echo "</div>";
-                                echo "<br>";
+                        if(isset($_POST['orderID'])) {
+                            $order_id = $_POST['orderID'];
+                        ?>
+                        <script>
+                            var order_id = document.getElementById('orderID').value;
+                            $('#statusModal').modal('show');
+                        </script>
+                        <?php
+                            // Perform your SQL query to fetch order details and menu information based on $order_id
+                            $sql = "SELECT oi.*, m.image, m.name
+                        FROM order_item oi
+                        JOIN menu m ON oi.menu_id = m.ID
+                        WHERE oi.order_id = '$order_id'";
+                            $result = mysqli_query($conn, $sql);
+                            if (mysqli_num_rows($result) > 0) {
+                                echo"<div class='show-order-id'>ออเดอร์ :".$order_id."</div>";
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    // Output order details and menu information
+                                    echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item'>";
+                                    echo "<div class='menu-image'><img class='mr-2'src='" . $row['image'] . "' alt='Menu Image' height='80px' width='110'></div>";
+                                    echo "<div class='menu-details'>";
+                                    echo "<div class='menu-name'>" . $row['name'] . "</div>";
+                                    echo "<div class='menu-id'>จำนวน : " . $row['quantity'] . "</div>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                    echo "<br>";
+                                }
+                            } else {
+                                echo "No order details found.";
                             }
-                        } else {
-                            echo "No order details found.";
                         }
                         ?>
                         <div class="text-center modal-buttom">
