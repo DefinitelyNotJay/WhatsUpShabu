@@ -121,19 +121,31 @@
 </head>
 
 <body>
-    <!-- Connect Database -->
     <?php
-    $servername = "localhost";
-    $username = "root"; //ตามที่กำหนดให้
-    $password = ""; //ตามที่กำหนดให้
-    $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    session_start();
+    // 1. Connect to Database 
+    class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('../../../utils/WhatsUpShabu.db');
+        }
     }
-    echo "";
+
+    // 2. Open Database 
+    $db = new MyDB();
+    if(!$db) {
+        echo $db->lastErrorMsg();
+    } 
+
+    if (!isset($_SESSION['username']) or $_SESSION['role'] !== "waiter") {
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
+
+    if (isset($_POST["logout"])) {
+        session_destroy();
+        header("Location: /WhatsUpShabu/staff/login/index.php");
+        exit();
+    }
     ?>
     <div class="flex w-screen h-screen">
         <!-- Sidebar -->
@@ -224,7 +236,7 @@
                             d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z"
                             stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    ผู้จัดการ
+                    พนักงานเสิร์ฟ
                 </div>
             </div>
 
@@ -236,15 +248,14 @@
                     <?php
                     // --- SQL SELECT statement  
                     $sql = "SELECT * FROM menu;";
-                    $result = mysqli_query($conn, $sql);
+                    $result = $db->query($sql);
 
-                    if (mysqli_num_rows($result) > 0) {
                         // Initialize an associative array to organize menus by type
                         $menusByType = array();
                         $menuDetails = array();
 
                         // Organize menus by type
-                        while ($row = mysqli_fetch_assoc($result)) {
+                        while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
                             //detail
                             $menuDetails[$row['ID']] = array(
                                 'name' => $row['name'],
@@ -272,16 +283,14 @@
                                 // button div
                                 echo "<div class='menu-edit flex items-center justify-center'>";
                                 // button
-                                echo "<div class='menu-option flex items-center shadow-sm  rounded-xl cursor-pointer duration-500 button-edit font-semibold' data-toggle='modal' data-target='#editMenuModal' data-menu-id='" . $menu["ID"] . "'>";
+                                echo "<div class='menu-option flex items-center shadow-sm  rounded-xl cursor-pointer duration-500 button-edit font-semibold' 
+                                data-toggle='modal' data-target='#editMenuModal' data-menu-id='" . $menu["ID"] . "'>";
                                 echo "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-settings-2 mr-1'><path d='M20 7h-9'/><path d='M14 17H5'/><circle cx='17' cy='17' r='3'/><circle cx='7' cy='7' r='3'/></svg>";
                                 echo "แก้ไข</div>";
                                 echo "</div></div></div>";
                             }
                             echo "</div></div>";
                         }
-                    } else {
-                        echo "0 results";
-                    }
                     ?>
                 </div>
             </div>
@@ -309,22 +318,12 @@
                     <button type="submit"
                         class="add-menu-option flex items-center shadow-sm font-semibold rounded-lg bg-[#fa5e2abe] hover:bg-[#fa5e2a] gap-2"
                         data-bs-dismiss="modal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-ban mr-1">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="m4.9 4.9 14.2 14.2" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban mr-1"><circle cx="12" cy="12" r="10" /><path d="m4.9 4.9 14.2 14.2" /></svg>
                         <h6 class="font-semibold">ยกเลิก</h6>
                     </button>
                     <button type="submit" id="default-status" name="default-status"
                         class="add-menu-option flex items-center shadow-sm  rounded-lg font-semibold bg-[#009179c2] hover:bg-[#009179] gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-check-circle mr-1">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                            <path d="m9 11 3 3L22 4" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle mr-1"> <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /> <path d="m9 11 3 3L22 4" /></svg>
                         <h6 class="font-semibold">ยืนยัน</h6>
                     </button>
                 </div>
@@ -379,22 +378,12 @@
                     <button type="submit"
                         class="add-menu-option flex items-center shadow-sm font-semibold rounded-lg bg-[#fa5e2abe] hover:bg-[#fa5e2a] gap-2"
                         data-bs-dismiss="modal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-ban mr-1">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="m4.9 4.9 14.2 14.2" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban mr-1"><circle cx="12" cy="12" r="10" /><path d="m4.9 4.9 14.2 14.2" /></svg>
                         <h6 class="font-semibold">ยกเลิก</h6>
                     </button>
                     <button type="submit" id="edit-status" name="edit-status"
                         class="add-menu-option flex items-center shadow-sm  rounded-lg font-semibold bg-[#009179c2] hover:bg-[#009179] gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-check-circle mr-1">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                            <path d="m9 11 3 3L22 4" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle mr-1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><path d="m9 11 3 3L22 4" /></svg>
                         <h6 class="font-semibold">ยืนยัน</h6>
                     </button>
                 </div>
@@ -441,10 +430,8 @@
     if (isset($_POST['default-status'])) {
 
         $sql = "UPDATE menu SET status = 'instock'";
-        if (mysqli_query($conn, $sql)) {
+        if ($db->exec($sql)) {
             echo "<script>window.location.href = 'index.php';</script>";
-        } else {
-            echo "Error added record: " . mysqli_error($conn);
         }
     }
     //Edit Status
@@ -453,18 +440,15 @@
         $stausMenu = $_POST['showStatus'];
 
         $sql = "UPDATE menu SET status = '$stausMenu' WHERE ID = $menuId";
-        if (mysqli_query($conn, $sql)) {
-            echo "Record updated successfully";
+        if ($db->exec($sql)) {
             echo "<script>window.location.href = 'index.php';</script>";
-        } else {
-            echo "Error added record: " . mysqli_error($conn);
         }
     }
     ?>
 
     <?php
     // close connection
-    mysqli_close($conn);
+    $db->close();
     ?>
 </body>
 
