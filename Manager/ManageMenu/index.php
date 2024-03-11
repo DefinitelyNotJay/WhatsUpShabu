@@ -73,14 +73,18 @@
 <body>
     <?php
     session_start();
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "WhatsUpShabu";
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    // 1. Connect to Database 
+   class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('../../utils/WhatsUpShabu.db');
+        }
     }
+
+    // 2. Open Database 
+    $db = new MyDB();
+    if(!$db) {
+        echo $db->lastErrorMsg();
+    } 
 
     if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
         header("Location: /WhatsUpShabu/staff/login/index.php");
@@ -208,15 +212,14 @@
                     <?php
                     // --- SQL SELECT statement  
                     $sql = "SELECT * FROM menu;";
-                    $result = mysqli_query($conn, $sql);
+                    $result = $db->query($sql);
 
-                    if (mysqli_num_rows($result) > 0) {
                         // Initialize an associative array to organize menus by type
                         $menusByType = array();
                         $menuDetails = array();
 
                         // Organize menus by type
-                        while ($row = mysqli_fetch_assoc($result)) {
+                        while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
                             //detail
                             $menuDetails[$row['ID']] = array(
                                 'name' => $row['name'],
@@ -259,9 +262,6 @@
                             }
                             echo "</div></div></div>";
                         }
-                    } else {
-                        echo "0 results";
-                    }
                     ?>
                 </div>
             </div>
