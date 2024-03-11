@@ -148,12 +148,12 @@
           class="grid grid-cols-4 justify-items-center h-full w-full bg-white px-3 py-3 rounded-lg gap-2 overflow-y-auto">
           <?php
           // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
-          $sql1 = "SELECT * FROM orders";
-          $sql2 = "SELECT * FROM orders";
-          $sql3 = "SELECT orders.*
+          $sql1 = "SELECT orders.*
           FROM orders
           INNER JOIN tables ON orders.table_id = tables.id
-          WHERE orders.status='done' AND orders.start_time > tables.start_time;";
+          WHERE orders.status='sent' AND orders.start_time > tables.start_time;";
+          $sql2 = "SELECT * FROM orders WHERE `status` = 'process'";
+          $sql3 = "SELECT * FROM orders WHERE `status` = 'done'";
           $result1 = mysqli_query($conn, $sql1);
           $result2 = mysqli_query($conn, $sql2);
           $result3 = mysqli_query($conn, $sql3);

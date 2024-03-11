@@ -146,8 +146,8 @@
 
           <?php
           // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
-          $sql1 = "SELECT * FROM orders";
-          $sql2 = "SELECT * FROM orders";
+          $sql1 = "SELECT * FROM orders WHERE `status` = 'sent'";
+          $sql2 = "SELECT * FROM orders WHERE `status` = 'process'";
           $sql3 = "SELECT orders.*
           FROM orders
           INNER JOIN tables ON orders.table_id = tables.id
