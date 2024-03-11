@@ -29,14 +29,21 @@
         exit();
     }
 
-    require_once('../../utils/config.php');
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    // require_once('../../utils/config.php');
+    // $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    class MyDB extends SQLite3
+    {
+        function __construct()
+        {
+            $this->open('../../utils/WhatsUpShabu.db');
+        }
     }
+    $db = new MyDB();
 
     $table_id = $_GET["id"];
+
+
 
     ?>
 
@@ -72,9 +79,9 @@
                         <select id="promotion" name="promotion"
                             class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-1.5">
                             <?php
-                            $sql = "SELECT * FROM promotion WHERE `status`";
-                            $result = mysqli_query($conn, $sql);
-                            while ($row = mysqli_fetch_assoc($result)) {
+                            $sql = "SELECT * FROM promotion WHERE `status` = 'active'";
+                            $result = $db->query($sql);
+                            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                                 $id = $row["ID"];
                                 $name = $row["name"];
                                 echo "<option value='$id'>$name</option>";

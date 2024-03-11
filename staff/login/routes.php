@@ -26,12 +26,6 @@
     } else {
         echo "Opened database successfully<br>";
     }
-
-    // 3. Query Execution
-    // SQL Statements
-    
-
-    // 4. Close database
     
     $username = $_POST['username'];
     $password = $_POST['passwd'];

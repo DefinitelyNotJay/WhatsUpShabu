@@ -34,13 +34,21 @@ if (!isset($_SESSION["username"]) or $_SESSION["role"] !== "receptionist") {
     <div class="flex flex-col h-fit w-fit px-10 py-10 justify-center items-center bg-white gap-8 rounded-xl shadow-lg">
         <h1 class="text-2xl cursor-default">สแกนแล้วสั่งอาหารได้เลย !</h1>
         <?php
-        require_once("../../utils/config.php");
-        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        class MyDB extends SQLite3
+        {
+            function __construct()
+            {
+                $this->open('../../utils/WhatsUpShabu.db');
+            }
+        }
+        $db = new MyDB();
+        
         $table_id = $_GET["table_id"];
-        $check_status_query = "SELECT * FROM tables WHERE id = '$table_id'";
-        $result = mysqli_query($conn, $check_status_query);
         $customer_amount = $_GET["customer_amount"];
-        $row = mysqli_fetch_assoc($result);
+
+        $check_status_query = "SELECT * FROM tables WHERE id = '$table_id'";
+        $result = $db->query($check_status_query);
+        $row = $result -> fetchArray(SQLITE3_ASSOC);
         $status = $row['status'];
         $start_time = $row["start_time"];
 
@@ -49,7 +57,7 @@ if (!isset($_SESSION["username"]) or $_SESSION["role"] !== "receptionist") {
         $session_id = md5("$table_id/$currentDateTime");
 
         $sql_update = "UPDATE tables SET `start_time` = '$currentDateTime', `status` = 'busy', customer_amount = '$customer_amount', session_id = '$session_id' WHERE id = '$table_id'";
-        $result2 = mysqli_query($conn, $sql_update);
+        $result2 = $db->exec($sql_update);
         $url = 'http://localhost/WhatsUpShabu/customer/menu.php?table_id=' . $table_id . '&session_id=' . $session_id . '';
         echo "<p class='text-xl'>โต๊ะ $table_id</p>";
         echo "<a href='/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=http://localhost/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'></a><br>";
