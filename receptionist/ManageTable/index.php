@@ -111,7 +111,7 @@
                     $select_tables = "SELECT * FROM tables;";
                     // $result = mysqli_query($conn, $select_tables);
                     $result = $db->query($select_tables);
-
+                    
                     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                         $id = $row["id"];
                         $customer_amount = $row["customer_amount"];
