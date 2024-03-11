@@ -38,7 +38,7 @@
             .unstyled-link:hover {
                 color: inherit;
             }    
-            .menu {
+            .promotion {
                 width: 31%;
                 height: 120px;
                 border-radius: 1cap;
@@ -46,15 +46,15 @@
                 background-color: #009179d8;
             }
 
-            .menu:hover {
+            .promotion:hover {
                 background-color: #009179;
             }
 
-            .menu.not {
+            .promotion.not {
                 background-color: #fa5e2ad0;
             }
 
-            .menu.not:hover {
+            .promotion.not:hover {
                 background-color: #fa5e2a;
             }
             .button-edit {
@@ -95,13 +95,17 @@
         <!-- Connect Database -->
         <?php
         session_start();
-        $servername = "localhost";
-        $username = "root"; 
-        $password = ""; 
-        $dbname = "WhatsUpShabu";    
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
+        // 1. Connect to Database 
+        class MyDB extends SQLite3 {
+            function __construct() {
+            $this->open('../../utils/WhatsUpShabu.db');
+            }
+        }
+
+        // 2. Open Database 
+        $db = new MyDB();
+        if(!$db) {
+            echo $db->lastErrorMsg();
         }
 
         if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
@@ -194,28 +198,15 @@
                     <button
                         class="text-white bg-[#976f4ab6] hover:bg-[#976f4a] flex items-center shadow-sm px-2.5 py-2.5  rounded-lg cursor-pointer font-bold text-xl duration-500"
                         data-bs-toggle="modal" data-bs-target="#addProModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="lucide lucide-plus-circle mr-2">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M8 12h8" />
-                            <path d="M12 8v8" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"stroke-linejoin="round" class="lucide lucide-plus-circle mr-2"><circle cx="12" cy="12" r="10" /><path d="M8 12h8" /><path d="M12 8v8" />
                         </svg>
                         เพิ่มโปรโมชั่น
                     </button>
                     <div class="flex items-center font-semibold">
                         <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
-                            class="mr-1">
-                            <path
-                                d="M20.0006 36.6663C29.2054 36.6663 36.6673 29.2044 36.6673 19.9997C36.6673 10.7949 29.2054 3.33301 20.0006 3.33301C10.7959 3.33301 3.33398 10.7949 3.33398 19.9997C3.33398 29.2044 10.7959 36.6663 20.0006 36.6663Z"
-                                fill="#F6851F" stroke="white" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path
-                                d="M30 33.333C30 30.6808 28.9464 28.1373 27.0711 26.2619C25.1957 24.3866 22.6522 23.333 20 23.333C17.3478 23.333 14.8043 24.3866 12.9289 26.2619C11.0536 28.1373 10 30.6808 10 33.333"
-                                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            <path
-                                d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z"
-                                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            class="mr-1"><path d="M20.0006 36.6663C29.2054 36.6663 36.6673 29.2044 36.6673 19.9997C36.6673 10.7949 29.2054 3.33301 20.0006 3.33301C10.7959 3.33301 3.33398 10.7949 3.33398 19.9997C3.33398 29.2044 10.7959 36.6663 20.0006 36.6663Z" fill="#F6851F" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M30 33.333C30 30.6808 28.9464 28.1373 27.0711 26.2619C25.1957 24.3866 22.6522 23.333 20 23.333C17.3478 23.333 14.8043 24.3866 12.9289 26.2619C11.0536 28.1373 10 30.6808 10 33.333" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         ผู้จัดการ
                     </div>
@@ -227,15 +218,14 @@
                         <?php
                         // --- SQL SELECT statement  
                         $sql = "SELECT * FROM promotion ORDER BY CASE WHEN status = 'active' THEN 0 ELSE 1 END, end_date;";
-                        $result = mysqli_query($conn, $sql);
+                        $result = $db->query($sql);
 
-                        if (mysqli_num_rows($result) > 0) {
                             // Initialize an associative array to organize promotions by Status
                             $promotionByStatus = array();
                             $promotionDetails = array();
 
                             // Organize promotions by Status
-                            while ($row = mysqli_fetch_assoc($result)) {
+                            while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
 
                                 //detail
                                 $promotionDetails[$row['ID']] = array(
@@ -250,11 +240,11 @@
                                 if ($row['end_date'] >= $today) {
                                     $row['status'] = 'active';
                                     $updateSql = "UPDATE promotion SET status = 'active' WHERE ID = " . $row['ID'];
-                                    mysqli_query($conn, $updateSql);
+                                    $db->query($updateSql);
                                 } else {
                                     $row['status'] = 'inactive';
                                     $updateSql = "UPDATE promotion SET status = 'inactive' WHERE ID = " . $row['ID'];
-                                    mysqli_query($conn, $updateSql);
+                                    $db->query($updateSql);
                                 }
 
 
@@ -278,23 +268,22 @@
                                 echo "<div class='flex flex-wrap gap-4 w-full pr-1 pl-8 py-3'>";
                                 foreach ($promotions as $promotion) {
                                     $inactive = ($Status == 'inactive') ? ' not' : '';
-                                    echo '<div class="menu flex items-center px-3 py-3 shadow-sm rounded-lg duration-500' . $inactive . '">';
+                                    echo '<div class="promotion flex items-center px-3 py-3 shadow-sm rounded-lg duration-500' . $inactive . '">';
                                     echo '<div class="flex flex-col justify-between items-center h-full w-full">';
                                     echo '<h1 class="font-bold text-center text-lg">' . $promotion["name"] . '</h1>';
                                     echo '<div class="menu-edit flex justify-center gap-3 w-full px-2">';
-                                    echo '<div class="duration-500 flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-edit data-toggle="modal" data-target="#editProModal" data-pro-id="' . $promotion["ID"] . '">';
+                                    echo '<div class="duration-500 flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-edit 
+                                    data-toggle="modal" data-target="#editProModal" data-pro-id="' . $promotion["ID"] . '">';
                                     echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-2 mr-1"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                                         <h6 class="font-semibold">แก้ไข</h6></div>';
-                                    echo '<div class="duration-500 flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-delete data-toggle="modal" data-target="#deleteProModal" data-pro-id="' . $promotion["ID"] . '">';
+                                    echo '<div class="duration-500 flex items-center justify-center px-3 py-2 shadow-sm rounded-lg button-delete data-toggle="modal" 
+                                    data-target="#deleteProModal" data-pro-id="' . $promotion["ID"] . '">';
                                     echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 mr-1"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                                         <h6 class="font-semibold">ลบ</h6></div>';
                                     echo "</div></div></div>";
                                 }
                                 echo "</div></div>";
                             }
-                        } else {
-                            echo "0 results";
-                        }
                         ?>
                     </div>
                 </div>
@@ -337,22 +326,12 @@
                         <button type="button"
                             class="add-menu-option flex items-center shadow-sm rounded-lg font-semibold gap-2 bg-[#fa5e2abe] hover:bg-[#fa5e2a] duration-500"
                             data-bs-dismiss="modal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-ban mr-1">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="m4.9 4.9 14.2 14.2" />
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"stroke-linejoin="round" class="lucide lucide-ban mr-1"><circle cx="12" cy="12" r="10" /><path d="m4.9 4.9 14.2 14.2" /></svg>
                             ยกเลิก
                         </button>
                         <button type="submit" id="add-pro" name="add-pro"
                             class="add-menu-option flex items-center shadow-sm rounded-lg font-semibold gap-2 bg-[#009179c2] hover:bg-[#009179] duration-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-check-circle mr-1">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                <path d="m9 11 3 3L22 4" />
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"stroke-linejoin="round" class="lucide lucide-check-circle mr-1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><path d="m9 11 3 3L22 4" /></svg>
                             ยืนยัน
                         </button>
                     </div>
@@ -399,22 +378,12 @@
                         <button type="button"
                             class="add-menu-option flex items-center shadow-sm rounded-lg font-semibold gap-2 bg-[#fa5e2abe] hover:bg-[#fa5e2a] duration-500"
                             data-bs-dismiss="modal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-ban mr-1">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="m4.9 4.9 14.2 14.2" />
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"stroke-linejoin="round" class="lucide lucide-ban mr-1"><circle cx="12" cy="12" r="10" /><path d="m4.9 4.9 14.2 14.2" /></svg>
                             ยกเลิก
                         </button>
                         <button type="submit" id="edit-pro" name="edit-pro"
                             class="add-menu-option flex items-center shadow-sm rounded-lg font-semibold gap-2 bg-[#009179c2] hover:bg-[#009179] duration-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-check-circle mr-1">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                <path d="m9 11 3 3L22 4" />
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"stroke-linejoin="round" class="lucide lucide-check-circle mr-1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><path d="m9 11 3 3L22 4" /></svg>
                             ยืนยัน
                         </button>
                     </div>
@@ -434,39 +403,26 @@
                         <button type="button" class="btn-close flex items-center justify-center font-bold"
                             data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
-
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <!-- Add your form or content for adding a menu here -->
                         <form id="form1" action="" method="post" class="text-center">
-
                             <!-- Add a hidden input for storing the menu ID -->
                             <input type="hidden" id="ProID-delete" name="ProID" value="">
                             <h id="Pro-delete"></h>
-
                     </div>
                     <!-- Modal Footer -->
                     <div class="modal-footer">
                         <button type="submit"
                             class="add-menu-option flex items-center shadow-sm rounded-lg font-semibold gap-2 bg-[#fa5e2abe] hover:bg-[#fa5e2a] duration-500"
                             data-bs-dismiss="modal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-ban mr-1">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="m4.9 4.9 14.2 14.2" />
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"stroke-linejoin="round" class="lucide lucide-ban mr-1"><circle cx="12" cy="12" r="10" /><path d="m4.9 4.9 14.2 14.2" /></svg>
                             ยกเลิก
                         </button>
                         <button type="submit" id="delete-pro" name="delete-pro"
                             class="add-menu-option flex items-center shadow-sm rounded-lg font-semibold gap-2 bg-[#009179c2] hover:bg-[#009179] duration-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-check-circle mr-1">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                <path d="m9 11 3 3L22 4" />
-                            </svg>
-                            ยืนยัน]
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"stroke-linejoin="round" class="lucide lucide-check-circle mr-1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><path d="m9 11 3 3L22 4" /></svg>
+                            ยืนยัน
                         </button>
                     </div>
                     </form>
@@ -484,8 +440,6 @@
                         // Get the menu ID from the data attribute
                         var proId = button.getAttribute('data-pro-id');
 
-                        // Fetch menu details using AJAX or use the data already available on the page
-                        // For simplicity, assuming the menu details are already available in PHP
                         var promotionDetails = <?php echo json_encode($promotionDetails); ?>;
 
                         // Populate the modal content with the selected menu information
@@ -513,8 +467,6 @@
                         // Get the menu ID from the data attribute
                         var proId = button.getAttribute('data-pro-id');
 
-                        // Fetch menu details using AJAX or use the data already available on the page
-                        // For simplicity, assuming the menu details are already available in PHP
                         var promotionDetails = <?php echo json_encode($promotionDetails); ?>;
 
                         // Populate the modal content with the selected menu information
@@ -524,8 +476,7 @@
                             "</strong> ?";
 
                         // Show the modal
-                        var deleteModal = new bootstrap.Modal(document.getElementById(
-                            'deleteProModal'));
+                        var deleteModal = new bootstrap.Modal(document.getElementById('deleteProModal'));
                         deleteModal.show();
                     });
                 });
@@ -541,10 +492,8 @@
             $date = $_POST['Date'];
 
             $sql = "INSERT INTO promotion (name, discount, status, end_date) VALUES ('$name', $discount, 'active', '$date');";
-            if (mysqli_query($conn, $sql)) {
+            if ($db->exec($sql)) {
                 echo "<script>window.location.href = 'index.php';</script>";
-            } else {
-                echo "Error added record: " . mysqli_error($conn);
             }
         }
         //Edit Promotion
@@ -555,14 +504,12 @@
             $date = $_POST['Date'];
 
             $sql = "UPDATE promotion SET name = '$name', discount = '$discount', end_date = '$date' WHERE ID = $proId";
-            if (mysqli_query($conn, $sql)) {
+            if ($db->exec($sql)) {
                 // Refresh the status after updating end_date
                 $updateStatusSql = "UPDATE promotion SET status = CASE WHEN end_date >= '$today' THEN 'active' ELSE 'inactive' END WHERE ID = $proId";
-                mysqli_query($conn, $updateStatusSql);
+                $db->exec($updateStatusSql);
 
                 echo "<script>window.location.href = 'index.php';</script>";
-            } else {
-                echo "Error updating record: " . mysqli_error($conn);
             }
         }
         //Delete Promotion
@@ -570,21 +517,19 @@
             $proId = $_POST['ProID'];
 
             $sql = "DELETE FROM promotion WHERE ID = $proId";
-            if (mysqli_query($conn, $sql)) {
+            if ($db->exec($sql)) {
                 // Refresh the status after updating end_date
                 $updateStatusSql = "UPDATE promotion SET status = CASE WHEN end_date >= '$today' THEN 'active' ELSE 'inactive' END WHERE ID = $proId";
-                mysqli_query($conn, $updateStatusSql);
+                $db->exec($updateStatusSql);
 
                 echo "<script>window.location.href = 'index.php';</script>";
-            } else {
-                echo "Error updating record: " . mysqli_error($conn);
             }
         }
         ?>
 
         <?php
         // close connection
-        mysqli_close($conn);
+        $db->close();
         ?>
     </body>
 

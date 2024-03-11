@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +9,7 @@
 
 <body>
     <?php
-    // 1. Connect to Database 
+    session_start();
     class MyDB extends SQLite3
     {
         function __construct()
@@ -18,33 +17,20 @@
             $this->open('../../utils/WhatsUpShabu.db');
         }
     }
-
-    // 2. Open Database 
     $db = new MyDB();
     if (!$db) {
         echo $db->lastErrorMsg();
-    } else {
-        echo "Opened database successfully<br>";
     }
-    
+
     $username = $_POST['username'];
     $password = $_POST['passwd'];
-    // $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    
-    $errors = array();
-
     $login_sql = "SELECT * FROM personnel WHERE `username` = '$username' AND `password` = '$password'";
     $result = $db->query($login_sql);
-    $num_rows = 0;
-    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-        $num_rows++;
-        $role = $row['role'];
-        $name = $row['name'];
-    }
+    $row = $result->fetchArray(SQLITE3_ASSOC);
+    $role = $row['role'];
+    $name = $row['name'];
 
-    if ($num_rows <= 0) {
-        $username = $_POST['username'];
-        $password = $_POST['passwd'];
+    if (empty($name)) {
         header("Location: index.php");
     } else {
         $_SESSION["username"] = $username;
@@ -53,15 +39,13 @@
         $_SESSION["name"] = $name;
 
         if ($role === "receptionist") {
-            header("Location: /WhatsUpShabu/receptionist/ManageTable");
+            header("Location: ../../receptionist/ManageTable/index.php");
         } elseif ($role === "waiter") {
-            header("Location: /WhatsUpShabu/waiter/function/ordermanage.php");
+            header("Location: ../../waiter/function/ordermanage.php");
         } elseif ($role === "manager") {
-            header("Location: /WhatsUpShabu/Manager/ViewStatistics");
-
+            header("Location: ../../Manager/ViewStatistics/index.php");
         }
     }
-
     ?>
 </body>
 

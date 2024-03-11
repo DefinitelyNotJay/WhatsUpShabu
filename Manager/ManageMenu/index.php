@@ -346,7 +346,6 @@
         </div>
     </div>
 
-
     <!-- Modal Edit Menu -->
     <div class="modal" id="editMenuModal">
         <div class="modal-dialog modal-dialog-centered">
@@ -506,8 +505,6 @@
                     // Get the menu ID from the data attribute
                     var menuId = button.getAttribute('data-menu-id');
 
-                    // Fetch menu details using AJAX or use the data already available on the page
-                    // For simplicity, assuming the menu details are already available in PHP
                     var menuDetails = <?php echo json_encode($menuDetails); ?>;
 
                     // Populate the modal content with the selected menu information
@@ -540,8 +537,6 @@
                     // Get the menu ID from the data attribute
                     var menuId = button.getAttribute('data-menu-id');
 
-                    // Fetch menu details using AJAX or use the data already available on the page
-                    // For simplicity, assuming the menu details are already available in PHP
                     var menuDetails = <?php echo json_encode($menuDetails); ?>;
 
                     // Populate the modal content with the selected menu information
@@ -565,10 +560,8 @@
         $description = $_POST['Description'];
 
         $sql = "INSERT INTO menu (name, image, description, status, type) VALUES ('$name', '$image', '$description', 'instock', '$type');";
-        if (mysqli_query($conn, $sql)) {
+        if ($db->exec($sql)) {
             echo "<script>window.location.href = 'index.php';</script>";
-        } else {
-            echo "Error added record: " . mysqli_error($conn);
         }
     }
     //Edit Menu
@@ -580,11 +573,8 @@
         $description = $_POST['Description'];
 
         $sql = "UPDATE menu SET name = '$name', type = '$type', image = '$image', description = '$description' WHERE ID = $menuId";
-        if (mysqli_query($conn, $sql)) {
-            echo "Record updated successfully";
+        if ($db->exec($sql)) {
             echo "<script>window.location.href = 'index.php';</script>";
-        } else {
-            echo "Error added record: " . mysqli_error($conn);
         }
     }
     //Delete Menu
@@ -592,17 +582,15 @@
         $menuId = $_POST['MenuID'];
 
         $sql = "DELETE FROM menu WHERE ID = $menuId";
-        if (mysqli_query($conn, $sql)) {
+        if ($db->exec($sql)) {
             echo "<script>window.location.href = 'index.php';</script>";
-        } else {
-            echo "Error added record: " . mysqli_error($conn);
         }
     }
     ?>
 
     <?php
     // close connection
-    mysqli_close($conn);
+    $db->close();
     ?>
 </body>
 
