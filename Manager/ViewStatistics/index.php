@@ -43,13 +43,17 @@
 <body>
     <?php
     session_start();
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "WhatsUpShabu";
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    // 1. Connect to Database 
+    class MyDB extends SQLite3 {
+    function __construct() {
+       $this->open('../../utils/WhatsUpShabu.db');
+        }
+    }
+
+    // 2. Open Database 
+    $db = new MyDB();
+    if(!$db) {
+        echo $db->lastErrorMsg();
     }
 
     if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
@@ -161,20 +165,15 @@
                 <!-- button and display chart -->
                     <form id="form1" action="" method="post" class="flex hp-10 w-full items-center px-4 gap-2">
                             <?php
-                            // --- SQL SELECT statement  
-                            $sql = "SELECT DISTINCT YEAR(date) AS year FROM bill ORDER BY year DESC;";
-                            $result = mysqli_query($conn, $sql);
-
-                            if (mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    $year = $row['year'];
-                                    echo '<button type="submit" class="flex bg-[#fa5d2a80] hover:bg-[#fa5d2a] text-white items-center px-3 py-2 duration-500 shadow-sm rounded-lg" id="' . $year . '" name="showChart" value="' . $year . '">' . $year . '</button>';
-                                }
-                            } else {
-                                echo "0 results";
+                            // --- SQL SELECT statement 
+                            $sql = "SELECT DISTINCT strftime('%Y', date) AS year FROM bill ORDER BY year DESC;";
+                            $result = $db->query($sql);
+                            while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
+                                $year = $row['year'];
+                                echo $year;
+                                echo '<button type="submit" class="flex bg-[#fa5d2a80] hover:bg-[#fa5d2a] text-white items-center px-3 py-2 duration-500 shadow-sm rounded-lg" id="' . $year . '" name="showChart" value="' . $year . '">' . $year . '</button>';
                             }
                             ?>
-                        
                     </form>
                     <div class="flex items-center justify-center w-full h-full px-2 py-2">
                         <canvas id="incomeChart" height="135%"></canvas>
@@ -255,14 +254,12 @@
             } else {
                 $selectedYear = 2024;
             }
-            $sql = "SELECT MONTH(date) AS month, SUM(total) AS total_income FROM bill WHERE YEAR(date) = $selectedYear and status != 'unpaid' GROUP BY MONTH(date)";
-            $result = mysqli_query($conn, $sql);
-
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $monthlyIncomeData[$row['month']] = $row['total_income'];
-                }
+            $sql = "SELECT strftime('%m', date) AS month, SUM(total) AS total_income FROM bill WHERE strftime('%Y', date) = $selectedYear AND status != 'unpaid' GROUP BY strftime('%m', date)";
+            $result = $db->query($sql);
+            while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
+                $monthlyIncomeData[$row['month']] = $row['total_income'];
             }
+
             $jsMonthlyIncomeData = json_encode(array_values($monthlyIncomeData));
 
             echo "updateChart(" . $selectedYear . ", $jsMonthlyIncomeData);";
@@ -276,7 +273,7 @@
 
     <?php
     // close connection
-    mysqli_close($conn);
+    $db->close();
     ?>
 </body>
 

@@ -346,7 +346,6 @@
         </div>
     </div>
 
-
     <!-- Modal Edit Menu -->
     <div class="modal" id="editMenuModal">
         <div class="modal-dialog modal-dialog-centered">
@@ -565,10 +564,8 @@
         $description = $_POST['Description'];
 
         $sql = "INSERT INTO menu (name, image, description, status, type) VALUES ('$name', '$image', '$description', 'instock', '$type');";
-        if (mysqli_query($conn, $sql)) {
+        if ($db->exec($sql)) {
             echo "<script>window.location.href = 'index.php';</script>";
-        } else {
-            echo "Error added record: " . mysqli_error($conn);
         }
     }
     //Edit Menu
@@ -580,11 +577,8 @@
         $description = $_POST['Description'];
 
         $sql = "UPDATE menu SET name = '$name', type = '$type', image = '$image', description = '$description' WHERE ID = $menuId";
-        if (mysqli_query($conn, $sql)) {
-            echo "Record updated successfully";
+        if ($db->exec($sql)) {
             echo "<script>window.location.href = 'index.php';</script>";
-        } else {
-            echo "Error added record: " . mysqli_error($conn);
         }
     }
     //Delete Menu
@@ -592,17 +586,15 @@
         $menuId = $_POST['MenuID'];
 
         $sql = "DELETE FROM menu WHERE ID = $menuId";
-        if (mysqli_query($conn, $sql)) {
+        if ($db->exec($sql)) {
             echo "<script>window.location.href = 'index.php';</script>";
-        } else {
-            echo "Error added record: " . mysqli_error($conn);
         }
     }
     ?>
 
     <?php
     // close connection
-    mysqli_close($conn);
+    $db->close();
     ?>
 </body>
 

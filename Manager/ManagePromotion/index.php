@@ -95,13 +95,17 @@
         <!-- Connect Database -->
         <?php
         session_start();
-        $servername = "localhost";
-        $username = "root"; 
-        $password = ""; 
-        $dbname = "WhatsUpShabu";    
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
+        // 1. Connect to Database 
+        class MyDB extends SQLite3 {
+            function __construct() {
+            $this->open('../../utils/WhatsUpShabu.db');
+            }
+        }
+
+        // 2. Open Database 
+        $db = new MyDB();
+        if(!$db) {
+            echo $db->lastErrorMsg();
         }
 
         if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
@@ -227,15 +231,14 @@
                         <?php
                         // --- SQL SELECT statement  
                         $sql = "SELECT * FROM promotion ORDER BY CASE WHEN status = 'active' THEN 0 ELSE 1 END, end_date;";
-                        $result = mysqli_query($conn, $sql);
+                        $result = $db->query($sql);
 
-                        if (mysqli_num_rows($result) > 0) {
                             // Initialize an associative array to organize promotions by Status
                             $promotionByStatus = array();
                             $promotionDetails = array();
 
                             // Organize promotions by Status
-                            while ($row = mysqli_fetch_assoc($result)) {
+                            while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
 
                                 //detail
                                 $promotionDetails[$row['ID']] = array(
@@ -250,11 +253,11 @@
                                 if ($row['end_date'] >= $today) {
                                     $row['status'] = 'active';
                                     $updateSql = "UPDATE promotion SET status = 'active' WHERE ID = " . $row['ID'];
-                                    mysqli_query($conn, $updateSql);
+                                    $db->query($updateSql);
                                 } else {
                                     $row['status'] = 'inactive';
                                     $updateSql = "UPDATE promotion SET status = 'inactive' WHERE ID = " . $row['ID'];
-                                    mysqli_query($conn, $updateSql);
+                                    $db->query($updateSql);
                                 }
 
 
@@ -292,9 +295,6 @@
                                 }
                                 echo "</div></div>";
                             }
-                        } else {
-                            echo "0 results";
-                        }
                         ?>
                     </div>
                 </div>
@@ -541,10 +541,8 @@
             $date = $_POST['Date'];
 
             $sql = "INSERT INTO promotion (name, discount, status, end_date) VALUES ('$name', $discount, 'active', '$date');";
-            if (mysqli_query($conn, $sql)) {
+            if ($db->exec($sql)) {
                 echo "<script>window.location.href = 'index.php';</script>";
-            } else {
-                echo "Error added record: " . mysqli_error($conn);
             }
         }
         //Edit Promotion
@@ -555,14 +553,12 @@
             $date = $_POST['Date'];
 
             $sql = "UPDATE promotion SET name = '$name', discount = '$discount', end_date = '$date' WHERE ID = $proId";
-            if (mysqli_query($conn, $sql)) {
+            if ($db->exec($sql)) {
                 // Refresh the status after updating end_date
                 $updateStatusSql = "UPDATE promotion SET status = CASE WHEN end_date >= '$today' THEN 'active' ELSE 'inactive' END WHERE ID = $proId";
-                mysqli_query($conn, $updateStatusSql);
+                $db->exec($updateStatusSql);
 
                 echo "<script>window.location.href = 'index.php';</script>";
-            } else {
-                echo "Error updating record: " . mysqli_error($conn);
             }
         }
         //Delete Promotion
@@ -570,21 +566,19 @@
             $proId = $_POST['ProID'];
 
             $sql = "DELETE FROM promotion WHERE ID = $proId";
-            if (mysqli_query($conn, $sql)) {
+            if ($db->exec($sql)) {
                 // Refresh the status after updating end_date
                 $updateStatusSql = "UPDATE promotion SET status = CASE WHEN end_date >= '$today' THEN 'active' ELSE 'inactive' END WHERE ID = $proId";
-                mysqli_query($conn, $updateStatusSql);
+                $db->exec($updateStatusSql);
 
                 echo "<script>window.location.href = 'index.php';</script>";
-            } else {
-                echo "Error updating record: " . mysqli_error($conn);
             }
         }
         ?>
 
         <?php
         // close connection
-        mysqli_close($conn);
+        $db->close();
         ?>
     </body>
 
