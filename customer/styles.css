@@ -12,8 +12,13 @@ body {
     min-width: 350px;
 }
 
-.modal-header{
-    background-color: #FFF6F1;
+.show-order-id{
+    margin:10px;
+    background-color: #FA5D2A;
+    color: #FFFFFF;
+    border-radius: 25px;
+    text-align: center;
+    width: 150px;
 }
 
 .statusdone,.statussent,.statusprocess{

@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="customer.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -32,18 +32,29 @@
     echo "";
     ?>
 
-<div class="table">
-    <?php echo $_SESSION['table_id']; ?>
-</div>
+    <div class="table">
+        <?php echo $_SESSION['table_id']; ?>
+    </div>
 
     <header class="header">
         <a href="menu.php">
-        <img class="logo" src="img/Whatsup.png" alt="logo" width="60%" height="50%">
+            <img class="logo" src="img/Whatsup.png" alt="logo" width="60%" height="50%">
         </a>
     </header>
 
     <section class="order_section">
         <?php
+        $sql = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+    
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $latestOrderID = $row['id'];
+            echo "<div class='show-order-id'>ออเดอร์ : " . $latestOrderID+1 ."</div>";
+        } else {
+            echo "No orders found.";
+        }
+
         $sql = "SELECT * FROM menu;";
         $result = mysqli_query($conn, $sql);
 
