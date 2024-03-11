@@ -31,13 +31,15 @@
         header("Location: /WhatsUpShabu/staff/login/index.php");
         exit();
     }
-    
-    require_once('../../utils/config.php');
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    class MyDB extends SQLite3
+    {
+        function __construct()
+        {
+            $this->open('../../utils/WhatsUpShabu.db');
+        }
     }
+    $db = new MyDB();
+
     ?>
 
 
@@ -107,8 +109,10 @@
                 <div class="rounded-lg bg-white h-full grid grid-cols-4 grid-rows-3 py-6 px-4 gap-x-4 gap-y-6">
                     <?php
                     $select_tables = "SELECT * FROM tables;";
-                    $result = mysqli_query($conn, $select_tables);
-                    while ($row = mysqli_fetch_assoc($result)) {
+                    // $result = mysqli_query($conn, $select_tables);
+                    $result = $db->query($select_tables);
+
+                    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                         $id = $row["id"];
                         $customer_amount = $row["customer_amount"];
                         $status = $row["status"];
@@ -181,8 +185,7 @@
                         </div>
                     </div>
                     HTML;
-                        } 
-                        else {
+                        } else {
                             echo <<<HTML
                             <div class="cursor-default">
                                 <div
