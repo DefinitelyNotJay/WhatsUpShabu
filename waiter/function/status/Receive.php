@@ -178,7 +178,6 @@
               <circle cx="8" cy="16" r="6" />
               <path d="M9.5 17.5 8 16.25V14" />
             </svg>
-
           </button>
         </div>
         <div class="status" id="finished">
