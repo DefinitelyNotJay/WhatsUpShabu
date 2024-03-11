@@ -43,7 +43,7 @@
         } elseif ($role === "waiter") {
             header("Location: ../../waiter/function/ordermanage.php");
         } elseif ($role === "manager") {
-            header("Location: ../../Manager/ViewStatistics");
+            header("Location: ../../Manager/ViewStatistics/index.php");
         }
     }
     ?>

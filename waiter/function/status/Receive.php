@@ -54,11 +54,9 @@
     }
   }
   $db = new MyDB();
-
-  if ($db) {
-    echo "yay";
+  if($db){
+    echo 444;
   }
-
   ?>
 
   <div class="flex w-screen h-screen">
@@ -149,28 +147,39 @@
         <div
           class="grid grid-cols-4 justify-items-center h-full w-full bg-white px-3 py-3 rounded-lg gap-2 overflow-y-auto">
           <?php
-          // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
           $sql1 = "SELECT orders.*
           FROM orders
           INNER JOIN tables ON orders.table_id = tables.id
           WHERE orders.status='sent' AND orders.start_time > tables.start_time;";
-          $sql2 = "SELECT * FROM orders WHERE `status` = 'process'";
-          $sql3 = "SELECT * FROM orders WHERE `status` = 'done'";
+
+          $sql2 = "SELECT orders.*
+          FROM orders
+          INNER JOIN tables ON orders.table_id = tables.id
+          WHERE orders.status='process' AND orders.start_time > tables.start_time;";
+
+          $sql3 = "SELECT orders.*
+          FROM orders
+          INNER JOIN tables ON orders.table_id = tables.id
+          WHERE orders.status='done' AND orders.start_time > tables.start_time;";
+
           $result1 = $db->query($sql1);
           $result2 = $db->query($sql2);
           $result3 = $db->query($sql3);
+          
           $sent_orders_count1 = 0;
           $sent_orders_count2 = 0;
           $sent_orders_count3 = 0;
-          while ($row = $result1->fetchArray(SQLITE3_ASSOC)) {
+          
+          while ($result1->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count1++;
           }
-          while ($row = $result2->fetchArray(SQLITE3_ASSOC)) {
+          while ($result2->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count2++;
           }
-          while ($row = $result3->fetchArray(SQLITE3_ASSOC)) {
+          while ($result3->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count3++;
           }
+
           ?>
 
           <?php if ($sent_orders_count1 > 0): ?>
@@ -225,6 +234,7 @@
               </button>
             <?php endwhile ?>
           <?php endif ?>
+
         </div>
         <!-- navbar -->
         <div class="flex items-center justify-between px-4 py-2 rounded-lg bg-[#EEE8C8] shadow-md">

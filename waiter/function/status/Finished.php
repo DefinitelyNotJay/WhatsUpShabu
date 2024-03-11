@@ -55,6 +55,9 @@
   }
   $db = new MyDB();
 
+  if ($db) {
+    echo 123;
+  }
   ?>
 
   <div class="flex w-screen h-screen">
@@ -145,30 +148,45 @@
 
           <?php
           // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
-          $sql1 = "SELECT * FROM orders WHERE `status` = 'sent'";
-          $sql2 = "SELECT * FROM orders WHERE `status` = 'process'";
+          $sql1 = "SELECT orders.*
+          FROM orders
+          INNER JOIN tables ON orders.table_id = tables.id
+          WHERE orders.status='sent' AND orders.start_time > tables.start_time;";
+
+          $sql2 = "SELECT orders.*
+          FROM orders
+          INNER JOIN tables ON orders.table_id = tables.id
+          WHERE orders.status='process' AND orders.start_time > tables.start_time;";
+
           $sql3 = "SELECT orders.*
           FROM orders
           INNER JOIN tables ON orders.table_id = tables.id
           WHERE orders.status='done' AND orders.start_time > tables.start_time;";
-          // $sql3 = "SELECT * FROM orders WHERE `status` = 'done';";
           
+          // $sql3 = "SELECT * FROM orders;";
+
           $result1 = $db->query($sql1);
           $result2 = $db->query($sql2);
           $result3 = $db->query($sql3);
+
+          // Initialize counts
           $sent_orders_count1 = 0;
           $sent_orders_count2 = 0;
           $sent_orders_count3 = 0;
 
+          // Count rows for each result set
           while ($row = $result1->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count1++;
           }
+          
           while ($row = $result2->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count2++;
           }
+          
           while ($row = $result3->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count3++;
           }
+          
           ?>
 
           <?php if ($sent_orders_count3 > 0): ?>
@@ -210,7 +228,7 @@
                       <path d="M4.5 15.5h15" />
                       <path d="m5 11 4-7" />
                       <path d="m9 11 1 9" />
-                      </svg>
+                    </svg>
                     <?php
                     $sql4 = "SELECT COUNT(*) FROM order_item WHERE order_id ='$order_id'";
                     $result4 = $db->querySingle($sql4);
@@ -223,9 +241,6 @@
               </button>
             <?php endwhile ?>
           <?php endif ?>
-
-
-
 
 
         </div>
@@ -290,8 +305,5 @@
     </div>
   </div>
 </body>
-<?php // ปิดการเชื่อมต่อ
-mysqli_close($conn);
-?>
 
 </html>

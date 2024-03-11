@@ -45,7 +45,7 @@
 <body>
 
 
-  <?php
+<?php
   session_start();
   class MyDB extends SQLite3
   {
@@ -56,6 +56,9 @@
   }
   $db = new MyDB();
 
+  if($db){
+    echo 'hay';
+  }
   ?>
 
   <div class="flex w-screen h-screen">
@@ -143,29 +146,37 @@
         <div
           class="grid grid-cols-4 justify-items-center h-full w-full bg-white px-3 py-3 rounded-lg gap-2 overflow-y-auto">
           <?php
-          // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
-          $sql1 = "SELECT * FROM orders WHERE `status` = 'sent'";
-          // $sql2 = "SELECT orders.*
-          // FROM orders
-          // INNER JOIN tables ON orders.table_id = tables.id
-          // WHERE orders.status='process' AND orders.start_time > tables.start_time;";
-          $sql2 = "SELECT * FROM orders";
-          $sql3 = "SELECT * FROM orders WHERE `status` = 'done'";
+          
+          $sql1 = "SELECT orders.*
+          FROM orders
+          INNER JOIN tables ON orders.table_id = tables.id
+          WHERE orders.status='sent' AND orders.start_time > tables.start_time;";
+
+          $sql2 = "SELECT orders.*
+          FROM orders
+          INNER JOIN tables ON orders.table_id = tables.id
+          WHERE orders.status='process' AND orders.start_time > tables.start_time;";
+
+          $sql3 = "SELECT orders.*
+          FROM orders
+          INNER JOIN tables ON orders.table_id = tables.id
+          WHERE orders.status='done' AND orders.start_time > tables.start_time;";
 
           $result1 = $db->query($sql1);
           $result2 = $db->query($sql2);
           $result3 = $db->query($sql3);
+          
           $sent_orders_count1 = 0;
           $sent_orders_count2 = 0;
           $sent_orders_count3 = 0;
-
-          while ($row = $result1->fetchArray(SQLITE3_ASSOC)) {
+          
+          while ($result1->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count1++;
           }
-          while ($row = $result2->fetchArray(SQLITE3_ASSOC)) {
+          while ($result2->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count2++;
           }
-          while ($row = $result3->fetchArray(SQLITE3_ASSOC)) {
+          while ($result3->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count3++;
           }
           ?>
@@ -176,7 +187,6 @@
               $order_id = $row["id"];
               $time_only = date("H:i:s", strtotime($row["start_time"]));
               ?>
-              <!-- สร้าง Orderlist_item -->
               <button class="flex flex-col h-fit w-full bg-[#fff6f1] hover:bg-[#F2EAE5] duration-500 rounded-lg shadow-sm"
                 onclick="window.location.href = 'order/argorder.php?order_id=<?php echo $row['id']; ?>'">
                 <h4
@@ -222,7 +232,6 @@
               </button>
             <?php endwhile ?>
           <?php endif ?>
-
 
         </div>
         <!-- navbar -->
