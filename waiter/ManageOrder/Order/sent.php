@@ -46,30 +46,35 @@
 
   <?php
   // เชื่อมต่อกับฐานข้อมูล
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "WhatsUpShabu";
 
-  $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-  // ตรวจสอบการเชื่อมต่อ
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+  session_start();
+  class MyDB extends SQLite3
+  {
+    function __construct()
+    {
+      $this->open('../../../utils/WhatsUpShabu.db');
+    }
   }
+  $db = new MyDB();
+  ?>
 
+<?php
   $order_id = $_GET['order_id'];
   $order_id = intval($order_id); // Ensure $order_id is an integer to prevent SQL injection
   
   $order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
-  $result = mysqli_query($conn, $order_sql);
-  $order = mysqli_fetch_assoc($result);
+  $result = $db->query($order_sql);
+  $order = $result -> fetchArray(SQLITE3_ASSOC);
   $time_only = date("H:i:s", strtotime($order["start_time"]));
 
   $sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
 
-  $result1 = mysqli_query($conn, $sql1);
-  $row_count = mysqli_num_rows($result1);
+  $result = $db->query($sql1);
+  $row_count = 0;
+
+  while($row = $result->fetchArray(SQLITE3_ASSOC)){
+    $row_count++;
+  }
 
   ?>
 
@@ -150,14 +155,14 @@
               d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z"
               stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          หนักงานพาร์ทไทม์
+          พนักงานพาร์ทไทม์
         </div>
       </div>
       <!-- main content -->
       <div class="flex flex-col hp-90 w-full bg-gray-200">
         <div class="flex items-center bg-[#6A311D] w-full px-2 py-2 font-bold text-white text-lg">
           <div class="flex items-center gap-2">
-            <button class="back_page" onclick="window.location.href = '../Receive.php'">
+            <button class="back_page" onclick="window.location.href = '../Sent'">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="lucide lucide-move-left">
@@ -192,19 +197,15 @@
         <div class="flex w-full h-1/2 px-3 pt-3 bg-gray-200">
           <!-- order items -->
           <div class="grid grid-cols-2 w-full h-full overflow-y-auto overflow-x-hidden bg-white gap-2 px-2 py-2 rounded-lg">
-            <?php
-
-            if (mysqli_num_rows($result1) > 0) {
-              // วนลูปแสดงผลข้อมูล
-              while ($row = mysqli_fetch_assoc($result1)) {
-                ?>
+            <?php if ($row_count > 0):?>
+              <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)):?>
                 <!-- menu item -->
                 <div class="flex justify-start items-center h-40 w-full bg-red-300 gap-3 rounded-lg shadow-sm">
                   <?php
                   $menu_id = $row['menu_id'];
                   $sql2 = "SELECT * FROM menu WHERE ID='$menu_id';";
-                  $result2 = mysqli_query($conn, $sql2);
-                  $row2 = mysqli_fetch_assoc($result2);
+                  $result2 = $db->query($sql2);
+                  $row2 = $result2->fetchArray(SQLITE3_ASSOC);
                   ?>
                   <div class="flex w-4/12 h-full rounded-lg bg-white">
                     <img src="<?php echo $row2['image']; ?>" width="100%" class="rounded-lg">
@@ -223,18 +224,14 @@
                       <?php echo $row["quantity"] . " "; ?> ชุด
                     </a>
                   </div>
-                </div>
-                <?php
-              }
-            } else {
-              echo "ไม่พบข้อมูล";
-            }
-            ?>
+              </div>
+              <?php endwhile?>
+            <?php endif?>
           </div>
         </div>
         <!-- button -->
         <div class="flex h-full w-full items-center justify-center">
-          <form id="serveForm" action="recorder.php" method="post" class="flex justify-center w-full">
+          <form id="serveForm" action="" method="post" class="flex justify-center w-full">
             <input type="hidden" id="orderID" name="orderID" value="" class="flex justify-center w-full">
             <button type="Submit" id="serveButton"
               class="arranging_button w-6/12 bg-red-400 hover:bg-red-600 hover:text-white p-3 rounded-lg text-xl font-semibold duration-500" 
@@ -252,11 +249,12 @@
 
   if (isset($_POST['orderID'])) {
     $order_id = $_POST['orderID'];
-    $sql = "UPDATE orders SET status = 'process' WHERE id = $order_id";
-
-    if (mysqli_query($conn, $sql)) {
+    $sql = "UPDATE orders SET status = 'process' WHERE id = '$order_id'";
+    // echo "<script>alert('$order_id')</script>";
+    $db->exec($sql);
+    if ($db) {
       echo "Record updated successfully";
-      echo "<script>window.location.href = '../Receive.php';</script>";
+      echo "<script>window.location.href = '../Sent';</script>";
     } else {
       echo "Error added record: " . mysqli_error($conn);
     }

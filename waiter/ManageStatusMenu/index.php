@@ -126,15 +126,12 @@
     // 1. Connect to Database 
     class MyDB extends SQLite3 {
     function __construct() {
-       $this->open('../../../utils/WhatsUpShabu.db');
+       $this->open('../../utils/WhatsUpShabu.db');
         }
     }
 
     // 2. Open Database 
     $db = new MyDB();
-    if(!$db) {
-        echo $db->lastErrorMsg();
-    } 
 
     if (!isset($_SESSION['username']) or $_SESSION['role'] !== "waiter") {
         header("Location: /WhatsUpShabu/staff/login/index.php");
@@ -154,7 +151,7 @@
                 <!-- Loco -->
                 <img src="./image/icon.png" width="100%">
                 <!-- MenuBar -->
-                <a href="../ordermanage.php" class="unstyled-link">
+                <a href="../ManageOrder/Sent/" class="unstyled-link">
                     <div
                         class="flex items-center cursor-pointer px-4 py-4 hover:bg-[#6A311D] hover:text-white rounded-lg duration-500 gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

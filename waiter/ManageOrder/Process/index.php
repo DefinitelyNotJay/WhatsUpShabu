@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>พนักงานเสิร์ฟ</title>
-  <link rel="stylesheet" href="../../css&js/alomastyles.css">
+  <link rel="stylesheet" href="../../style/alomastyles.css">
   <script src="script.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -55,10 +55,6 @@
     }
   }
   $db = new MyDB();
-
-  if($db){
-    echo 'hay';
-  }
   ?>
 
   <div class="flex w-screen h-screen">
@@ -66,9 +62,9 @@
     <div class="flex flex-col w-2/12 h-full bg-[#EEE8C8] px-2 py-2 justify-between items-center">
       <div class="flex flex-col gap-2">
         <!-- Loco -->
-        <img src="./image/icon.png" width="100%">
+        <img src="../image/icon.png" width="100%">
         <!-- MenuBar -->
-        <a href="../ordermanage.php" class="unstyled-link">
+        <a href="./index.php" class="unstyled-link">
           <div
             class="flex items-center cursor-pointer px-4 py-4 bg-[#FEFCF4] text-[#6A311D] rounded-lg font-semibold gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -84,7 +80,7 @@
             <p class="font-semibold">จัดการรายการ</p>
           </div>
         </a>
-        <a href="../EditStatusMenu" class="unstyled-link">
+        <a href="../../ManageStatusMenu" class="unstyled-link">
           <div
             class="flex items-center cursor-pointer px-4 py-4 hover:bg-[#6A311D] hover:text-white rounded-lg duration-500 gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -237,7 +233,7 @@
         <!-- navbar -->
         <div class="flex items-center justify-between px-4 py-2 rounded-lg bg-[#EEE8C8] shadow-md">
           <div class="status font-bold" id="receive">
-            <button class="status_button" onclick="window.location.href = 'Receive.php'">
+            <button class="status_button" onclick="window.location.href = '../Sent/'">
               <div flex>
 
               </div>
@@ -258,7 +254,7 @@
           </div>
           <div class="status" id="arranging">
             <button class="status_button font-bold" style="color: #6A311D;"
-              onclick="window.location.href = 'Arranging.php'">
+              onclick="window.location.href = './index.php'">
               <div class="notification b2">
                 <?php echo $sent_orders_count2 ?>
               </div>
@@ -275,7 +271,7 @@
             </button>
           </div>
           <div class="status" id="finished">
-            <button class="status_button font-bold" onclick="window.location.href = 'Finished.php'">
+            <button class="status_button font-bold" onclick="window.location.href = '../Done/'">
               <div class="notification b3">
                 <?php echo $sent_orders_count3 ?>
               </div>
