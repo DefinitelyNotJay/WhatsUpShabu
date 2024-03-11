@@ -155,7 +155,7 @@
       <!-- main content -->
       <div class="flex flex-col hp-90 w-full bg-gray-200">
         <!-- header order -->
-        <div class="flex items-center bg-[#6A311D] w-full px-2 py-2 font-bold text-white text-lg">
+        <div class="flex items-center bg-yellow-700 w-full px-2 py-2 font-bold text-white text-lg">
           <div class="flex items-center gap-2">
             <button class="back_page" onclick="window.location.href = '../Arranging.php'">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24"
@@ -189,9 +189,9 @@
           </div>
         </div>
         <!-- order list -->
-        <div class="flex w-full h-full px-3 pt-3 bg-gray-200">
+        <div class="flex w-full h-1/2 px-3 pt-3 bg-gray-200">
           <!-- order items -->
-          <div class="grid grid-cols-2 w-full h-full overflow-y-auto bg-white gap-2 px-2 py-2 rounded-lg">
+          <div class="grid grid-cols-2 w-full h-full overflow-y-auto overflow-x-hidden bg-white gap-2 px-2 py-2 rounded-lg">
             <?php
 
             if (mysqli_num_rows($result1) > 0) {
@@ -236,8 +236,8 @@
         </div>
         <!-- button -->
         <div class="flex h-40 w-full items-center justify-center">
-          <form id="serveForm" action="argorder.php" method="post" class="flex justify-center w-full">
-            <input type="hidden" id="orderID" name="orderID" value="" class="flex justify-center w-full">
+          <form id="serveForm" action="" method="post" class="flex justify-center w-full">
+            <input type="hidden" id="callModal" name="callModal" value="" class="flex justify-center w-full">
             <button type="button" id="serveButton"
               class="arranging_button w-6/12 bg-amber-200 hover:bg-amber-400 hover:text-white p-3 rounded-lg text-xl font-semibold duration-500" data-bs-toggle='modal'
               data-bs-target='#Serve_Modal'>เสิร์ฟ</button>
@@ -245,28 +245,7 @@
         </div>
       </div>
     </div>
-    <?php
-    // รับค่า ID ของรายการที่ต้องการเปลี่ยนสถานะจาก URL parameter
-    echo "<script>document.getElementById('orderID').value = " . $order_id . "</script>";
 
-
-
-    if (isset($_POST['orderID'])) {
-      $order_id = $_POST['orderID'];
-      $sql = "UPDATE orders SET status = 'done' WHERE id = $order_id";
-
-      if (mysqli_query($conn, $sql)) {
-        echo "Record updated successfully";
-        echo "<script>window.location.href = '../Arranging.php';</script>";
-      } else {
-        echo "Error updating record: " . mysqli_error($conn);
-      }
-    }
-
-
-    // ปิดการเชื่อมต่อ
-    mysqli_close($conn);
-    ?>
   </div>
   <!-- Modal Edit Menu -->
   <div class="modal" id="Serve_Modal">
@@ -297,8 +276,9 @@
             </svg>
             <h6 class="font-semibold">ยกเลิก</h6>
           </button>
-          <form class="submit_form" id="submitForm" action="../Arranging.php" method="post">
-            <button type="submit" id="add-menu" name="add-menu"
+          <form class="submit_form" id="submitForm" action="" method="post">
+            <input type="hidden" value="" id="orderID" name="orderID">
+            <button type="submit" id="confirm-again"
               class="flex items-center shadow-sm  rounded-xl bg-[#009179c2] hover:bg-[#009179] hover:text-white py-2 px-3 gap-2 duration-500">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -314,8 +294,27 @@
     </div>
   </div>
 
+  <?php
+    // รับค่า ID ของรายการที่ต้องการเปลี่ยนสถานะจาก URL parameter
+    echo "<script>document.getElementById('orderID').value = " . $order_id . "</script>";
 
 
+
+    if (isset($_POST['orderID'])) {
+      $order_id = $_POST['orderID'];
+      $sql = "UPDATE orders SET status = 'done' WHERE id = $order_id";
+      if (mysqli_query($conn, $sql)) {
+        echo "Record updated successfully";
+        echo "<script>window.location.href = '../Arranging.php';</script>";
+      } else {
+        echo "Error updating record: " . mysqli_error($conn);
+      }
+    }
+
+
+    // ปิดการเชื่อมต่อ
+    mysqli_close($conn);
+    ?>
 </body>
 
 </html>

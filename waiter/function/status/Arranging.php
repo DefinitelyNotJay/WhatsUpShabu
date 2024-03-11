@@ -176,7 +176,7 @@
                 </h4>
                 <div class="flex flex-col w-full px-3 py-3  gap-2">
                   <div class="flex w-full h-fit text-lg font-semibold text-amber-400">
-                    กำลังจัดรายการ
+                    กำลังจัดเตรียมออเดอร์
                   </div>
                   <div class="flex w-full h-fit">
                     โต๊ะที่ :
@@ -239,7 +239,7 @@
                 <path d="M12 4v4" />
                 <path d="M10 4h4" />
               </svg>
-              ยังไม่เสิร์ฟ
+              ออเดอร์
               <div class="h-1 w-full bg-[#EEE8C8] "></div>
             </button>
           </div>
@@ -257,7 +257,7 @@
                 <circle cx="8" cy="16" r="6" />
                 <path d="M9.5 17.5 8 16.25V14" />
               </svg>
-              กำลังเสิร์ฟ
+              กำลังเตรียมออเดอร์
               <div class="h-1 w-full bg-red-500 rouded-full"></div>
             </button>
           </div>

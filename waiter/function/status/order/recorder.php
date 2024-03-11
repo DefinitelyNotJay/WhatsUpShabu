@@ -131,7 +131,7 @@
         </form>
       </div>
     </div>
-
+    <!-- main -->
     <div class="flex flex-col w-10/12 h-full">
       <!-- Option Bar -->
       <div class="flex hp-10 px-3 py-4 bg-white justify-between items-center">
@@ -151,6 +151,95 @@
               stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           หนักงานพาร์ทไทม์
+        </div>
+      </div>
+      <!-- main content -->
+      <div class="flex flex-col hp-90 w-full bg-gray-200">
+        <div class="flex items-center bg-[#6A311D] w-full px-2 py-2 font-bold text-white text-lg">
+          <div class="flex items-center gap-2">
+            <button class="back_page" onclick="window.location.href = '../Receive.php'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color="#fff" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-move-left">
+                <path d="M6 8L2 12L6 16" />
+                <path d="M2 12H22" />
+              </svg>
+            </button>
+            <h4> รายการที่
+              <?php echo " " . $order_id; ?>
+            </h4>
+          </div>
+        </div>
+        <!-- order info -->
+        <div class="flex flex-col w-full bg-white p-4 gap-2">
+          <div class="flex items-center text-red-600 font-semibold">
+            <a class="status_order" id="arg">ยังไม่ได้เสิร์ฟ</a>
+          </div>
+          <div class="flex items-center">
+            โต๊ะที่ :
+            <?php echo $order["table_id"]; ?>
+          </div>
+          <div class="flex items-center">
+            เวลาที่อัพเดท :
+            <?php echo $time_only; ?>
+          </div>
+          <div class="flex items-center">
+            รายการทั้งหมด :
+            <?php echo "" . $row_count . " "; ?>รายการ
+          </div>
+        </div>
+        <!-- order list -->
+        <div class="flex w-full h-1/2 px-3 pt-3 bg-gray-200">
+          <!-- order items -->
+          <div class="grid grid-cols-2 w-full h-full overflow-y-auto overflow-x-hidden bg-white gap-2 px-2 py-2 rounded-lg">
+            <?php
+
+            if (mysqli_num_rows($result1) > 0) {
+              // วนลูปแสดงผลข้อมูล
+              while ($row = mysqli_fetch_assoc($result1)) {
+                ?>
+                <!-- menu item -->
+                <div class="flex justify-start items-center h-40 w-full bg-red-300 gap-3 rounded-lg shadow-sm">
+                  <?php
+                  $menu_id = $row['menu_id'];
+                  $sql2 = "SELECT * FROM menu WHERE ID='$menu_id';";
+                  $result2 = mysqli_query($conn, $sql2);
+                  $row2 = mysqli_fetch_assoc($result2);
+                  ?>
+                  <div class="flex w-4/12 h-full rounded-lg bg-white">
+                    <img src="<?php echo $row2['image']; ?>" width="100%" class="rounded-lg">
+                  </div>
+                  <div class="flex h-full w-5/12 flex-col justify-start gap-3 px-3 py-3">
+                    <div>
+                      <h5 class="font-bold text-xl">
+                        <?php echo $row2['name']; ?>
+                      </h5>
+                      <a class="oneset">
+                        <?php echo $row2['description']; ?>
+                      </a>
+                    </div>
+                    <a class="quantity">
+                      จำนวน
+                      <?php echo $row["quantity"] . " "; ?> ชุด
+                    </a>
+                  </div>
+                </div>
+                <?php
+              }
+            } else {
+              echo "ไม่พบข้อมูล";
+            }
+            ?>
+          </div>
+        </div>
+        <!-- button -->
+        <div class="flex h-full w-full items-center justify-center">
+          <form id="serveForm" action="recorder.php" method="post" class="flex justify-center w-full">
+            <input type="hidden" id="orderID" name="orderID" value="" class="flex justify-center w-full">
+            <button type="Submit" id="serveButton"
+              class="arranging_button w-6/12 bg-red-400 hover:bg-red-600 hover:text-white p-3 rounded-lg text-xl font-semibold duration-500" 
+              >รับออเดอร์</button>
+          </form>
         </div>
       </div>
     </div>
