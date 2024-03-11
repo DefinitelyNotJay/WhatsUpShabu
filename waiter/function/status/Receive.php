@@ -7,155 +7,228 @@
   <title>พนักงานเสิร์ฟ</title>
   <link rel="stylesheet" href="../../css&js/alomastyles.css">
   <script src="script.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      font-family: "Noto Sans Thai", sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .hp-10 {
+      height: 10%;
+    }
+
+    .hp-90 {
+      height: 90%;
+    }
+
+    .unstyled-link {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .unstyled-link:hover {
+      color: inherit;
+    }
+  </style>
 </head>
 
 <body>
 
-<?php
-        $servername = "localhost";
-        $username = "root"; //ตามที่กำหนดให้
-        $password = ""; //ตามที่กำหนดให้
-        $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
-        // Create connection
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
-        // Check connection
-        if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-        }
-    ?>
+  <?php
+  $servername = "localhost";
+  $username = "root"; //ตามที่กำหนดให้
+  $password = ""; //ตามที่กำหนดให้
+  $dbname = "WhatsUpShabu";    //ตามที่กำหนดให้
+  // Create connection
+  $conn = mysqli_connect($servername, $username, $password, $dbname);
+  // Check connection
+  if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
+  ?>
 
 
 
-  <div class="back">
+  <div class="flex w-screen h-screen">
 
-    <div class="function">
-      <img src="../../pic/logo.png" alt="Company Logo" class="logo">
-      <button class="func_menu" id="ordermanage" style="background-color: #fff; color: #6A311D;" onclick="window.location.href = '../ordermanage.php'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="lucide lucide-clipboard-list">
-          <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-          <path d="M12 11h4" />
-          <path d="M12 16h4" />
-          <path d="M8 11h.01" />
-          <path d="M8 16h.01" />
-        </svg>
-        จัดการรายการ
-      </button>
-      <button class="func_menu" id="menumanage" onclick="window.location.href = '../EditStatusMenu/index.php'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="lucide lucide-file-sliders">
-          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-          <path d="M8 12h8" />
-          <path d="M10 11v2" />
-          <path d="M8 17h8" />
-          <path d="M14 16v2" />
-        </svg>
-        จัดการสถานะเมนู
-      </button>
+    <!-- leftbar -->
+    <div class="flex flex-col w-2/12 h-full bg-[#EEE8C8] px-2 py-2 justify-between items-center">
+      <div class="flex flex-col gap-2">
+        <!-- Loco -->
+        <img src="./image/icon.png" width="100%">
+        <!-- MenuBar -->
+        <a href="../ordermanage.php" class="unstyled-link">
+          <div
+            class="flex items-center cursor-pointer px-4 py-4 bg-[#FEFCF4] text-[#6A311D] rounded-lg font-semibold gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-clipboard-list">
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+              <path d="M12 11h4" />
+              <path d="M12 16h4" />
+              <path d="M8 11h.01" />
+              <path d="M8 16h.01" />
+            </svg>
+            <p class="font-semibold">จัดการรายการ</p>
+          </div>
+        </a>
+        <a href="../EditStatusMenu" class="unstyled-link">
+          <div
+            class="flex items-center cursor-pointer px-4 py-4 hover:bg-[#6A311D] hover:text-white rounded-lg duration-500 gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-file-sliders">
+              <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+              <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+              <path d="M8 12h8" />
+              <path d="M10 11v2" />
+              <path d="M8 17h8" />
+              <path d="M14 16v2" />
+            </svg>
+            <p class="font-semibold">จัดการสถานะเมนู</p>
+          </div>
+        </a>
+      </div>
+      <div class="w-full flex justify-center">
+        <form action="" method="post" class="w-full">
+          <button type="submit" name="logout" class="w-full logout bg-[#EEE8C8] hover:bg-[#f3efd9] duration-500">
+            <p class="text-normal flex gap-2  px-4 py-6 font-semibold">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-log-out">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" x2="9" y1="12" y2="12" />
+              </svg>
+              ออกจากระบบ
+            </p>
+          </button>
+        </form>
+      </div>
+
     </div>
 
+    <!-- main -->
+    <div class="flex flex-col w-10/12 h-full">
 
-    <div class="main">
-
-      <div class="header">
-        <div class="empName">
-          <div class="dropdown">
-            <img src="../../pic/emp.jpg" class="emp_img">
-            <div class="btn btn-secondary" id="dropdownMenuButton">
-              นายสมปอง สมปราถนา
-            </div>
-          </div>
+      <!-- Option Bar -->
+      <div class="flex hp-10 px-3 py-4 bg-white justify-between items-center font-bold text-lg">
+        <div>
+          จัดการรายการ
+        </div>
+        <div class="flex items-center font-semibold">
+          <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-1">
+            <path
+              d="M20.0006 36.6663C29.2054 36.6663 36.6673 29.2044 36.6673 19.9997C36.6673 10.7949 29.2054 3.33301 20.0006 3.33301C10.7959 3.33301 3.33398 10.7949 3.33398 19.9997C3.33398 29.2044 10.7959 36.6663 20.0006 36.6663Z"
+              fill="#F6851F" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M30 33.333C30 30.6808 28.9464 28.1373 27.0711 26.2619C25.1957 24.3866 22.6522 23.333 20 23.333C17.3478 23.333 14.8043 24.3866 12.9289 26.2619C11.0536 28.1373 10 30.6808 10 33.333"
+              stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z"
+              stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          หนักงานพาร์ทไทม์
         </div>
       </div>
 
-      <div class="outline">
-        <div class="Orderlist_bar">
-        <?php
-    // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
-    $sql1 = "SELECT * FROM orders";
-    $sql2 = "SELECT * FROM orders";
-    $sql3 = "SELECT orders.*
-    FROM orders
-    INNER JOIN tables ON orders.table_id = tables.id
-    WHERE orders.status='done' AND orders.start_time > tables.start_time;";
+      <div class="flex flex-col hp-90 w-full bg-gray-200 px-3 py-3 gap-3">
+        <div
+          class="grid grid-cols-4 justify-items-center h-full w-full bg-white px-3 py-3 rounded-lg gap-2 overflow-y-auto">
+          <?php
+          // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
+          $sql1 = "SELECT * FROM orders";
+          $sql2 = "SELECT * FROM orders";
+          $sql3 = "SELECT orders.*
+          FROM orders
+          INNER JOIN tables ON orders.table_id = tables.id
+          WHERE orders.status='done' AND orders.start_time > tables.start_time;";
+          $result1 = mysqli_query($conn, $sql1);
+          $result2 = mysqli_query($conn, $sql2);
+          $result3 = mysqli_query($conn, $sql3);
+          $sent_orders_count1 = mysqli_num_rows($result1);
+          $sent_orders_count2 = mysqli_num_rows($result2);
+          $sent_orders_count3 = mysqli_num_rows($result3);
+          // ตรวจสอบว่ามีข้อมูลในตารางหรือไม่
+          if (mysqli_num_rows($result1) > 0) {
+            // วนลูปแสดงผลข้อมูล
+            while ($row = mysqli_fetch_assoc($result1)) {
+              $order_id = $row["id"];
+              $time_only = date("H:i:s", strtotime($row["start_time"]));
+              ?>
+              <!-- สร้าง Orderlist_item -->
+              <button class="flex flex-col h-fit w-full bg-[#fff6f1] hover:bg-[#F2EAE5] duration-500 rounded-lg shadow-sm"
+                onclick="window.location.href = 'order/argorder.php?order_id=<?php echo $row['id']; ?>'">
+                <h4
+                  class="flex font-bold text-xl w-full h-1/5 bg-red-500 text-white px-2 py-1 justify-center items-center rounded-t-lg">
+                  รายการที่
+                  <?php echo $row["id"]; ?>
+                </h4>
+                <div class="flex flex-col w-full px-3 py-3  gap-2">
+                  <div class="flex w-full h-fit text-lg font-semibold text-red-600">
+                    กำลังจัดรายการ
+                  </div>
+                  <div class="flex w-full h-fit">
+                    โต๊ะที่ :
+                    <?php echo $row["table_id"]; ?>
+                  </div>
+                  <div class="flex w-full h-fit">
+                    เวลาสั่งรายการ :
+                    <?php echo $time_only; ?>
+                  </div>
+                  <hr>
+                  <div
+                    class="flex items-center w-full rounded-lg bg-[#EEE8C8] hover:bg-[#f3efd9] duration-500 gap-2 px-3 py-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="lucide lucide-shopping-basket">
+                      <path d="m15 11-1 9" />
+                      <path d="m19 11-4-7" />
+                      <path d="M2 11h20" />
+                      <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4" />
+                      <path d="M4.5 15.5h15" />
+                      <path d="m5 11 4-7" />
+                      <path d="m9 11 1 9" />
+                    </svg>
+                    <?php
+                    $sql4 = "SELECT * FROM order_item WHERE order_id ='$order_id' ";
+                    $result4 = mysqli_query($conn, $sql4);
+                    $row_count = mysqli_num_rows($result4);
+                    ?>
+                    <p>
+                      <?php echo $row_count; ?> รายการ
+                    </p>
+                  </div>
+                </div>
+              </button>
+              <?php
+            }
+          } else {
+            echo "ไม่พบข้อมูล";
+          }
 
-
-    $result1 = mysqli_query($conn, $sql1);
-    $result2 = mysqli_query($conn, $sql2);
-    $result3 = mysqli_query($conn, $sql3);
-    $sent_orders_count1 = mysqli_num_rows($result1);
-    $sent_orders_count2 = mysqli_num_rows($result2);
-    $sent_orders_count3 = mysqli_num_rows($result3);
-    // ตรวจสอบว่ามีข้อมูลในตารางหรือไม่
-    if (mysqli_num_rows($result1) > 0) {
-        // วนลูปแสดงผลข้อมูล
-        while($row = mysqli_fetch_assoc($result1)) {
-          $order_id = $row["id"];
-          $time_only = date("H:i:s", strtotime($row["start_time"]));
-?>
-          <!-- สร้าง Orderlist_item -->
-          <button class="Orderlist_item" onclick="window.location.href = 'order/recorder.php?order_id=<?php echo $row['id']; ?>'">
-            <div class="line l1 s1">
-              <h4>รายการที่ <?php echo $row["id"]; ?></h4>
-            </div>
-            <div class="line l2">
-              <a class="status_order" id="rec">ยังไม่ได้รับ</a>
-            </div>
-            <div class="line l3">
-              <a class="key">โต๊ะที่:</a>
-              <a class="Table_Number value"><?php echo $row["table_id"]; ?></a>
-            </div>
-            <div class="line">
-            <a class="key">เวลาสั่งรายการ :</a>
-              <a class="update_time value"><?php echo $time_only; ?></a>
-            </div>
-            <div style="width: 99%; height: 0.5px; background-color: #aaa; margin-left: 0.5%;"></div>
-            <div class="line l4">
-              <div class="amount_list">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="lucide lucide-shopping-basket">
-                  <path d="m15 11-1 9" />
-                  <path d="m19 11-4-7" />
-                  <path d="M2 11h20" />
-                  <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4" />
-                  <path d="M4.5 15.5h15" />
-                  <path d="m5 11 4-7" />
-                  <path d="m9 11 1 9" />
-                </svg>
-                <?php
-                $sql4 = "SELECT * FROM order_item WHERE order_id ='$order_id' ";
-                $result4 = mysqli_query($conn, $sql4);
-                $row_count = mysqli_num_rows($result4);
-
-                ?>
-                <a><?php echo $row_count; ?></a>
-              </div>
-            </div>
-          </button>
-<?php
-        }
-    } else {
-        echo "ไม่พบข้อมูล";
-    }
-
-    // ปิดการเชื่อมต่อ
-    mysqli_close($conn);
-?>
+          // ปิดการเชื่อมต่อ
+          mysqli_close($conn);
+          ?>
         </div>
-      </div>
-      <div class="status_bar">
+        <!-- navbar -->
+      <div class="flex items-center h-1/5 justify-between px-4 py-2 rounded-lg bg-[#EEE8C8] shadow-md">
         <div class="status" id="receive">
           <button class="status_button" style="color: #6A311D;" onclick="window.location.href = 'Receive.php'">
-            <div class="notification b1"><?php echo $sent_orders_count1 ?></div>
+            <div class="notification b1">
+              <?php echo $sent_orders_count1 ?>
+            </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-concierge-bell">
@@ -169,7 +242,9 @@
         </div>
         <div class="status" id="arranging">
           <button class="status_button" onclick="window.location.href = 'Arranging.php'">
-            <div class="notification b2"><?php echo $sent_orders_count2 ?></div>
+            <div class="notification b2">
+              <?php echo $sent_orders_count2 ?>
+            </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-file-clock">
@@ -183,7 +258,9 @@
         </div>
         <div class="status" id="finished">
           <button class="status_button" onclick="window.location.href = 'Finished.php'">
-            <div class="notification b3"><?php echo $sent_orders_count3 ?></div>
+            <div class="notification b3">
+              <?php echo $sent_orders_count3 ?>
+            </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-clipboard-check">
@@ -191,9 +268,10 @@
               <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
               <path d="m9 14 2 2 4-4" />
             </svg>
-            
+
           </button>
         </div>
+      </div>
       </div>
     </div>
   </div>
