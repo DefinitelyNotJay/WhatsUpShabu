@@ -39,7 +39,6 @@
         } else {
             $_SESSION["table_id"] = $_GET["table_id"];
             $_SESSION["sessionS_id"] = $_GET["session_id"];
-            echo $_SESSION["table_id"];
         };
     } else {
         // check 2 states -> if table_status = paid || session_id != latest table session_id
@@ -61,7 +60,9 @@
     }
     ?>
 
-    
+<div class="table">
+        <?php echo $_SESSION['table_id']; ?>
+    </div>
 
     <header class="header">
         <a href="menu.php">
@@ -89,6 +90,8 @@
 
     <section class="menu_section" id="menu_section">
         <?php
+
+
         $sql = "SELECT * FROM menu WHERE status='restocking'OR status='instock';";
         $result = $db->query($sql);
 

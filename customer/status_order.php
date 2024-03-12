@@ -17,23 +17,26 @@
 <body>
 
     <?php
-    // session_start();
+    session_start();
     // if (!isset($_SESSION["session_id"])) {
     //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
     //     exit();
     // }
 
-    require_once("../utils/config.php");
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+    class MyDB extends SQLite3
+        {
+            function __construct()
+            {
+                $this->open('../utils/WhatsUpShabu.db');
+            }
+        }
+        $db = new MyDB();
 
     ?>
-<!-- 
+
     <div class="table">
         <?php echo $_SESSION['table_id']; ?>
-    </div> -->
+    </div>
 
     <header class="header">
         <a href="menu.php">
@@ -49,9 +52,14 @@
         FROM orders
         INNER JOIN tables ON orders.table_id = tables.id
         WHERE orders.table_id = '$table_id' AND orders.start_time > tables.start_time;";
-        $result = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
+        $result = $db->query($sql);
+
+        $row_count = 0;
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $row_count++;
+        }
+        if ($row_count > 0) {
+            while ( $row = $result -> fetchArray(SQLITE3_ASSOC)) {
                 // Display order details
                 echo "<form id='statusform' action='' method='post'>";
                 echo "<div class='container-menu d-flex flex-wrap mgin-10px'>";
@@ -105,10 +113,15 @@
                         FROM order_item oi
                         JOIN menu m ON oi.menu_id = m.ID
                         WHERE oi.order_id = '$order_id'";
-                            $result = mysqli_query($conn, $sql);
-                            if (mysqli_num_rows($result) > 0) {
+                            $result = $db->query($sql_query);
+                            $row_count = 0;
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $row_count++;
+        }
+
+                            if (            $row_count > 0) {
                                 echo"<div class='show-order-id'>ออเดอร์ :".$order_id."</div>";
-                                while ($row = mysqli_fetch_assoc($result)) {
+                                while ($result -> fetchArray(SQLITE3_ASSOC)) {
                                     // Output order details and menu information
                                     echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item'>";
                                     echo "<div class='menu-image'><img class='mr-2'src='" . $row['image'] . "' alt='Menu Image' height='80px' width='110'></div>";
@@ -137,7 +150,7 @@
 
     <?php
     // close connection
-    mysqli_close($conn);
+    $db->close();
     ?>
 
 

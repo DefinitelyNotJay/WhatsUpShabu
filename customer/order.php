@@ -16,7 +16,7 @@
 <body>
 
     <?php
-    // session_start();
+    session_start();
     // if (!isset($_SESSION["session_id"])) {
     //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
     //     exit();
@@ -30,13 +30,12 @@
         }
         $db = new MyDB();
         if($db) {
-            echo 123;
             }
     ?>
 
-    <!-- <div class="table">
+    <div class="table">
         <?php echo $_SESSION['table_id']; ?>
-    </div> -->
+    </div>
 
     <header class="header">
         <a href="menu.php">
@@ -177,10 +176,19 @@
         date_default_timezone_set('Asia/Bangkok');
         $start_time = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
+        $sql = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
+        $result = $db->query($sql);
 
-        if ( $db->query($sql)) {
-            $order_id = mysqli_insert_id($conn);
+        $row_count = 0;
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $row_count++;
+        }
+
+        if ($result && $row_count > 0) {
+            $row = $result->fetchArray(SQLITE3_ASSOC);
+            $latestOrderID = $row['id'];
+
+            $order_id = $latestOrderID;
             $orderItemsJSON = $_POST['OrderItems'];
             $orderItems = json_decode($orderItemsJSON, true);
             if ($orderItems !== null) {
