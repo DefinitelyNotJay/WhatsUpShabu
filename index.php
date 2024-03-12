@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="../utils/main.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-</script>
     <style>
         * {
             font-family: "Noto Sans Thai", sans-serif;
@@ -26,7 +24,6 @@
             background-position: center;
         }
     </style>
-
 <body>
     <div class="flex w-screen h-screen">
         <div class="w-6/12 bg-main">

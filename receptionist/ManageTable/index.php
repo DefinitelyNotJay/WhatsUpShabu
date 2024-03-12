@@ -109,7 +109,6 @@
                 <div class="rounded-lg bg-white h-full grid grid-cols-4 grid-rows-3 py-6 px-4 gap-x-4 gap-y-6">
                     <?php
                     $select_tables = "SELECT * FROM tables;";
-                    // $result = mysqli_query($conn, $select_tables);
                     $result = $db->query($select_tables);
                     
                     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {

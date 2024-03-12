@@ -36,10 +36,6 @@
       color: inherit;
       cursor: pointer;
     }
-
-    .unstyled-link:hover {
-      color: inherit;
-    }
   </style>
 
 <body>
@@ -252,7 +248,6 @@
   </div>
 
   <?php
-  // รับค่า ID ของรายการที่ต้องการเปลี่ยนสถานะจาก URL parameter
   echo "<script>document.getElementById('orderID').value = " . $order_id . "</script>";
 
 

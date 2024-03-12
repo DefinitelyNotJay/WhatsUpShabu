@@ -14,7 +14,9 @@
     crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
+</head>
+
+<style>
     * {
       font-family: "Noto Sans Thai", sans-serif;
       margin: 0;
@@ -35,12 +37,7 @@
       color: inherit;
       cursor: pointer;
     }
-
-    .unstyled-link:hover {
-      color: inherit;
-    }
   </style>
-</head>
 
 <body>
 
@@ -127,7 +124,6 @@
     </div>
 
     <div class="flex flex-col w-10/12 h-full">
-      <!-- Option Bar -->
       <div class="flex hp-10 px-3 py-4 bg-white justify-between items-center font-bold text-lg">
         <div>
           จัดการรายการ
@@ -153,7 +149,6 @@
           class="grid grid-cols-4 justify-items-center h-full w-full bg-white px-3 py-3 rounded-lg gap-2 overflow-y-auto">
 
           <?php
-          // คำสั่ง SQL เพื่อดึงข้อมูลจากตาราง orders
           $sql1 = "SELECT orders.*
           FROM orders
           INNER JOIN tables ON orders.table_id = tables.id
@@ -168,19 +163,15 @@
           FROM orders
           INNER JOIN tables ON orders.table_id = tables.id
           WHERE orders.status='done' AND orders.start_time > tables.start_time;";
-
-          // $sql3 = "SELECT * FROM orders;";
           
           $result1 = $db->query($sql1);
           $result2 = $db->query($sql2);
           $result3 = $db->query($sql3);
 
-          // Initialize counts
           $sent_orders_count1 = 0;
           $sent_orders_count2 = 0;
           $sent_orders_count3 = 0;
 
-          // Count rows for each result set
           while ($row = $result1->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count1++;
           }
@@ -201,7 +192,6 @@
               $order_id = $row["id"];
               $time_only = date("H:i:s", strtotime($row["start_time"]));
               ?>
-              <!-- สร้าง Orderlist_item -->
               <button class="flex flex-col h-fit w-full bg-[#fff6f1] hover:bg-[#F2EAE5] duration-500 rounded-lg shadow-sm"
                 onclick="window.location.href = '../Order/done.php?order_id=<?php echo $row['id']; ?>'">
                 <h4
