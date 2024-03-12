@@ -28,8 +28,8 @@
         $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id' AND `status` = 'busy'";
         $query_check_result = mysqli_query($conn, $sql_check_query);
         if (mysqli_num_rows($query_check_result) <= 0) {
-            header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-            exit();
+            // header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+            // exit();
         } else {
             $_SESSION["table_id"] = $_GET["table_id"];
             $_SESSION["session_id"] = $_GET["session_id"];
@@ -42,12 +42,12 @@
         $result = mysqli_query($conn, $sql_check_table_status);
         $row = mysqli_fetch_assoc($result);
         // echo $row["id"];
-        if (mysqli_num_rows($result) > 0) {
-            session_unset();
-            session_destroy();
-            header("Location: https://www.google.com/");
-            exit();
-        }
+        // if (mysqli_num_rows($result) > 0) {
+        //     session_unset();
+        //     session_destroy();
+        //     header("Location: https://www.google.com/");
+        //     exit();
+        // }
     }
     ?>
 

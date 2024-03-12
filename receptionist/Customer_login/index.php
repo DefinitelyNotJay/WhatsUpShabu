@@ -50,9 +50,9 @@ if (!isset($_SESSION["username"]) or $_SESSION["role"] !== "receptionist") {
 
         $sql_update = "UPDATE tables SET `start_time` = '$currentDateTime', `status` = 'busy', customer_amount = '$customer_amount', session_id = '$session_id' WHERE id = '$table_id'";
         $result2 = mysqli_query($conn, $sql_update);
-        $url = 'http://localhost/WhatsUpShabu/customer/menu.php?table_id=' . $table_id . '&session_id=' . $session_id . '';
+        $url = 'http://10.0.15.21/it/65070222/WhatsUpShabu/customer/menu.php?table_id=' . $table_id . '&session_id=' . $session_id . '';
         echo "<p class='text-xl'>โต๊ะ $table_id</p>";
-        echo "<a href='/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=http://localhost/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'></a><br>";
+        echo "<a href='/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=http://10.0.15.21/it/65070222/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'></a><br>";
         ?>
 
         <a href="/WhatsUpShabu/receptionist/ManageTable/">
