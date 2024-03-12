@@ -19,20 +19,25 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         .hp-10 {
             height: 10%;
         }
+
         .hp-90 {
             height: 90%;
         }
+
         .unstyled-link {
             text-decoration: none;
             color: inherit;
             cursor: pointer;
         }
+
         .unstyled-link:hover {
             color: inherit;
         }
+
         .menu {
             width: 32.5%;
             height: 125px;
@@ -41,6 +46,7 @@
             color: #000000;
             background-color: #EEE8C8;
         }
+
         .button-edit {
             background-color: #FFF59B;
         }
@@ -74,26 +80,28 @@
     <?php
     session_start();
     // 1. Connect to Database 
-   class MyDB extends SQLite3 {
-    function __construct() {
-       $this->open('../../utils/WhatsUpShabu.db');
+    class MyDB extends SQLite3
+    {
+        function __construct()
+        {
+            $this->open('../../utils/WhatsUpShabu.db');
         }
     }
 
     // 2. Open Database 
     $db = new MyDB();
-    if(!$db) {
+    if (!$db) {
         echo $db->lastErrorMsg();
-    } 
+    }
 
     if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
-        header("Location: /WhatsUpShabu/staff/login/index.php");
+        header("Location: ../../index.php");
         exit();
     }
 
     if (isset($_POST["logout"])) {
         session_destroy();
-        header("Location: /WhatsUpShabu/staff/login/index.php");
+        header("Location: ../../index.php");
         exit();
     }
     ?>
@@ -207,61 +215,60 @@
             <!-- Content -->
             <div class="flex hp-90 w-full bg-gray-200 px-3 py-3">
                 <div
-                    class="flex flex-col w-full bg-white shadow-sm  rounded-xl overflow-y-auto overflow-x-hidden pl-4 py-3 pr-1"
-                    >
+                    class="flex flex-col w-full bg-white shadow-sm  rounded-xl overflow-y-auto overflow-x-hidden pl-4 py-3 pr-1">
                     <?php
                     // --- SQL SELECT statement  
                     $sql = "SELECT * FROM menu;";
                     $result = $db->query($sql);
 
-                        // Initialize an associative array to organize menus by type
-                        $menusByType = array();
-                        $menuDetails = array();
+                    // Initialize an associative array to organize menus by type
+                    $menusByType = array();
+                    $menuDetails = array();
 
-                        // Organize menus by type
-                        while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
-                            //detail
-                            $menuDetails[$row['ID']] = array(
-                                'name' => $row['name'],
-                                'image' => $row['image'],
-                                'description' => $row['description'],
-                                'type' => $row['type']
-                            );
-                            //type
-                            $type = $row["type"];
+                    // Organize menus by type
+                    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                        //detail
+                        $menuDetails[$row['ID']] = array(
+                            'name' => $row['name'],
+                            'image' => $row['image'],
+                            'description' => $row['description'],
+                            'type' => $row['type']
+                        );
+                        //type
+                        $type = $row["type"];
 
-                            if (!isset($menusByType[$type])) {
-                                $menusByType[$type] = array();
-                            }
-
-                            $menusByType[$type][] = $row;
+                        if (!isset($menusByType[$type])) {
+                            $menusByType[$type] = array();
                         }
 
-                        // Output menus by type
-                        foreach ($menusByType as $type => $menus) {
-                            // catagoly
-                            echo "<div class='flex flex-col mb-5 w-full'>";
-                            echo "<h1 class='font-bold text-xl mb-3'>$type</h1>";
-                            echo "<div class='flex w-full justify-center'>";
-                            echo "<div class='flex flex-wrap gap-2 w-full'>";
-                            // menu
-                            foreach ($menus as $menu) {
-                                echo "<div class='menu flex items-center shadow-sm rounded-lg gap-3'>";
-                                echo "<div class='flex w-2/5 h-full rounded-lg bg-white'><img src='" . $menu["image"] . "' height='100%' class='rounded-lg'></div>";
-                                echo "<div class='flex flex-col justify-between h-full w-3/5 py-2'><h5 class='font-bold'>" . $menu["name"] . "</h5>";
-                                // menu-edit
-                                echo "<div class='flex justify-center gap-3 w-full'>";
-                                // menu-option
-                                echo "<div class='flex h-fit w-5/12 px-3 py-2 items-center shadow-sm  rounded-xl cursor-pointer duration-500 button-edit' data-toggle='modal' data-target='#editMenuModal' data-menu-id='" . $menu["ID"] . "'>";
-                                echo "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-settings-2 mr-1'><path d='M20 7h-9'/><path d='M14 17H5'/><circle cx='17' cy='17' r='3'/><circle cx='7' cy='7' r='3'/></svg>";
-                                echo "<h6 class='font-semibold'>แก้ไข</h6></div>";
-                                echo '<div class="flex flex h-fit w-5/12 px-3 py-2 items-center shadow-sm  rounded-xl cursor-pointer duration-500 button-delete" data-toggle="modal" data-target="#deleteMenuModal" data-menu-id="' . $menu["ID"] . '" >';
-                                echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 mr-1"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>';
-                                echo "<h6 class='font-semibold'>ลบ</h6></div>";
-                                echo "</div></div></div>";
-                            }
+                        $menusByType[$type][] = $row;
+                    }
+
+                    // Output menus by type
+                    foreach ($menusByType as $type => $menus) {
+                        // catagoly
+                        echo "<div class='flex flex-col mb-5 w-full'>";
+                        echo "<h1 class='font-bold text-xl mb-3'>$type</h1>";
+                        echo "<div class='flex w-full justify-center'>";
+                        echo "<div class='flex flex-wrap gap-2 w-full'>";
+                        // menu
+                        foreach ($menus as $menu) {
+                            echo "<div class='menu flex items-center shadow-sm rounded-lg gap-3'>";
+                            echo "<div class='flex w-2/5 h-full rounded-lg bg-white'><img src='" . $menu["image"] . "' height='100%' class='rounded-lg'></div>";
+                            echo "<div class='flex flex-col justify-between h-full w-3/5 py-2'><h5 class='font-bold'>" . $menu["name"] . "</h5>";
+                            // menu-edit
+                            echo "<div class='flex justify-center gap-3 w-full'>";
+                            // menu-option
+                            echo "<div class='flex h-fit w-5/12 px-3 py-2 items-center shadow-sm  rounded-xl cursor-pointer duration-500 button-edit' data-toggle='modal' data-target='#editMenuModal' data-menu-id='" . $menu["ID"] . "'>";
+                            echo "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-settings-2 mr-1'><path d='M20 7h-9'/><path d='M14 17H5'/><circle cx='17' cy='17' r='3'/><circle cx='7' cy='7' r='3'/></svg>";
+                            echo "<h6 class='font-semibold'>แก้ไข</h6></div>";
+                            echo '<div class="flex flex h-fit w-5/12 px-3 py-2 items-center shadow-sm  rounded-xl cursor-pointer duration-500 button-delete" data-toggle="modal" data-target="#deleteMenuModal" data-menu-id="' . $menu["ID"] . '" >';
+                            echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 mr-1"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>';
+                            echo "<h6 class='font-semibold'>ลบ</h6></div>";
                             echo "</div></div></div>";
                         }
+                        echo "</div></div></div>";
+                    }
                     ?>
                 </div>
             </div>

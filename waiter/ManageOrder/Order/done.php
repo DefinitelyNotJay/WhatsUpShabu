@@ -45,22 +45,26 @@
 <body>
 
   <?php
-session_start();
-class MyDB extends SQLite3
-{
-  function __construct()
-  {
-    $this->open('../../../utils/WhatsUpShabu.db');
+  session_start();
+  if (!isset($_SESSION['username']) or $_SESSION['role'] !== "waiter") {
+    header("Location: ../../../index.php");
+    exit();
   }
-}
-$db = new MyDB();
+  class MyDB extends SQLite3
+  {
+    function __construct()
+    {
+      $this->open('../../../utils/WhatsUpShabu.db');
+    }
+  }
+  $db = new MyDB();
 
   $order_id = $_GET['order_id'];
   $order_id = intval($order_id); // Ensure $order_id is an integer to prevent SQL injection
   
   $order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
   $result = $db->query($order_sql);
-  $order = $result -> fetchArray(SQLITE3_ASSOC);
+  $order = $result->fetchArray(SQLITE3_ASSOC);
   $time_only = date("H:i:s", strtotime($order["start_time"]));
 
   $sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
@@ -68,7 +72,7 @@ $db = new MyDB();
   $result = $db->query($sql1);
   $row_count = 0;
 
-  while($row = $result->fetchArray(SQLITE3_ASSOC)){
+  while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     $row_count++;
   }
   ?>
@@ -193,12 +197,12 @@ $db = new MyDB();
           <!-- order items -->
           <div
             class="grid grid-cols-2 w-full h-full overflow-y-auto overflow-x-hidden bg-white gap-2 px-2 py-2 rounded-lg">
-            
 
-<?php if ($row_count > 0):?>
-  <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)):?>
+
+            <?php if ($row_count > 0): ?>
+              <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)): ?>
                 <div class="flex justify-start items-center h-40 w-full bg-green-200 gap-3 rounded-lg shadow-sm">
-                <?php
+                  <?php
                   $menu_id = $row['menu_id'];
                   $sql2 = "SELECT * FROM menu WHERE ID='$menu_id';";
                   $result2 = $db->query($sql2);
@@ -222,8 +226,8 @@ $db = new MyDB();
                     </a>
                   </div>
                 </div>
-                <?php endwhile?>
-            <?php endif?>
+              <?php endwhile ?>
+            <?php endif ?>
           </div>
         </div>
         <!-- button -->

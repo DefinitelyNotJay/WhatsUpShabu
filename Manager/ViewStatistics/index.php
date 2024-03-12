@@ -27,7 +27,7 @@
         .hp-90 {
             height: 90%;
         }
-        
+
         .unstyled-link {
             text-decoration: none;
             color: inherit;
@@ -43,26 +43,28 @@
 <body>
     <?php
     session_start();
-    class MyDB extends SQLite3 {
-    function __construct() {
-       $this->open('../../utils/WhatsUpShabu.db');
+    class MyDB extends SQLite3
+    {
+        function __construct()
+        {
+            $this->open('../../utils/WhatsUpShabu.db');
         }
     }
 
     // 2. Open Database 
     $db = new MyDB();
-    if(!$db) {
+    if (!$db) {
         echo $db->lastErrorMsg();
     }
 
     if (!isset($_SESSION['username']) or $_SESSION['role'] !== "manager") {
-        header("Location: /WhatsUpShabu/staff/login/index.php");
+        header("Location: ../../index.php");
         exit();
     }
 
     if (isset($_POST["logout"])) {
         session_destroy();
-        header("Location: /WhatsUpShabu/staff/login/index.php");
+        header("Location: ../../index.php");
         exit();
     }
     ?>
@@ -143,30 +145,42 @@
                 <h1 class="font-bold text-xl">สถิติภายในร้าน</h1>
                 <div class="flex items-center font-semibold">
                     <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        class="mr-1"> <path d="M20.0006 36.6663C29.2054 36.6663 36.6673 29.2044 36.6673 19.9997C36.6673 10.7949 29.2054 3.33301 20.0006 3.33301C10.7959 3.33301 3.33398 10.7949 3.33398 19.9997C3.33398 29.2044 10.7959 36.6663 20.0006 36.6663Z" fill="#F6851F" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M30 33.333C30 30.6808 28.9464 28.1373 27.0711 26.2619C25.1957 24.3866 22.6522 23.333 20 23.333C17.3478 23.333 14.8043 24.3866 12.9289 26.2619C11.0536 28.1373 10 30.6808 10 33.333" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        class="mr-1">
+                        <path
+                            d="M20.0006 36.6663C29.2054 36.6663 36.6673 29.2044 36.6673 19.9997C36.6673 10.7949 29.2054 3.33301 20.0006 3.33301C10.7959 3.33301 3.33398 10.7949 3.33398 19.9997C3.33398 29.2044 10.7959 36.6663 20.0006 36.6663Z"
+                            fill="#F6851F" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path
+                            d="M30 33.333C30 30.6808 28.9464 28.1373 27.0711 26.2619C25.1957 24.3866 22.6522 23.333 20 23.333C17.3478 23.333 14.8043 24.3866 12.9289 26.2619C11.0536 28.1373 10 30.6808 10 33.333"
+                            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z"
+                            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                     ผู้จัดการ
                 </div>
             </div>
             <!-- Content -->
             <div class="flex hp-90 w-full bg-gray-200 px-3 py-3">
-            <div class="flex flex-col h-full w-full shadow-sm rounded-xl items-center justify-start bg-white px-3 py-3 gap-2 overflow-hidden">
-                <!-- button and display chart -->
+                <div
+                    class="flex flex-col h-full w-full shadow-sm rounded-xl items-center justify-start bg-white px-3 py-3 gap-2 overflow-hidden">
+                    <!-- button and display chart -->
                     <form id="form1" action="" method="post" class="flex hp-10 w-full items-center px-4 gap-2">
-                            <?php
-                            // --- SQL SELECT statement
-                            $sql = "SELECT DISTINCT substr(date, 1, 4) AS year FROM bill ORDER BY year DESC;";
-                            $result = $db->query($sql);
-                            while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
-                                $year = $row['year'];
-                                echo '<button type="submit" class="flex bg-[#fa5d2a80] hover:bg-[#fa5d2a] text-white items-center px-3 py-2 duration-500 shadow-sm rounded-lg" 
+                        <?php
+                        // --- SQL SELECT statement
+                        $sql = "SELECT DISTINCT substr(date, 1, 4) AS year FROM bill ORDER BY year DESC;";
+                        $result = $db->query($sql);
+                        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                            $year = $row['year'];
+                            echo '<button type="submit" class="flex bg-[#fa5d2a80] hover:bg-[#fa5d2a] text-white items-center px-3 py-2 duration-500 shadow-sm rounded-lg" 
                                 id="' . $year . '" name="showChart" value="' . $year . '">' . $year . '</button>';
-                            }
-                            ?>
+                        }
+                        ?>
                     </form>
                     <div class="flex items-center justify-center w-full h-full px-2 py-2">
                         <canvas id="incomeChart" height="135%"></canvas>
-                    </div>  
-            </div>
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -248,7 +262,7 @@
             $result = $db->query($sql);
 
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-                $monthlyIncomeData[(int)$row['month']] = $row['total_income'];
+                $monthlyIncomeData[(int) $row['month']] = $row['total_income'];
             }
 
             $jsMonthlyIncomeData = json_encode(array_values($monthlyIncomeData));

@@ -25,8 +25,9 @@
 
 <?php
 session_start();
-if (!isset($_SESSION["username"]) or $_SESSION["role"] !== "receptionist") {
-    header("Location: /WhatsUpShabu/staff/login");
+if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
+    header("Location: ../../index.php");
+    exit();
 }
 ?>
 

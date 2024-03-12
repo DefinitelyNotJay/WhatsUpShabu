@@ -22,13 +22,13 @@
     session_start();
 
     if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
-        header("Location: /WhatsUpShabu/staff/login/index.php");
+        header("Location: ../../index.php");
         exit();
     }
 
     if (isset($_POST["logout"])) {
         session_destroy();
-        header("Location: /WhatsUpShabu/staff/login/index.php");
+        header("Location: ../../index.php");
         exit();
     }
     class MyDB extends SQLite3

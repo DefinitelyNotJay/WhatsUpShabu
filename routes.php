@@ -14,7 +14,7 @@
     {
         function __construct()
         {
-            $this->open('../../utils/WhatsUpShabu.db');
+            $this->open('./utils/WhatsUpShabu.db');
         }
     }
     $db = new MyDB();
@@ -39,11 +39,11 @@
         $_SESSION["name"] = $name;
 
         if ($role === "receptionist") {
-            header("Location: ../../receptionist/ManageTable/index.php");
+            header("Location: receptionist/ManageTable/");
         } elseif ($role === "waiter") {
-            header("Location: ../../waiter/function/ordermanage.php");
+            header("Location: waiter/ManageOrder/Sent");
         } elseif ($role === "manager") {
-            header("Location: ../../Manager/ViewStatistics/index.php");
+            header("Location: Manager/ViewStatistics/");
         }
     }
     ?>

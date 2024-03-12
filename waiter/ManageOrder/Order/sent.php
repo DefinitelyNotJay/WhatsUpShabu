@@ -46,6 +46,11 @@
 
   <?php
   session_start();
+
+  if (!isset($_SESSION['username']) or $_SESSION['role'] !== "waiter") {
+    header("Location: ../../../index.php");
+    exit();
+  }
   class MyDB extends SQLite3
   {
     function __construct()
@@ -56,13 +61,13 @@
   $db = new MyDB();
   ?>
 
-<?php
+  <?php
   $order_id = $_GET['order_id'];
   $order_id = intval($order_id); // Ensure $order_id is an integer to prevent SQL injection
   
   $order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
   $result = $db->query($order_sql);
-  $order = $result -> fetchArray(SQLITE3_ASSOC);
+  $order = $result->fetchArray(SQLITE3_ASSOC);
   $time_only = date("H:i:s", strtotime($order["start_time"]));
 
   $sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
@@ -70,7 +75,7 @@
   $result = $db->query($sql1);
   $row_count = 0;
 
-  while($row = $result->fetchArray(SQLITE3_ASSOC)){
+  while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     $row_count++;
   }
 
@@ -194,9 +199,10 @@
         <!-- order list -->
         <div class="flex w-full h-1/2 px-3 pt-3 bg-gray-200">
           <!-- order items -->
-          <div class="grid grid-cols-2 w-full h-full overflow-y-auto overflow-x-hidden bg-white gap-2 px-2 py-2 rounded-lg">
-            <?php if ($row_count > 0):?>
-              <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)):?>
+          <div
+            class="grid grid-cols-2 w-full h-full overflow-y-auto overflow-x-hidden bg-white gap-2 px-2 py-2 rounded-lg">
+            <?php if ($row_count > 0): ?>
+              <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)): ?>
                 <!-- menu item -->
                 <div class="flex justify-start items-center h-40 w-full bg-red-300 gap-3 rounded-lg shadow-sm">
                   <?php
@@ -222,9 +228,9 @@
                       <?php echo $row["quantity"] . " "; ?> ชุด
                     </a>
                   </div>
-              </div>
-              <?php endwhile?>
-            <?php endif?>
+                </div>
+              <?php endwhile ?>
+            <?php endif ?>
           </div>
         </div>
         <!-- button -->
@@ -232,8 +238,7 @@
           <form id="serveForm" action="" method="post" class="flex justify-center w-full">
             <input type="hidden" id="orderID" name="orderID" value="" class="flex justify-center w-full">
             <button type="Submit" id="serveButton"
-              class="arranging_button w-6/12 bg-red-400 hover:bg-red-600 hover:text-white p-3 rounded-lg text-xl font-semibold duration-500" 
-              >รับออเดอร์</button>
+              class="arranging_button w-6/12 bg-red-400 hover:bg-red-600 hover:text-white p-3 rounded-lg text-xl font-semibold duration-500">รับออเดอร์</button>
           </form>
         </div>
       </div>
