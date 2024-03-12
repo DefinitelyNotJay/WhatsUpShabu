@@ -15,7 +15,7 @@
 
 <body>
     <?php
-    session_start();
+    // session_start();
     require_once("../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     if (!$conn) {
@@ -23,37 +23,35 @@
     }
     echo "";
 
-    if (!isset($_SESSION["session_id"])) {
-        $id = $_GET["session_id"];
-        $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id' AND `status` = 'busy'";
-        $query_check_result = mysqli_query($conn, $sql_check_query);
-        if (mysqli_num_rows($query_check_result) <= 0) {
-            header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-            exit();
-        } else {
-            $_SESSION["table_id"] = $_GET["table_id"];
-            $_SESSION["session_id"] = $_GET["session_id"];
+    // if (!isset($_SESSION["session_id"])) {
+    //     $id = $_GET["session_id"];
+    //     $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id' AND `status` = 'busy'";
+    //     $query_check_result = mysqli_query($conn, $sql_check_query);
+    //     if (mysqli_num_rows($query_check_result) <= 0) {
+    //         header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+    //         exit();
+    //     } else {
+    //         $_SESSION["table_id"] = $_GET["table_id"];
+    //         $_SESSION["sessionS_id"] = $_GET["session_id"];
             // echo $_SESSION["session_id"] . "first time man!";
-        };
-    } else {
+    //     };
+    // } else {
         // check 2 states -> if table_status = paid || session_id != latest table session_id
-        $table_id = $_SESSION["table_id"];
+        // $table_id = $_SESSION["table_id"];
+        $table_id = '101';
         $sql_check_table_status = "SELECT * FROM tables WHERE id = '$table_id' AND `status` = 'free'";
         $result = mysqli_query($conn, $sql_check_table_status);
         $row = mysqli_fetch_assoc($result);
         // echo $row["id"];
-        if (mysqli_num_rows($result) > 0) {
-            session_unset();
-            session_destroy();
-            header("Location: https://www.google.com/");
-            exit();
-        }
-    }
+        // if (mysqli_num_rows($result) > 0) {
+        //     session_unset();
+        //     session_destroy();
+        //     header("Location: https://www.google.com/");
+        //     exit();
+        // }
     ?>
 
-    <div class="table">
-        <?php echo $_SESSION['table_id']; ?>
-    </div>
+    
 
     <header class="header">
         <a href="menu.php">
@@ -143,7 +141,8 @@
             <div class="btn-button-num statuscount">0</div>
         </button>
         <?php
-        $table_id = $_SESSION["table_id"];
+        // $table_id = $_SESSION["table_id"];
+        $table_id = 'A-01';
         $sql = "SELECT COUNT(*) as total_rows FROM orders
         INNER JOIN tables ON orders.table_id = tables.id
         WHERE orders.table_id = '$table_id' AND orders.start_time > tables.start_time;";

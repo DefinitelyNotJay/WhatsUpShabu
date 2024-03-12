@@ -11,16 +11,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <body>
 
     <?php
-    session_start();
-    if (!isset($_SESSION["session_id"])) {
-        header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-        exit();
-    }
+    // session_start();
+    // if (!isset($_SESSION["session_id"])) {
+    //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+    //     exit();
+    // }
+
     require_once("../utils/config.php");
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     if (!$conn) {
@@ -28,10 +30,10 @@
     }
 
     ?>
-
+<!-- 
     <div class="table">
         <?php echo $_SESSION['table_id']; ?>
-    </div>
+    </div> -->
 
     <header class="header">
         <a href="menu.php">
@@ -41,7 +43,8 @@
 
     <section class="status_section" id="status_section">
         <?php
-        $table_id = $_SESSION["table_id"];
+        // $table_id = $_SESSION["table_id"];
+        $table_id = 'A-01';
         $sql = "SELECT orders.*
         FROM orders
         INNER JOIN tables ON orders.table_id = tables.id
