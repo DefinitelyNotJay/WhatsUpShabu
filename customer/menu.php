@@ -37,12 +37,17 @@
             header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
             exit();
         } else {
-            $_SESSION["table_id"] = $_GET["table_id"];
+            $sql_get_table = "SELECT * FROM tables WHERE session_id = '$id'";
+            $result = $db->query($sql_get_table);
+            while($row = $result->fetchArray(SQLITE3_ASSOC)){
+                $table_id = $row["id"];
+            }
+            // echo "<script>alert('$table_id')</script>";
+            $_SESSION["table_id"] = $table_id;
             $_SESSION["sessionS_id"] = $_GET["session_id"];
         };
     } else {
         // check 2 states -> if table_status = paid || session_id != latest table session_id
-        $table_id = $_SESSION["table_id"];
         $sql_check_table_status = "SELECT * FROM tables WHERE id = '$table_id' AND `status` = 'free'";
         $result = $db->query($sql_check_table_status);
         $row = $result -> fetchArray(SQLITE3_ASSOC);
