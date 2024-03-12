@@ -15,65 +15,50 @@
 
 <body>
     <?php
-    // session_start();
-    require_once("../utils/config.php");
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+    session_start();
+    class MyDB extends SQLite3
+        {
+            function __construct()
+            {
+                $this->open('../utils/WhatsUpShabu.db');
+            }
+        }
+        $db = new MyDB();
 
-<<<<<<< HEAD
-    // if (!isset($_SESSION["session_id"])) {
-    //     $id = $_GET["session_id"];
-    //     $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id' AND `status` = 'busy'";
-    //     $query_check_result = mysqli_query($conn, $sql_check_query);
-    //     if (mysqli_num_rows($query_check_result) <= 0) {
-    //         header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-    //         exit();
-    //     } else {
-    //         $_SESSION["table_id"] = $_GET["table_id"];
-    //         $_SESSION["sessionS_id"] = $_GET["session_id"];
-            // echo $_SESSION["session_id"] . "first time man!";
-    //     };
-    // } else {
-        // check 2 states -> if table_status = paid || session_id != latest table session_id
-        // $table_id = $_SESSION["table_id"];
-        $table_id = '101';
-        $sql_check_table_status = "SELECT * FROM tables WHERE id = '$table_id' AND `status` = 'free'";
-        $result = mysqli_query($conn, $sql_check_table_status);
-        $row = mysqli_fetch_assoc($result);
-        // echo $row["id"];
-        // if (mysqli_num_rows($result) > 0) {
-        //     session_unset();
-        //     session_destroy();
-        //     header("Location: https://www.google.com/");
-        //     exit();
-        // }
-=======
     if (!isset($_SESSION["session_id"])) {
         $id = $_GET["session_id"];
         $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id' AND `status` = 'busy'";
-        $query_check_result = mysqli_query($conn, $sql_check_query);
-        if (mysqli_num_rows($query_check_result) <= 0) {
+        $result =  $db->query($sql_check_query);
+        $row_count = 0;
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $row_count++;
+        }
+        if ($row_count <= 0) {
             header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
             exit();
         } else {
             $_SESSION["table_id"] = $_GET["table_id"];
-            $_SESSION["session_id"] = $_GET["session_id"];
+            $_SESSION["sessionS_id"] = $_GET["session_id"];
+            echo $_SESSION["table_id"];
         };
     } else {
+        // check 2 states -> if table_status = paid || session_id != latest table session_id
         $table_id = $_SESSION["table_id"];
         $sql_check_table_status = "SELECT * FROM tables WHERE id = '$table_id' AND `status` = 'free'";
-        $result = mysqli_query($conn, $sql_check_table_status);
-        $row = mysqli_fetch_assoc($result);
-        if (mysqli_num_rows($result) > 0) {
+        $result = $db->query($sql_check_table_status);
+        $row = $result -> fetchArray(SQLITE3_ASSOC);
+        echo $row["id"];
+        $row_count = 0;
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $row_count;
+        }
+        if ($row_count > 0) {
             session_unset();
             session_destroy();
             header("Location: https://www.google.com/");
             exit();
         }
     }
->>>>>>> 08c6f08862a62dbbe5c3ae3a3da10c439eddcb41
     ?>
 
     
@@ -105,13 +90,18 @@
     <section class="menu_section" id="menu_section">
         <?php
         $sql = "SELECT * FROM menu WHERE status='restocking'OR status='instock';";
-        $result = mysqli_query($conn, $sql);
+        $result = $db->query($sql);
 
-        if (mysqli_num_rows($result) > 0) {
+        $row_count = 0;
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $row_count++;
+        }
+
+        if ($row_count > 0) {
             $menusByType = array();
             $menuDetails = array();
 
-            while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = $result -> fetchArray(SQLITE3_ASSOC)) {
                 $menuDetails[$row['ID']] = array(
                     'name' => $row['name'],
                     'image' => $row['image'],
@@ -171,17 +161,16 @@
         $sql = "SELECT COUNT(*) as total_rows FROM orders
         INNER JOIN tables ON orders.table_id = tables.id
         WHERE orders.table_id = '$table_id' AND orders.start_time > tables.start_time;";
-        $result = mysqli_query($conn, $sql);
+         $result = $db->query($sql);
 
         if ($result) {
-            $row = mysqli_fetch_assoc($result);
+            $row = $result -> fetchArray(SQLITE3_ASSOC);
             $totalRows = $row['total_rows'];
 
             // แสดงผลใน HTML
             echo "<script>document.querySelector('.statuscount').innerHTML = $totalRows;</script>";
-        } else {
-            echo "Error: " . mysqli_error($conn);
-        }
+        } 
+            
         ?>
     </section>
 
@@ -385,7 +374,7 @@
     </script>
     <?php
     // close connection
-    mysqli_close($conn);
+    $db->close();
     ?>
 </body>
 
