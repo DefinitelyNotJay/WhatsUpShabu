@@ -18,19 +18,19 @@
 
     <?php
     session_start();
-    // if (!isset($_SESSION["session_id"])) {
-    //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-    //     exit();
-    // }
+    if (!isset($_SESSION["session_id"])) {
+        header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+        exit();
+    }
 
     class MyDB extends SQLite3
+    {
+        function __construct()
         {
-            function __construct()
-            {
-                $this->open('../utils/WhatsUpShabu.db');
-            }
+            $this->open('../utils/WhatsUpShabu.db');
         }
-        $db = new MyDB();
+    }
+    $db = new MyDB();
 
     ?>
 
@@ -46,8 +46,7 @@
 
     <section class="status_section" id="status_section">
         <?php
-        // $table_id = $_SESSION["table_id"];
-        $table_id = 'A-01';
+        $table_id = $_SESSION["table_id"];
         $sql = "SELECT orders.*
         FROM orders
         INNER JOIN tables ON orders.table_id = tables.id
@@ -55,16 +54,16 @@
         $result = $db->query($sql);
 
         $row_count = 0;
-        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             $row_count++;
         }
         if ($row_count > 0) {
-            while ( $row = $result -> fetchArray(SQLITE3_ASSOC)) {
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                 // Display order details
                 echo "<form id='statusform' action='' method='post'>";
                 echo "<div class='container-menu d-flex flex-wrap mgin-10px'>";
                 echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 statusitem'>";
-                echo "<input type='hidden' id='orderID' name='orderID' value='" . $row['id'] ."'>";
+                echo "<input type='hidden' id='orderID' name='orderID' value='" . $row['id'] . "'>";
                 if ($row['status'] == 'sent') {
                     echo "<div class='statussent'></div>";
                     echo "<div>" . $row['id'] . " : ยังไม่ได้รับออเดอร์</div>";
@@ -100,28 +99,28 @@
                             </div>
                         </div>
                         <?php
-                        if(isset($_POST['orderID'])) {
+                        if (isset($_POST['orderID'])) {
                             $order_id = $_POST['orderID'];
                         ?>
-                        <script>
-                            var order_id = document.getElementById('orderID').value;
-                            $('#statusModal').modal('show');
-                        </script>
+                            <script>
+                                var order_id = document.getElementById('orderID').value;
+                                $('#statusModal').modal('show');
+                            </script>
                         <?php
                             // Perform your SQL query to fetch order details and menu information based on $order_id
                             $sql = "SELECT oi.*, m.image, m.name
                         FROM order_item oi
                         JOIN menu m ON oi.menu_id = m.ID
                         WHERE oi.order_id = '$order_id'";
-                            $result = $db->query($sql_query);
+                            $result = $db->query($sql);
                             $row_count = 0;
-        while($row = $result->fetchArray(SQLITE3_ASSOC)){
-            $row_count++;
-        }
+                            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                                $row_count++;
+                            }
 
-                            if (            $row_count > 0) {
-                                echo"<div class='show-order-id'>ออเดอร์ :".$order_id."</div>";
-                                while ($result -> fetchArray(SQLITE3_ASSOC)) {
+                            if ($row_count > 0) {
+                                echo "<div class='show-order-id'>ออเดอร์ :" . $order_id . "</div>";
+                                while ($result->fetchArray(SQLITE3_ASSOC)) {
                                     // Output order details and menu information
                                     echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item'>";
                                     echo "<div class='menu-image'><img class='mr-2'src='" . $row['image'] . "' alt='Menu Image' height='80px' width='110'></div>";
