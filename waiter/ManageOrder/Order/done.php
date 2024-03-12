@@ -245,9 +245,6 @@
     </div>
   </div>
   <?php
-
-  // ปิดการเชื่อมต่อ
-  mysqli_close($conn);
   ?>
 </body>
 

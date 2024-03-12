@@ -275,7 +275,7 @@
                             echo "<div class='flex flex-wrap gap-2 w-full'>";
                             foreach ($menus as $menu) {
                                 echo "<div class='menu flex items-center shadow-sm  rounded-lg gap-3 duration-500 " . $menu['status'] . "'>";
-                                echo "<div class='flex w-2/5 h-full rounded-lg bg-white'><img src='" . $menu["image"] . "'height='100%' class='rounded-lg'></div>";
+                                echo "<div class='flex w-2/5 h-full rounded-lg bg-white'><img src='" . $menu["image"] . "' height='100%' width='100%' class='rounded-lg h-full w-full'></div>";
                                 echo "<div class='flex flex-col justify-between w-3/5 h-full pb-3'><h5 class='font-bold px-2 py-3'>" . $menu["name"] . "</h5>";
                                 // button div
                                 echo "<div class='menu-edit flex items-center justify-center'>";

@@ -37,23 +37,28 @@
             header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
             exit();
         } else {
-            $_SESSION["table_id"] = $_GET["table_id"];
-            $_SESSION["session_id"] = $_GET["session_id"];
+            $id = $_GET["session_id"];
+            $sql_find_table = "SELECT * FROM tables WHERE session_id = '$id';";
+            $result = $db->query($sql_find_table);
+            while($row = $result->fetchArray(SQLITE3_ASSOC)){
+                $table_id = $row["id"];
+            }
+            $_SESSION["table_id"] = $table_id;
+            $_SESSION["session_id"] = $id;
         };
     } else {
-        // check 2 states -> if table_status = paid || session_id != latest table session_id
         $table_id = $_SESSION["table_id"];
         $sql_check_table_status = "SELECT * FROM tables WHERE id = '$table_id' AND `status` = 'free'";
         $result = $db->query($sql_check_table_status);
         $row = $result -> fetchArray(SQLITE3_ASSOC);
         $row_count = 0;
         while($row = $result->fetchArray(SQLITE3_ASSOC)){
-            $row_count;
+            $row_count++;
         }
         if ($row_count > 0) {
             session_unset();
             session_destroy();
-            header("Location: https://www.google.com/");
+            header("Location: https://favim.com/pd/s9/orig/131110/cat-cute-followers-funny-Favim.com-1048338.gif");
             exit();
         }
     }
