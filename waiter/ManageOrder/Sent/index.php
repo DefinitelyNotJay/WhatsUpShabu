@@ -74,7 +74,7 @@
         <!-- Loco -->
         <img src="../image/icon.png" width="100%">
         <!-- MenuBar -->
-        <a href="../ordermanage.php" class="unstyled-link">
+        <a href="./" class="unstyled-link">
           <div
             class="flex items-center cursor-pointer px-4 py-4 bg-[#FEFCF4] text-[#6A311D] rounded-lg font-semibold gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -146,7 +146,7 @@
               d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z"
               stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          หนักงานพาร์ทไทม์
+          <?php echo $_SESSION["name"]?>
         </div>
       </div>
 
