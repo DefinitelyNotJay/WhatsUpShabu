@@ -176,19 +176,10 @@
         date_default_timezone_set('Asia/Bangkok');
         $start_time = date('Y-m-d H:i:s');
 
-        $sql = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
-        $result = $db->query($sql);
+        $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
 
-        $row_count = 0;
-        while($row = $result->fetchArray(SQLITE3_ASSOC)){
-            $row_count++;
-        }
-
-        if ($result && $row_count > 0) {
-            $row = $result->fetchArray(SQLITE3_ASSOC);
-            $latestOrderID = $row['id'];
-
-            $order_id = $latestOrderID;
+        if ($db->query($sql)) {
+            $order_id = $db->lastInsertRowID();
             $orderItemsJSON = $_POST['OrderItems'];
             $orderItems = json_decode($orderItemsJSON, true);
             if ($orderItems !== null) {
