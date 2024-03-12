@@ -21,8 +21,8 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-    echo "";
 
+<<<<<<< HEAD
     // if (!isset($_SESSION["session_id"])) {
     //     $id = $_GET["session_id"];
     //     $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id' AND `status` = 'busy'";
@@ -49,6 +49,31 @@
         //     header("Location: https://www.google.com/");
         //     exit();
         // }
+=======
+    if (!isset($_SESSION["session_id"])) {
+        $id = $_GET["session_id"];
+        $sql_check_query = "SELECT * FROM tables WHERE session_id = '$id' AND `status` = 'busy'";
+        $query_check_result = mysqli_query($conn, $sql_check_query);
+        if (mysqli_num_rows($query_check_result) <= 0) {
+            header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+            exit();
+        } else {
+            $_SESSION["table_id"] = $_GET["table_id"];
+            $_SESSION["session_id"] = $_GET["session_id"];
+        };
+    } else {
+        $table_id = $_SESSION["table_id"];
+        $sql_check_table_status = "SELECT * FROM tables WHERE id = '$table_id' AND `status` = 'free'";
+        $result = mysqli_query($conn, $sql_check_table_status);
+        $row = mysqli_fetch_assoc($result);
+        if (mysqli_num_rows($result) > 0) {
+            session_unset();
+            session_destroy();
+            header("Location: https://www.google.com/");
+            exit();
+        }
+    }
+>>>>>>> 08c6f08862a62dbbe5c3ae3a3da10c439eddcb41
     ?>
 
     
@@ -198,15 +223,10 @@
     </section>
 
     <script>
-        // Assume you have a variable to store the order count
         let orderCount = 0;
 
-        // You might have a function to update the order count
         function updateOrderCount() {
-            // Fetch the order items from your storage (localStorage or elsewhere)
             let orderItems = localStorage.getItem('orderItems');
-
-            // If there are order items, update the order count
             if (orderItems) {
                 orderItems = JSON.parse(orderItems);
                 orderCount = orderItems.length;
@@ -214,11 +234,9 @@
                 orderCount = 0;
             }
 
-            // Update the innerHTML of the ordercount element
             document.querySelector('.ordercount').innerHTML = orderCount;
         }
 
-        // Call the function to update the order count on page load
         updateOrderCount();
         document.addEventListener('DOMContentLoaded', function() {
             var searchInput = document.getElementById('search');

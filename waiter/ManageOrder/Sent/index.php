@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>พนักงานเสิร์ฟ</title>
-  <link rel="stylesheet" href="../../css&js/alomastyles.css">
+  <link rel="stylesheet" href="../../style/alomastyles.css">
   <script src="script.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -44,9 +44,18 @@
 
 <body>
 
-
-<?php
+  <?php
   session_start();
+  if (!isset($_SESSION['username']) or $_SESSION['role'] !== "waiter") {
+    header("Location: ../../../index.php");
+    exit();
+  }
+
+  if (isset($_POST["logout"])) {
+    session_destroy();
+    header("Location: ../../../index.php");
+    exit();
+  }
   class MyDB extends SQLite3
   {
     function __construct()
@@ -55,20 +64,17 @@
     }
   }
   $db = new MyDB();
-
-  if($db){
-    echo 'hay';
-  }
   ?>
 
   <div class="flex w-screen h-screen">
+
     <!-- leftbar -->
     <div class="flex flex-col w-2/12 h-full bg-[#EEE8C8] px-2 py-2 justify-between items-center">
       <div class="flex flex-col gap-2">
         <!-- Loco -->
-        <img src="./image/icon.png" width="100%">
+        <img src="../image/icon.png" width="100%">
         <!-- MenuBar -->
-        <a href="../ordermanage.php" class="unstyled-link">
+        <a href="./" class="unstyled-link">
           <div
             class="flex items-center cursor-pointer px-4 py-4 bg-[#FEFCF4] text-[#6A311D] rounded-lg font-semibold gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -84,7 +90,7 @@
             <p class="font-semibold">จัดการรายการ</p>
           </div>
         </a>
-        <a href="../EditStatusMenu" class="unstyled-link">
+        <a href="../../ManageStatusMenu" class="unstyled-link">
           <div
             class="flex items-center cursor-pointer px-4 py-4 hover:bg-[#6A311D] hover:text-white rounded-lg duration-500 gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -119,8 +125,10 @@
       </div>
 
     </div>
+
     <!-- main -->
     <div class="flex flex-col w-10/12 h-full">
+
       <!-- Option Bar -->
       <div class="flex hp-10 px-3 py-4 bg-white justify-between items-center font-bold text-lg">
         <div>
@@ -138,15 +146,14 @@
               d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z"
               stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          หนักงานพาร์ทไทม์
+          <?php echo $_SESSION["name"]?>
         </div>
       </div>
-      <!-- content -->
+
       <div class="flex flex-col hp-90 w-full bg-gray-200 px-3 py-3 gap-3">
         <div
           class="grid grid-cols-4 justify-items-center h-full w-full bg-white px-3 py-3 rounded-lg gap-2 overflow-y-auto">
           <?php
-          
           $sql1 = "SELECT orders.*
           FROM orders
           INNER JOIN tables ON orders.table_id = tables.id
@@ -165,11 +172,11 @@
           $result1 = $db->query($sql1);
           $result2 = $db->query($sql2);
           $result3 = $db->query($sql3);
-          
+
           $sent_orders_count1 = 0;
           $sent_orders_count2 = 0;
           $sent_orders_count3 = 0;
-          
+
           while ($result1->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count1++;
           }
@@ -179,24 +186,26 @@
           while ($result3->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count3++;
           }
+
           ?>
 
-          <?php if ($sent_orders_count2 > 0): ?>
-            <?php while ($row = $result2->fetchArray(SQLITE3_ASSOC)): ?>
+          <?php if ($sent_orders_count1 > 0): ?>
+            <?php while ($row = $result1->fetchArray(SQLITE3_ASSOC)): ?>
               <?php
               $order_id = $row["id"];
               $time_only = date("H:i:s", strtotime($row["start_time"]));
               ?>
+              <!-- สร้าง Orderlist_item -->
               <button class="flex flex-col h-fit w-full bg-[#fff6f1] hover:bg-[#F2EAE5] duration-500 rounded-lg shadow-sm"
-                onclick="window.location.href = 'order/argorder.php?order_id=<?php echo $row['id']; ?>'">
+                onclick="window.location.href = '../Order/sent.php?order_id=<?php echo $row['id']; ?>'">
                 <h4
-                  class="flex font-bold text-xl w-full h-1/5 bg-amber-200 px-2 py-1 justify-center items-center rounded-t-lg">
+                  class="flex font-bold text-xl w-full h-1/5 bg-red-500 text-white px-2 py-1 justify-center items-center rounded-t-lg">
                   รายการที่
                   <?php echo $row["id"]; ?>
                 </h4>
                 <div class="flex flex-col w-full px-3 py-3  gap-2">
-                  <div class="flex w-full h-fit text-lg font-semibold text-amber-400">
-                    กำลังจัดเตรียมออเดอร์
+                  <div class="flex w-full h-fit text-lg font-semibold text-red-600">
+                    ยังไม่ได้รับออเดอร์
                   </div>
                   <div class="flex w-full h-fit">
                     โต๊ะที่ :
@@ -237,7 +246,7 @@
         <!-- navbar -->
         <div class="flex items-center justify-between px-4 py-2 rounded-lg bg-[#EEE8C8] shadow-md">
           <div class="status font-bold" id="receive">
-            <button class="status_button" onclick="window.location.href = 'Receive.php'">
+            <button class="status_button" style="color: #6A311D;" onclick="window.location.href = './index.php'">
               <div flex>
 
               </div>
@@ -253,12 +262,11 @@
                 <path d="M10 4h4" />
               </svg>
               ออเดอร์
-              <div class="h-1 w-full bg-[#EEE8C8] "></div>
+              <div class="h-1 w-full bg-red-500 rouded-full"></div>
             </button>
           </div>
           <div class="status" id="arranging">
-            <button class="status_button font-bold" style="color: #6A311D;"
-              onclick="window.location.href = 'Arranging.php'">
+            <button class="status_button font-bold" onclick="window.location.href = '../Process/'">
               <div class="notification b2">
                 <?php echo $sent_orders_count2 ?>
               </div>
@@ -271,11 +279,11 @@
                 <path d="M9.5 17.5 8 16.25V14" />
               </svg>
               กำลังเตรียมออเดอร์
-              <div class="h-1 w-full bg-red-500 rouded-full"></div>
+              <div class="h-1 w-full bg-[#EEE8C8]"></div>
             </button>
           </div>
           <div class="status" id="finished">
-            <button class="status_button font-bold" onclick="window.location.href = 'Finished.php'">
+            <button class="status_button font-bold" onclick="window.location.href = '../Done'">
               <div class="notification b3">
                 <?php echo $sent_orders_count3 ?>
               </div>
@@ -295,6 +303,5 @@
     </div>
   </div>
 </body>
-<?php mysqli_close($conn); ?>
 
 </html>

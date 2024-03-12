@@ -1,1 +1,0 @@
-<?php header('Refresh: 0.01; URL = status/Receive.php'); ?>

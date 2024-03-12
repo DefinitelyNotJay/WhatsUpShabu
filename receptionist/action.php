@@ -10,8 +10,6 @@
 <body>
     <?php
     session_start();
-    // require_once("../utils/config.php");
-    // $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     class MyDB extends SQLite3
     {
         function __construct()
