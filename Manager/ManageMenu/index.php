@@ -254,7 +254,7 @@
                         // menu
                         foreach ($menus as $menu) {
                             echo "<div class='menu flex items-center shadow-sm rounded-lg gap-3'>";
-                            echo "<div class='flex w-2/5 h-full rounded-lg bg-white'><img src='" . $menu["image"] . "' height='100%' class='rounded-lg'></div>";
+                            echo "<div class='flex justify-center items-center w-2/5 h-full rounded-lg bg-white overflow-hidden'><img src='" . $menu["image"] . "' height='100%' width='100%' class='rounded-lg h-full w-full'></div>";
                             echo "<div class='flex flex-col justify-between h-full w-3/5 py-2'><h5 class='font-bold'>" . $menu["name"] . "</h5>";
                             // menu-edit
                             echo "<div class='flex justify-center gap-3 w-full'>";
