@@ -46,6 +46,16 @@
 
   <?php
   session_start();
+  if (!isset($_SESSION['username']) or $_SESSION['role'] !== "waiter") {
+    header("Location: ../../../index.php");
+    exit();
+  }
+
+  if (isset($_POST["logout"])) {
+    session_destroy();
+    header("Location: ../../../index.php");
+    exit();
+  }
   class MyDB extends SQLite3
   {
     function __construct()
@@ -162,11 +172,11 @@
           $result1 = $db->query($sql1);
           $result2 = $db->query($sql2);
           $result3 = $db->query($sql3);
-          
+
           $sent_orders_count1 = 0;
           $sent_orders_count2 = 0;
           $sent_orders_count3 = 0;
-          
+
           while ($result1->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count1++;
           }

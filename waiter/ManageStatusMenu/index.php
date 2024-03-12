@@ -134,14 +134,14 @@
     $db = new MyDB();
 
     if (!isset($_SESSION['username']) or $_SESSION['role'] !== "waiter") {
-        header("Location: /WhatsUpShabu/staff/login/index.php");
+        header("Location: ../../../index.php");
         exit();
     }
-
+    
     if (isset($_POST["logout"])) {
-        session_destroy();
-        header("Location: /WhatsUpShabu/staff/login/index.php");
-        exit();
+      session_destroy();
+      header("Location: ../../../index.php");
+      exit();
     }
     ?>
     <div class="flex w-screen h-screen">

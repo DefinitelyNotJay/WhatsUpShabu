@@ -46,6 +46,16 @@
 
   <?php
   session_start();
+  if (!isset($_SESSION['username']) or $_SESSION['role'] !== "waiter") {
+    header("Location: ../../../index.php");
+    exit();
+  }
+
+  if (isset($_POST["logout"])) {
+    session_destroy();
+    header("Location: ../../../index.php");
+    exit();
+  }
   class MyDB extends SQLite3
   {
     function __construct()
@@ -158,9 +168,9 @@
           FROM orders
           INNER JOIN tables ON orders.table_id = tables.id
           WHERE orders.status='done' AND orders.start_time > tables.start_time;";
-          
-          // $sql3 = "SELECT * FROM orders;";
 
+          // $sql3 = "SELECT * FROM orders;";
+          
           $result1 = $db->query($sql1);
           $result2 = $db->query($sql2);
           $result3 = $db->query($sql3);
@@ -174,15 +184,15 @@
           while ($row = $result1->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count1++;
           }
-          
+
           while ($row = $result2->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count2++;
           }
-          
+
           while ($row = $result3->fetchArray(SQLITE3_ASSOC)) {
             $sent_orders_count3++;
           }
-          
+
           ?>
 
           <?php if ($sent_orders_count3 > 0): ?>

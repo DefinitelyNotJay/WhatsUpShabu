@@ -45,6 +45,11 @@
 
   <?php
   session_start();
+
+  if (!isset($_SESSION['username']) or $_SESSION['role'] !== "waiter") {
+    header("Location: ../../../index.php");
+    exit();
+  }
   class MyDB extends SQLite3
   {
     function __construct()
@@ -59,7 +64,7 @@
   
   $order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
   $result = $db->query($order_sql);
-  $order = $result -> fetchArray(SQLITE3_ASSOC);
+  $order = $result->fetchArray(SQLITE3_ASSOC);
   $time_only = date("H:i:s", strtotime($order["start_time"]));
 
   $sql1 = "SELECT * FROM order_item WHERE order_id='$order_id';";
@@ -67,7 +72,7 @@
   $result = $db->query($sql1);
   $row_count = 0;
 
-  while($row = $result->fetchArray(SQLITE3_ASSOC)){
+  while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     $row_count++;
   }
   ?>

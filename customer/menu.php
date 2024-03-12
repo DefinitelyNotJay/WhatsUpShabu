@@ -21,7 +21,6 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-    echo "";
 
     if (!isset($_SESSION["session_id"])) {
         $id = $_GET["session_id"];
@@ -33,15 +32,12 @@
         } else {
             $_SESSION["table_id"] = $_GET["table_id"];
             $_SESSION["session_id"] = $_GET["session_id"];
-            // echo $_SESSION["session_id"] . "first time man!";
         };
     } else {
-        // check 2 states -> if table_status = paid || session_id != latest table session_id
         $table_id = $_SESSION["table_id"];
         $sql_check_table_status = "SELECT * FROM tables WHERE id = '$table_id' AND `status` = 'free'";
         $result = mysqli_query($conn, $sql_check_table_status);
         $row = mysqli_fetch_assoc($result);
-        // echo $row["id"];
         if (mysqli_num_rows($result) > 0) {
             session_unset();
             session_destroy();
@@ -199,15 +195,10 @@
     </section>
 
     <script>
-        // Assume you have a variable to store the order count
         let orderCount = 0;
 
-        // You might have a function to update the order count
         function updateOrderCount() {
-            // Fetch the order items from your storage (localStorage or elsewhere)
             let orderItems = localStorage.getItem('orderItems');
-
-            // If there are order items, update the order count
             if (orderItems) {
                 orderItems = JSON.parse(orderItems);
                 orderCount = orderItems.length;
@@ -215,11 +206,9 @@
                 orderCount = 0;
             }
 
-            // Update the innerHTML of the ordercount element
             document.querySelector('.ordercount').innerHTML = orderCount;
         }
 
-        // Call the function to update the order count on page load
         updateOrderCount();
         document.addEventListener('DOMContentLoaded', function() {
             var searchInput = document.getElementById('search');
