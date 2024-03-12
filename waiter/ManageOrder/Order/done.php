@@ -107,7 +107,7 @@
             <p class="font-semibold">จัดการรายการ</p>
           </div>
         </a>
-        <a href="../../EditStatusMenu" class="unstyled-link">
+        <a href="../../ManageStatusMenu" class="unstyled-link">
           <div
             class="flex items-center cursor-pointer px-4 py-4 hover:bg-[#6A311D] hover:text-white rounded-lg duration-500 gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
