@@ -52,7 +52,7 @@ if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
         $session_id = md5("$table_id/$currentDateTime");
 
         $dev_url = "http://localhost/WhatsUpShabu";
-        $deploy_url = "http://10.0.15.21/it/65070222/WhatsUpShabu";
+        $deploy_url = "http://10.0.15.21/it/65070222/G-25-WhatsUpShabu";
 
         $sql_update = "UPDATE tables SET `start_time` = '$currentDateTime', `status` = 'busy', customer_amount = '$customer_amount', session_id = '$session_id' WHERE id = '$table_id'";
         $result = $db->exec($sql_update);
@@ -61,7 +61,7 @@ if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
             echo " update " . $db->lastErrorMsg();
         }
         echo "<p class='text-xl'>โต๊ะ $table_id</p>";
-        echo "<a href='$dev_url/customer/menu.php?session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$dev_url/customer/menu.php?session_id=$session_id'></a><br>";
+        echo "<a href='$deploy_url/customer/menu.php?session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$deploy_url/customer/menu.php?session_id=$session_id'></a><br>";
         ?>
         <a href="../ManageTable">
             <button name="back" class="flex gap-1 text-xl hover:text-[#fa993e] hover:underline" type="submit"><svg

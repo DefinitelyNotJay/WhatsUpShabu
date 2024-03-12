@@ -47,19 +47,18 @@
             $_SESSION["session_id"] = $id;
         };
     } else {
-        // check 2 states -> if table_status = paid || session_id != latest table session_id
         $table_id = $_SESSION["table_id"];
         $sql_check_table_status = "SELECT * FROM tables WHERE id = '$table_id' AND `status` = 'free'";
         $result = $db->query($sql_check_table_status);
         $row = $result -> fetchArray(SQLITE3_ASSOC);
         $row_count = 0;
         while($row = $result->fetchArray(SQLITE3_ASSOC)){
-            $row_count;
+            $row_count++;
         }
         if ($row_count > 0) {
             session_unset();
             session_destroy();
-            header("Location: https://www.google.com/");
+            header("Location: https://favim.com/pd/s9/orig/131110/cat-cute-followers-funny-Favim.com-1048338.gif");
             exit();
         }
     }
