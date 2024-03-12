@@ -17,19 +17,20 @@
 
     <?php
     session_start();
-    if (!isset($_SESSION["session_id"])) {
-        header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
-        exit();
-    }
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "WhatsUpShabu";
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    echo "";
+    // if (!isset($_SESSION["session_id"])) {
+    //     header("Location: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW04cjJzcDIzeXplM3A1eHRkOGR2dmhrM3lkcTV5YWZtaDBneXMyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t0virGpgSlp4mkfiXq/giphy.gif");
+    //     exit();
+    // }
+    class MyDB extends SQLite3
+        {
+            function __construct()
+            {
+                $this->open('../utils/WhatsUpShabu.db');
+            }
+        }
+        $db = new MyDB();
+        if($db) {
+            }
     ?>
 
     <div class="table">
@@ -46,10 +47,15 @@
         <?php
 
         $sql = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
-        $result = mysqli_query($conn, $sql);
+        $result = $db->query($sql);
 
-        if ($result && mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
+        $row_count = 0;
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $row_count++;
+        }
+
+        if ($result && $row_count > 0) {
+            $row = $result->fetchArray(SQLITE3_ASSOC);
             $latestOrderID = $row['id'];
             echo "<div class='show-order-id'>ออเดอร์ : " . $latestOrderID + 1 . "</div>";
         } else {
@@ -57,13 +63,19 @@
         }
 
         $sql = "SELECT * FROM menu;";
-        $result = mysqli_query($conn, $sql);
+        $result = $db->query($sql);
 
-        if (mysqli_num_rows($result) > 0) {
+        $row_count = 0;
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $row_count++;
+        }
+
+
+        if ($row_count > 0) {
             $menusByType = array();
             $menuDetails = array();
 
-            while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                 $menuDetails[$row['ID']] = array(
                     'name' => $row['name'],
                     'image' => $row['image'],
@@ -164,10 +176,19 @@
         date_default_timezone_set('Asia/Bangkok');
         $start_time = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO orders (table_id, status, start_time) VALUES ('$table_id', 'sent', '$start_time');";
+        $sql = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
+        $result = $db->query($sql);
 
-        if (mysqli_query($conn, $sql)) {
-            $order_id = mysqli_insert_id($conn);
+        $row_count = 0;
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $row_count++;
+        }
+
+        if ($result && $row_count > 0) {
+            $row = $result->fetchArray(SQLITE3_ASSOC);
+            $latestOrderID = $row['id'];
+
+            $order_id = $latestOrderID;
             $orderItemsJSON = $_POST['OrderItems'];
             $orderItems = json_decode($orderItemsJSON, true);
             if ($orderItems !== null) {
@@ -175,11 +196,11 @@
                     $menuID = $orderItem['id'];
                     $quantity = $orderItem['qty'];
                     $sql = "INSERT INTO order_item (order_id, menu_id, quantity) VALUES ('$order_id', '$menuID', '$quantity');";
-                    if (mysqli_query($conn, $sql)) {
+                    if ($result = $db->exec($sql)) {
                         echo "<script>localStorage.removeItem('orderItems');
                     document.getElementById('orderList').innerHTML = '';window.location.href = 'menu.php';</script>";
                     } else {
-                        echo "Error adding record: " . mysqli_error($conn);
+                        echo "Error adding record: " . $db->lastErrorMsg();
                     }
                 }
             } else {
@@ -191,7 +212,7 @@
     if (isset($_POST['cancel'])) {
         echo "<script>window.location.href = 'menu.php';</script>";
     }
-    mysqli_close($conn);
+    $db->close();
     ?>
 </body>
 
