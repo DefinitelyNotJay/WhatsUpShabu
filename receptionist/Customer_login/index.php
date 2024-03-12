@@ -57,11 +57,9 @@ if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
             echo $currentDateTime;
             echo " update " . $db->lastErrorMsg();
         }
-        $url = 'http://localhost/WhatsUpShabu/customer/menu.php?table_id=' . $table_id . '&session_id=' . $session_id . '';
         echo "<p class='text-xl'>โต๊ะ $table_id</p>";
-        echo "<a href='../../customer/menu.php?table_id=$table_id&session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=http://localhost/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'></a><br>";
+        echo "<a href='http://10.0.15.21/it/65070222/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=http://10.0.15.21/it/65070222/WhatsUpShabu/customer/menu.php?table_id=$table_id&session_id=$session_id'></a><br>";
         ?>
-
         <a href="../ManageTable">
             <button name="back" class="flex gap-1 text-xl hover:text-[#fa993e] hover:underline" type="submit"><svg
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
