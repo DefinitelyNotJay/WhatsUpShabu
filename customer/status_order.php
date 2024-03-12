@@ -109,18 +109,22 @@
                         <?php
                             // Perform your SQL query to fetch order details and menu information based on $order_id
                             $sql = "SELECT oi.*, m.image, m.name
-                        FROM order_item oi
-                        JOIN menu m ON oi.menu_id = m.ID
-                        WHERE oi.order_id = '$order_id'";
+        FROM order_item oi
+        JOIN menu m ON oi.menu_id = m.ID
+        WHERE oi.order_id = '$order_id'";
                             $result = $db->query($sql);
                             $row_count = 0;
+                            $rows = array(); // Store fetched rows in an array
+
                             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                                 $row_count++;
+                                $rows[] = $row; // Store each row in the array
                             }
 
                             if ($row_count > 0) {
                                 echo "<div class='show-order-id'>ออเดอร์ :" . $order_id . "</div>";
-                                while ($result->fetchArray(SQLITE3_ASSOC)) {
+
+                                foreach ($rows as $row) {
                                     // Output order details and menu information
                                     echo "<div class='menu d-flex align-items-center bg-body-tertiary rounded mr-1 item'>";
                                     echo "<div class='menu-image'><img class='mr-2'src='" . $row['image'] . "' alt='Menu Image' height='80px' width='110'></div>";
