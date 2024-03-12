@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>พนักงานเสิร์ฟ</title>
   <link rel="stylesheet" href="../../style/alomastyles.css">
-  <script src="script.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -14,36 +13,31 @@
     crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    * {
-      font-family: "Noto Sans Thai", sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    .hp-10 {
-      height: 10%;
-    }
-
-    .hp-90 {
-      height: 90%;
-    }
-
-    .unstyled-link {
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
-
-    .unstyled-link:hover {
-      color: inherit;
-    }
-  </style>
 </head>
+<style>
+  * {
+    font-family: "Noto Sans Thai", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .hp-10 {
+    height: 10%;
+  }
+
+  .hp-90 {
+    height: 90%;
+  }
+
+  .unstyled-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+</style>
 
 <body>
-
   <?php
   session_start();
   if (!isset($_SESSION['username']) or $_SESSION['role'] !== "waiter") {
@@ -68,12 +62,12 @@
 
   <div class="flex w-screen h-screen">
 
-    <!-- leftbar -->
+    <!-- Left Bar -->
     <div class="flex flex-col w-2/12 h-full bg-[#EEE8C8] px-2 py-2 justify-between items-center">
       <div class="flex flex-col gap-2">
-        <!-- Loco -->
+        <!-- Logo -->
         <img src="../image/icon.png" width="100%">
-        <!-- MenuBar -->
+        <!-- Menu Bar -->
         <a href="./" class="unstyled-link">
           <div
             class="flex items-center cursor-pointer px-4 py-4 bg-[#FEFCF4] text-[#6A311D] rounded-lg font-semibold gap-2">
@@ -129,7 +123,6 @@
     <!-- main -->
     <div class="flex flex-col w-10/12 h-full">
 
-      <!-- Option Bar -->
       <div class="flex hp-10 px-3 py-4 bg-white justify-between items-center font-bold text-lg">
         <div>
           จัดการรายการ
@@ -146,7 +139,7 @@
               d="M20.0007 23.3333C23.6826 23.3333 26.6673 20.3486 26.6673 16.6667C26.6673 12.9848 23.6826 10 20.0007 10C16.3188 10 13.334 12.9848 13.334 16.6667C13.334 20.3486 16.3188 23.3333 20.0007 23.3333Z"
               stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <?php echo $_SESSION["name"]?>
+          <?php echo $_SESSION["name"] ?>
         </div>
       </div>
 
