@@ -50,6 +50,7 @@
     header("Location: ../../../index.php");
     exit();
   }
+  
   class MyDB extends SQLite3
   {
     function __construct()

@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>พนักงานเสิร์ฟ</title>
   <link rel="stylesheet" href="../../css&js/alomastyles.css">
-  <script src="script.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -14,7 +13,9 @@
     crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
+</head>
+
+<style>
     * {
       font-family: "Noto Sans Thai", sans-serif;
       margin: 0;
@@ -40,7 +41,6 @@
       color: inherit;
     }
   </style>
-</head>
 
 <body>
 
@@ -70,7 +70,7 @@
 
   <?php
   $order_id = $_GET['order_id'];
-  $order_id = intval($order_id); // Ensure $order_id is an integer to prevent SQL injection
+  $order_id = intval($order_id);
   
   $order_sql = "SELECT * FROM orders WHERE id ='$order_id';";
   $result = $db->query($order_sql);
@@ -180,8 +180,7 @@
                 <path d="M2 12H22" />
               </svg>
             </button>
-            <h4> รายการที่
-              <?php echo " " . $order_id; ?>
+            <h4>รายการที่ <?php echo $order_id; ?>
             </h4>
           </div>
         </div>
