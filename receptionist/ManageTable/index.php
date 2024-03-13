@@ -185,7 +185,8 @@
                     </div>
                     HTML;
                         } else {
-                            echo <<<HTML
+                            echo 
+                            <<<HTML
                             <div class="cursor-default">
                                 <div
                                     class="w-full h-1/6 text-center text-xl bg-[#EEE8C8] rounded-t-xl flex items-center justify-center gap-2">

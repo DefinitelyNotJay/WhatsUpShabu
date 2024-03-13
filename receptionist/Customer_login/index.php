@@ -61,7 +61,7 @@ if (!isset($_SESSION['username']) or $_SESSION['role'] !== "receptionist") {
             echo " update " . $db->lastErrorMsg();
         }
         echo "<p class='text-xl'>โต๊ะ $table_id</p>";
-        echo "<a href='$dev_url/customer/menu.php?session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$dev_url/customer/menu.php?session_id=$session_id'></a><br>";
+        echo "<a target='_blank' href='$dev_url/customer/menu.php?session_id=$session_id'><img class='h-[200px]' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$dev_url/customer/menu.php?session_id=$session_id'></a><br>";
         ?>
         <a href="../ManageTable">
             <button name="back" class="flex gap-1 text-xl hover:text-[#fa993e] hover:underline" type="submit"><svg

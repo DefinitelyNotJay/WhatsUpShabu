@@ -346,11 +346,11 @@
 
                         <div>
                             <label for="Name-edit" class="form-label">ชื่อ :</label>
-                            <input type="text" class="form-control required" id="Name-edit" name="Name" value="" />
+                            <input type="text" class="form-control required" id="Name-edit" name="Name" value="" required/>
                         </div>
                         <div>
                             <label for="Type-edit" class="form-label">ประเภท : </label>
-                            <select id="Type-edit" name="Type" class="form-control">
+                            <select id="Type-edit" name="Type" class="form-control" required>
                                 <option value="" selected>เลือกประเภท</option>
                                 <option value="เนื้อ">เนื้อ</option>
                                 <option value="หมู">หมู</option>
@@ -364,7 +364,7 @@
                         </div>
                         <div>
                             <label for="Image-edit" class="form-label">รูปภาพ (URL) : </label>
-                            <input type="text" class="form-control" id="Image-edit" name="Image" value="" />
+                            <input type="text" class="form-control" id="Image-edit" name="Image" value="" required/>
                             <div class="text-center">
                                 <img id="imagePreview-edit" src="" alt="Image Preview"
                                     class="mx-auto align-items-center imagePreview">
@@ -372,7 +372,7 @@
                         </div>
                         <div>
                             <label for="Description-edit" class="form-label">คำอธิบาย : </label>
-                            <textarea type="text" class="form-control" id="Description-edit" name="Description" rows="3"
+                            <textarea type="text" class="form-control" id="Description-edit" name="Description" rows="3" required
                                 value=""></textarea>
                         </div>
                 </div>

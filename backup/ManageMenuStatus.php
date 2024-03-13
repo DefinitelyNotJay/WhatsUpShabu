@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta chartet="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-tcale=1.0">
   <title>พนักงานเสิร์ฟ</title>
   <link rel="stylesheet" href="../css&js/alomastyles.css">
   <script src="script.js"></script>
